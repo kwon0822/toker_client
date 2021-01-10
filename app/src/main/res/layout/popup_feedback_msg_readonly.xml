@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="400dp"
+    android:layout_height="250dp"
+    android:background="@color/tokerHeavyGray">
+
+    <Button
+        android:id="@+id/popup_feedback_msg_readonly_button_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="끄기"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/popup_feedback_msg_readonly_edittext_description"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="80dp"
+        android:background="@color/tokerWhite"
+        android:gravity="top"
+        android:text="나 개발자 선배야. 갑자기 나가져서. ㅠㅠ 우리 꽤 말 잘 통하지 않았었나? 혹시 계속 연락하고 싶은 생각 있으면 카톡 OOOO으로 연락줘. 대화 정말 즐거웠어. 잘지내!"
+        android:textColor="@color/tokerHeavyGray"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:enabled="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/popup_feedback_msg_readonly_button_back"
+        app:layout_constraintVertical_bias="0.138" />
+
+    <TextView
+        android:id="@+id/popup_feedback_msg_readonly_textview_communication"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="범죄 음란 불쾌 하셨다면 신고해주세요. \n 신중하게 검토한 뒤 쪽지로 결과를 알려드릴게요!"
+        android:textColor="@color/tokerWhite"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/popup_feedback_msg_readonly_edittext_description"
+        app:layout_constraintVertical_bias="0.131" />
+
+    <Button
+        android:id="@+id/popup_feedback_msg_readonly_button_accuse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="신고하기"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/popup_feedback_msg_readonly_textview_communication" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
