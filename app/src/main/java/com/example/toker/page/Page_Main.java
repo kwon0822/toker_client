@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,15 +23,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.toker.R;
 import com.example.toker.http.HTTP;
 import com.example.toker.http.RetrofitAPI;
+import com.example.toker.recyclerview.Adapter_Chat_Title;
 import com.example.toker.recyclerview.Adapter_Msg;
+import com.example.toker.recyclerview.Item_Chat_Title;
 import com.example.toker.recyclerview.Item_Msg;
+import com.example.toker.recyclerview.OnItemClickListner_Chat_Title;
 import com.example.toker.recyclerview.OnItemClickListner_Msg;
 import com.example.toker.tcp.Application_Socket;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.Socket;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.squareup.okhttp.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +75,8 @@ public class Page_Main extends AppCompatActivity {
 
     Adapter_Msg msgAdapter;
     List<Item_Msg> msgList = new ArrayList<>();
+    Adapter_Chat_Title chatTitleAdapter;
+    List<Item_Chat_Title> chatTitleList = new ArrayList<>();
 
 
     @Override
@@ -170,9 +175,6 @@ public class Page_Main extends AppCompatActivity {
         });
 
         // 팝업 : 채팅보관
-        popup_repository_chat = new Dialog(Page_Main.this);
-        popup_repository_chat.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        popup_repository_chat.setContentView(R.layout.popup_repository_chat);
         page_main_button_readChat = findViewById(R.id.page_main_button_readChat);
         page_main_button_readChat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -377,7 +379,7 @@ public class Page_Main extends AppCompatActivity {
                     }
                 });
 
-                RecyclerView popup_repository_msg_recyclerview_contents = popup_repository_msg.findViewById(R.id.popup_repository_chat_recyclerview_contents);
+                RecyclerView popup_repository_msg_recyclerview_contents = popup_repository_msg.findViewById(R.id.popup_repository_msg_recyclerview_contents);
                 popup_repository_msg_recyclerview_contents.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 msgAdapter = new Adapter_Msg(msgList);
                 popup_repository_msg_recyclerview_contents.setAdapter(msgAdapter);
@@ -385,7 +387,6 @@ public class Page_Main extends AppCompatActivity {
                     @Override
                     public void onItemClick(Adapter_Msg.ViewHolder holder, View view, int position) {
                         Item_Msg item_msg = msgAdapter.getItem(position);
-
                         popup_alert = new Dialog(Page_Main.this);
                         popup_alert.requestWindowFeature(Window.FEATURE_NO_TITLE);
                         popup_alert.setContentView(R.layout.popup_alert);
@@ -413,7 +414,6 @@ public class Page_Main extends AppCompatActivity {
                                             popup_alert.dismiss();
                                         }
                                     }
-
                                     @Override
                                     public void onFailure(Call<String> call, Throwable t) {
                                     }
@@ -442,13 +442,95 @@ public class Page_Main extends AppCompatActivity {
     }
     // 팝업 : 채팅보관
     public void showPopupRepositoryChat() {
-        popup_repository_chat.show();
-
-        Button popup_repository_chat_button_back = popup_repository_chat.findViewById(R.id.popup_repository_chat_button_back);
-        popup_repository_chat_button_back.setOnClickListener(new View.OnClickListener() {
+        Gson gson = new GsonBuilder().setLenient().create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(HTTP.url)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+        retrofitAPI.postChatOnt(id).enqueue(new Callback<List<Item_Chat_Title>>() {
             @Override
-            public void onClick(View v) {
-                popup_repository_chat.dismiss();
+            public void onResponse(Call<List<Item_Chat_Title>> call, Response<List<Item_Chat_Title>> response) {
+                chatTitleList = response.body();
+
+                popup_repository_chat = new Dialog(Page_Main.this);
+                popup_repository_chat.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                popup_repository_chat.setContentView(R.layout.popup_repository_chat);
+
+                Button popup_repository_chat_button_back = popup_repository_chat.findViewById(R.id.popup_repository_chat_button_back);
+                popup_repository_chat_button_back.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popup_repository_chat.dismiss();
+                    }
+                });
+
+                RecyclerView popup_repository_chat_recyclerview_title = popup_repository_chat.findViewById(R.id.popup_repository_chat_recyclerview_title);
+                popup_repository_chat_recyclerview_title.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                chatTitleAdapter = new Adapter_Chat_Title(chatTitleList);
+                popup_repository_chat_recyclerview_title.setAdapter(chatTitleAdapter);
+                chatTitleAdapter.setOnItemClicklistener(new OnItemClickListner_Chat_Title() {
+                    @Override
+                    public void onItemClick(Adapter_Chat_Title.ViewHolder holder, View view, int position, String button) {
+                        Item_Chat_Title item_chat_title = chatTitleAdapter.getItem(position);
+                        switch(button) {
+                            case "item" :
+                                Toast.makeText(getApplicationContext(), "아이템", Toast.LENGTH_SHORT).show();
+                                break;
+                            case "delete" :
+                                popup_alert = new Dialog(Page_Main.this);
+                                popup_alert.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                popup_alert.setContentView(R.layout.popup_alert);
+                                TextView popup_alert_textview_title = popup_alert.findViewById(R.id.popup_alert_textview_title);
+                                popup_alert_textview_title.setText("정말 삭제하시겠습니까?");
+                                TextView popup_alert_textview_subtitle = popup_alert.findViewById(R.id.popup_alert_textview_subtitle);
+                                popup_alert_textview_subtitle.setText("다시 복구 못해 임마!");
+                                TextView popup_alert_button_yes = popup_alert.findViewById(R.id.popup_alert_button_yes);
+                                popup_alert_button_yes.setText("네");
+                                popup_alert_button_yes.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Gson gson = new GsonBuilder().setLenient().create();
+                                        Retrofit retrofit = new Retrofit.Builder()
+                                                .baseUrl(HTTP.url)
+                                                .addConverterFactory(GsonConverterFactory.create(gson))
+                                                .build();
+                                        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+                                        retrofitAPI.postChatOffTitle(id, item_chat_title.getNo()).enqueue(new Callback<String>() {
+                                            @Override
+                                            public void onResponse(Call<String> call, Response<String> response) {
+                                                if (response.body().equals("chatOffTitle")) {
+                                                    chatTitleList.remove(position);
+                                                    chatTitleAdapter.notifyItemRemoved(position);
+                                                    popup_alert.dismiss();
+                                                }
+                                            }
+                                            @Override
+                                            public void onFailure(Call<String> call, Throwable t) {
+                                            }
+                                        });
+                                    }
+                                });
+                                TextView popup_alert_button_no = popup_alert.findViewById(R.id.popup_alert_button_no);
+                                popup_alert_button_no.setText("아니오");
+                                popup_alert_button_no.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        popup_alert.dismiss();
+                                    }
+                                });
+                                popup_alert.show();
+                                break;
+                            case "edit" :
+                                Toast.makeText(getApplicationContext(), "수정", Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                    }
+                });
+                popup_repository_chat.show();
+            }
+            @Override
+            public void onFailure(Call<List<Item_Chat_Title>> call, Throwable t) {
             }
         });
     }

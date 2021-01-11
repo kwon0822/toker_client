@@ -46,14 +46,14 @@ public class Adapter_Msg extends RecyclerView.Adapter<Adapter_Msg.ViewHolder> im
     public class ViewHolder extends  RecyclerView.ViewHolder {
 
         private TextView item_msg_textview_contents;
-        private Button item_msg_button_remove;
+        private Button item_msg_button_delete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             item_msg_textview_contents = itemView.findViewById(R.id.item_msg_textview_contetns);
-            item_msg_button_remove = itemView.findViewById(R.id.item_msg_button_remove);
+            item_msg_button_delete = itemView.findViewById(R.id.item_msg_button_delete);
 
-            item_msg_button_remove.setOnClickListener(new View.OnClickListener() {
+            item_msg_button_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
