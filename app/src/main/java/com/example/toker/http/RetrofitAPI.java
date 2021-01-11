@@ -1,7 +1,7 @@
 package com.example.toker.http;
 
+import com.example.toker.recyclerview.Item_Chat_Title;
 import com.example.toker.recyclerview.Item_Msg;
-import com.squareup.okhttp.ResponseBody;
 
 import java.util.List;
 
@@ -23,5 +23,14 @@ public interface RetrofitAPI {
     @FormUrlEncoded
     @POST("/msgOff")
     Call<String> postMsgOff(@Field("id") String id,
+                            @Field("no") String no);
+
+    @FormUrlEncoded
+    @POST("/chatOnTitle")
+    Call<List<Item_Chat_Title>> postChatOnt(@Field("id") String id);
+
+    @FormUrlEncoded
+    @POST("/chatOffTitle")
+    Call<String> postChatOffTitle(@Field("id") String id,
                                   @Field("no") String no);
 }
