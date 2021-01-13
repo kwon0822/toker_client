@@ -1,5 +1,6 @@
 package com.example.toker.http;
 
+import com.example.toker.recyclerview.Item_Chat;
 import com.example.toker.recyclerview.Item_Chat_Title;
 import com.example.toker.recyclerview.Item_Msg;
 
@@ -27,10 +28,14 @@ public interface RetrofitAPI {
 
     @FormUrlEncoded
     @POST("/chatOnTitle")
-    Call<List<Item_Chat_Title>> postChatOnt(@Field("id") String id);
+    Call<List<Item_Chat_Title>> postChatOnTitle(@Field("id") String id);
 
     @FormUrlEncoded
     @POST("/chatOffTitle")
     Call<String> postChatOffTitle(@Field("id") String id,
                                   @Field("no") String no);
+
+    @FormUrlEncoded
+    @POST("/chatOnContents")
+    Call<List<Item_Chat>> postChatOnContents(@Field("no") String no);
 }

@@ -2,6 +2,7 @@ package com.example.toker.page;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -9,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,14 +17,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toker.R;
 import com.example.toker.http.HTTP;
 import com.example.toker.http.RetrofitAPI;
+import com.example.toker.recyclerview.Adapter_Chat;
 import com.example.toker.recyclerview.Adapter_Chat_Title;
 import com.example.toker.recyclerview.Adapter_Msg;
+import com.example.toker.recyclerview.Item_Chat;
 import com.example.toker.recyclerview.Item_Chat_Title;
 import com.example.toker.recyclerview.Item_Msg;
 import com.example.toker.recyclerview.OnItemClickListner_Chat_Title;
@@ -47,8 +50,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Page_Main extends AppCompatActivity {
 
     Toolbar page_main_toolbar;
-    Button page_chat_button_communication;
     ActionBar page_main_actionbar;
+    Button page_chat_button_communication;
     TextView page_main_textview_connectingNum;
     TextView page_main_textview_waitingNum;
     TextView page_main_textview_noticeBar;
@@ -57,6 +60,7 @@ public class Page_Main extends AppCompatActivity {
     Button page_main_button_readChat;
 
     Dialog popup_posting_list;
+    Dialog page_chat;
     Dialog popup_feedback_request;
     Dialog popup_alert_request;
     Dialog popup_repository_chat;
@@ -67,16 +71,15 @@ public class Page_Main extends AppCompatActivity {
     private Socket socket;
 
     private boolean isLogin = false;
-    // 대기자명단 관리 위함
-    // true : 매치시작 버튼 누르면
-    // false : (1)매치성사되었거나 (2)매치취소했거나 (3)매칭중앱강제종료하면
-    private boolean isMatch = false;
+    private boolean isMatch = false; // 매칭성사, 매칭취소, 매칭중앱강제종료
     String id = Page_Login.myID;
 
     Adapter_Msg msgAdapter;
     List<Item_Msg> msgList = new ArrayList<>();
     Adapter_Chat_Title chatTitleAdapter;
     List<Item_Chat_Title> chatTitleList = new ArrayList<>();
+    Adapter_Chat chatAdapter;
+    List<Item_Chat> chatList = new ArrayList<>();
 
 
     @Override
@@ -437,8 +440,6 @@ public class Page_Main extends AppCompatActivity {
             public void onFailure(Call<List<Item_Msg>> call, Throwable t) {
             }
         });
-
-
     }
     // 팝업 : 채팅보관
     public void showPopupRepositoryChat() {
@@ -448,7 +449,7 @@ public class Page_Main extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-        retrofitAPI.postChatOnt(id).enqueue(new Callback<List<Item_Chat_Title>>() {
+        retrofitAPI.postChatOnTitle(id).enqueue(new Callback<List<Item_Chat_Title>>() {
             @Override
             public void onResponse(Call<List<Item_Chat_Title>> call, Response<List<Item_Chat_Title>> response) {
                 chatTitleList = response.body();
@@ -475,8 +476,45 @@ public class Page_Main extends AppCompatActivity {
                         Item_Chat_Title item_chat_title = chatTitleAdapter.getItem(position);
                         switch(button) {
                             case "item" :
-                                Toast.makeText(getApplicationContext(), "아이템", Toast.LENGTH_SHORT).show();
+                                Gson gson = new GsonBuilder().setLenient().create();
+                                Retrofit retrofit = new Retrofit.Builder()
+                                        .baseUrl(HTTP.url)
+                                        .addConverterFactory(GsonConverterFactory.create(gson))
+                                        .build();
+                                RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+                                retrofitAPI.postChatOnContents(item_chat_title.getNo()).enqueue(new Callback<List<Item_Chat>>() {
+                                    @Override
+                                    public void onResponse(Call<List<Item_Chat>> call, Response<List<Item_Chat>> response) {
+
+                                        chatList = response.body();
+                                        page_chat = new Dialog(Page_Main.this, android.R.style.Theme_Light_NoTitleBar_Fullscreen);
+                                        page_chat.setContentView(R.layout.page_chat);
+
+                                        Toolbar page_chat_toolbar;
+                                        ActionBar page_chat_actionbar;
+
+                                        page_chat_toolbar = page_chat.findViewById(R.id.page_chat_toolbar);
+                                        setSupportActionBar(page_chat_toolbar);
+                                        page_chat_actionbar = getSupportActionBar();
+                                        page_chat_actionbar.setDisplayShowCustomEnabled(true);
+                                        page_chat_actionbar.setDisplayShowTitleEnabled(false);
+                                        page_chat_actionbar.setDisplayHomeAsUpEnabled(true);
+
+                                        RecyclerView page_chat_recyclerview_chat = page_chat.findViewById(R.id.page_chat_recyclerview_chat);
+                                        page_chat_recyclerview_chat.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                                        chatAdapter = new Adapter_Chat(chatList);
+                                        page_chat_recyclerview_chat.setAdapter(chatAdapter);
+
+                                        page_chat.show();
+                                    }
+                                    @Override
+                                    public void onFailure(Call<List<Item_Chat>> call, Throwable t) {
+                                        System.out.println(t.getMessage());
+                                    }
+                                });
+
                                 break;
+
                             case "delete" :
                                 popup_alert = new Dialog(Page_Main.this);
                                 popup_alert.requestWindowFeature(Window.FEATURE_NO_TITLE);
