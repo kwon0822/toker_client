@@ -26,6 +26,8 @@
         <activity android:name=".page.Page_Mylevel" />
         <activity android:name=".page.Page_Myinfo" />
         <activity android:name=".page.Page_Chat" />
+        <activity android:name=".popup.Popup_Chat"
+            android:theme="@style/Theme.AppCompat.Light.Dialog"/>
     </application>
 
 </manifest>
