@@ -23,7 +23,7 @@
         <activity android:name=".page.Page_Signup" />
         <activity android:name=".page.Page_Find" />
         <activity android:name=".page.Page_Main" />
-        <activity android:name=".page.Page_Mylevel" />
+        <activity android:name=".page.Page_Level" />
         <activity android:name=".page.Page_Myinfo" />
         <activity android:name=".page.Page_Chat" />
         <activity android:name=".popup.Popup_Chat"
