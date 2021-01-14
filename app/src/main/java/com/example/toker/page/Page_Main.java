@@ -2,7 +2,6 @@ package com.example.toker.page;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -246,7 +244,7 @@ public class Page_Main extends AppCompatActivity {
                 startActivity(intent_menu_myinfo);
                 break;
             case R.id.page_main_toolbar_menu_mylevel:
-                Intent intent_menu_mylevel = new Intent(getApplicationContext(), Page_Mylevel.class);
+                Intent intent_menu_mylevel = new Intent(getApplicationContext(), Page_Level.class);
                 startActivity(intent_menu_mylevel);
                 break;
             case R.id.page_main_toolbar_menu_logout:
