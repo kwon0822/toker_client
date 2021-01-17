@@ -56,11 +56,11 @@
         app:layout_constraintTop_toBottomOf="@+id/popup_matching_filter_textview_subtitle"
         app:layout_constraintVertical_bias="0.168">
 
-        <ImageView
-            android:id="@+id/popup_matching_filter_imageview_cover1"
+        <Button
+            android:id="@+id/popup_matching_filter_button_level1"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/cover"
+            android:text="광고의심"
             app:layout_constraintBottom_toTopOf="@+id/popup_matching_filter_textview_level1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -71,40 +71,17 @@
             android:id="@+id/popup_matching_filter_textview_level1"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="광고의심"
+            android:text="선택가능"
             android:textAlignment="center"
             android:textColor="@color/tokerLightGray"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/popup_matching_filter_textview_wait1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/popup_matching_filter_imageview_cover1"
-            app:layout_constraintVertical_weight="1" />
-
-        <TextView
-            android:id="@+id/popup_matching_filter_textview_wait1"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="(00명 대기중)"
-            android:textAlignment="center"
-            android:textColor="@color/tokerLightGray"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/popup_matching_filter_radiobutton_choice1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/popup_matching_filter_textview_level1"
-            app:layout_constraintVertical_weight="1" />
-
-        <RadioButton
-            android:id="@+id/popup_matching_filter_radiobutton_choice1"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/popup_matching_filter_textview_wait1"
+            app:layout_constraintTop_toBottomOf="@+id/popup_matching_filter_button_level1"
             app:layout_constraintVertical_weight="1" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -118,11 +95,11 @@
         app:layout_constraintTop_toBottomOf="@+id/popup_matching_filter_textview_subtitle"
         app:layout_constraintVertical_bias="0.168">
 
-        <ImageView
-            android:id="@+id/popup_matching_filter_imageview_cover2"
+        <Button
+            android:id="@+id/popup_matching_filter_button_level2"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/cover"
+            android:text="변태의심"
             app:layout_constraintBottom_toTopOf="@+id/popup_matching_filter_textview_level2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -133,40 +110,17 @@
             android:id="@+id/popup_matching_filter_textview_level2"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="변태의심"
+            android:text="선택가능"
             android:textAlignment="center"
             android:textColor="@color/tokerLightGray"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/popup_matching_filter_textview_wait2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/popup_matching_filter_imageview_cover2"
-            app:layout_constraintVertical_weight="1" />
-
-        <TextView
-            android:id="@+id/popup_matching_filter_textview_wait2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="(00명 대기중)"
-            android:textAlignment="center"
-            android:textColor="@color/tokerLightGray"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/popup_matching_filter_radiobutton_choice2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/popup_matching_filter_textview_level2"
-            app:layout_constraintVertical_weight="1" />
-
-        <RadioButton
-            android:id="@+id/popup_matching_filter_radiobutton_choice2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/popup_matching_filter_textview_wait2"
+            app:layout_constraintTop_toBottomOf="@+id/popup_matching_filter_button_level2"
             app:layout_constraintVertical_weight="1" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -180,11 +134,11 @@
         app:layout_constraintTop_toBottomOf="@+id/popup_matching_filter_textview_subtitle"
         app:layout_constraintVertical_bias="0.168">
 
-        <ImageView
-            android:id="@+id/popup_matching_filter_imageview_cover3"
+        <Button
+            android:id="@+id/popup_matching_filter_button_level3"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/cover"
+            android:text="일반대화"
             app:layout_constraintBottom_toTopOf="@+id/popup_matching_filter_textview_level3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -195,39 +149,15 @@
             android:id="@+id/popup_matching_filter_textview_level3"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="평범토커"
+            android:text="선택가능"
             android:textAlignment="center"
             android:textColor="@color/tokerLightGray"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/popup_matching_filter_textview_wait3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/popup_matching_filter_imageview_cover3"
-            app:layout_constraintVertical_weight="1" />
-
-        <TextView
-            android:id="@+id/popup_matching_filter_textview_wait3"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="(00명 대기중)"
-            android:textAlignment="center"
-            android:textColor="@color/tokerLightGray"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/popup_matching_filter_radiobutton_choice3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/popup_matching_filter_textview_level3"
-            app:layout_constraintVertical_weight="1" />
-
-        <RadioButton
-            android:id="@+id/popup_matching_filter_radiobutton_choice3"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/popup_matching_filter_textview_wait3"
+            app:layout_constraintTop_toBottomOf="@+id/popup_matching_filter_button_level3"
             app:layout_constraintVertical_weight="1" />
 
 
@@ -244,11 +174,11 @@
         app:layout_constraintTop_toBottomOf="@+id/popup_matching_filter_textview_subtitle"
         app:layout_constraintVertical_bias="0.168">
 
-        <ImageView
-            android:id="@+id/popup_matching_filter_imageview_cover4"
+        <Button
+            android:id="@+id/popup_matching_filter_button_level4"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/cover"
+            android:text="깊은대화"
             app:layout_constraintBottom_toTopOf="@+id/popup_matching_filter_textview_level4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -259,40 +189,17 @@
             android:id="@+id/popup_matching_filter_textview_level4"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="진지토커"
+            android:text="선택가능"
             android:textAlignment="center"
             android:textColor="@color/tokerLightGray"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/popup_matching_filter_textview_wait4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/popup_matching_filter_imageview_cover4"
-            app:layout_constraintVertical_weight="1" />
-
-        <TextView
-            android:id="@+id/popup_matching_filter_textview_wait4"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="(00명 대기중)"
-            android:textAlignment="center"
-            android:textColor="@color/tokerLightGray"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/popup_matching_filter_radiobutton_choice4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/popup_matching_filter_textview_level4"
-            app:layout_constraintVertical_weight="1" />
-
-        <RadioButton
-            android:id="@+id/popup_matching_filter_radiobutton_choice4"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/popup_matching_filter_textview_wait4"
+            app:layout_constraintTop_toBottomOf="@+id/popup_matching_filter_button_level4"
             app:layout_constraintVertical_weight="1" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
