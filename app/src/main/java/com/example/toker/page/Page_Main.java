@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +39,6 @@ import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -305,6 +303,7 @@ public class Page_Main extends AppCompatActivity {
             }
         });
     }
+
     // 팝업 : 의견보내기 alert
     public void showPopupAlertRequest() {
         popup_alert_request.show();
@@ -346,11 +345,11 @@ public class Page_Main extends AppCompatActivity {
 
                 popup_matching_filter = new Dialog(Page_Main.this);
                 popup_matching_filter.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                popup_matching_filter.setContentView(R.layout.popup_matching_filter);
+                popup_matching_filter.setContentView(R.layout.popup_matching);
                 popup_matching_filter.show();
 
-                Button popup_matching_filter_button_level1 = popup_matching_filter.findViewById(R.id.popup_matching_filter_button_level1);
-                TextView popup_matching_filter_textview_level1 = popup_matching_filter.findViewById(R.id.popup_matching_filter_textview_level1);
+                Button popup_matching_filter_button_level1 = popup_matching_filter.findViewById(R.id.popup_matching_button_level1);
+                TextView popup_matching_filter_textview_level1 = popup_matching_filter.findViewById(R.id.popup_matching_textview_level1);
                 popup_matching_filter_button_level1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -365,8 +364,8 @@ public class Page_Main extends AppCompatActivity {
                     }
                 });
 
-                Button popup_matching_filter_button_level2 = popup_matching_filter.findViewById(R.id.popup_matching_filter_button_level2);
-                TextView popup_matching_filter_textview_level2 = popup_matching_filter.findViewById(R.id.popup_matching_filter_textview_level2);
+                Button popup_matching_filter_button_level2 = popup_matching_filter.findViewById(R.id.popup_matching_button_level2);
+                TextView popup_matching_filter_textview_level2 = popup_matching_filter.findViewById(R.id.popup_matching_textview_level2);
                 popup_matching_filter_button_level2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -381,8 +380,8 @@ public class Page_Main extends AppCompatActivity {
                     }
                 });
 
-                Button popup_matching_filter_button_level3 = popup_matching_filter.findViewById(R.id.popup_matching_filter_button_level3);
-                TextView popup_matching_filter_textview_level3 = popup_matching_filter.findViewById(R.id.popup_matching_filter_textview_level3);
+                Button popup_matching_filter_button_level3 = popup_matching_filter.findViewById(R.id.popup_matching_button_level3);
+                TextView popup_matching_filter_textview_level3 = popup_matching_filter.findViewById(R.id.popup_matching_textview_level3);
                 popup_matching_filter_button_level3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -397,8 +396,8 @@ public class Page_Main extends AppCompatActivity {
                     }
                 });
 
-                Button popup_matching_filter_button_level4 = popup_matching_filter.findViewById(R.id.popup_matching_filter_button_level4);
-                TextView popup_matching_filter_textview_level4 = popup_matching_filter.findViewById(R.id.popup_matching_filter_textview_level4);
+                Button popup_matching_filter_button_level4 = popup_matching_filter.findViewById(R.id.popup_matching_button_level4);
+                TextView popup_matching_filter_textview_level4 = popup_matching_filter.findViewById(R.id.popup_matching_textview_level4);
                 popup_matching_filter_button_level4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -437,7 +436,7 @@ public class Page_Main extends AppCompatActivity {
                 }
 
                 // button : 뒤로가기
-                Button popup_matching_filter_button_back = popup_matching_filter.findViewById(R.id.popup_matching_filter_button_back);
+                Button popup_matching_filter_button_back = popup_matching_filter.findViewById(R.id.popup_matching_button_back);
                 popup_matching_filter_button_back.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -453,7 +452,7 @@ public class Page_Main extends AppCompatActivity {
                 });
 
                 // button : 매칭시작
-                Button popup_matching_filter_button_matchingStart = popup_matching_filter.findViewById(R.id.popup_matching_filter_button_matchingStart);
+                Button popup_matching_filter_button_matchingStart = popup_matching_filter.findViewById(R.id.popup_matching_button_matchingStart);
                 popup_matching_filter_button_matchingStart.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -562,8 +561,10 @@ public class Page_Main extends AppCompatActivity {
             }
         });
     }
+
     // 팝업 : 채팅보관
     public void showPopupRepositoryChat() {
+
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(HTTP.url)
