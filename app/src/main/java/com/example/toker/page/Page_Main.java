@@ -51,21 +51,17 @@ public class Page_Main extends AppCompatActivity {
     Toolbar page_main_toolbar;
     ActionBar page_main_actionbar;
     Button page_chat_button_communication;
-    TextView page_main_textview_connectingNum;
-    TextView page_main_textview_waitingNum;
-    TextView page_main_textview_noticeBar;
     Button page_main_button_randomMatching;
     Button page_main_button_readMSG;
     Button page_main_button_readChat;
 
-    Dialog popup_posting_list;
-    Dialog page_chat;
-    Dialog popup_feedback_request;
-    Dialog popup_alert_request;
-    Dialog popup_repository_chat;
-    Dialog popup_repository_msg;
-    Dialog popup_matching_filter;
+    TextView page_main_textview_connectingNum;
+    TextView page_main_textview_waitingNum;
+    TextView page_main_textview_noticeBar;
+
     Dialog popup_alert;
+    Dialog popup_input;
+    Dialog popup_matching_filter;
 
     private Socket socket;
 
@@ -147,9 +143,6 @@ public class Page_Main extends AppCompatActivity {
         page_main_actionbar.setDisplayHomeAsUpEnabled(false);
 
         // 팝업 : 개발자의 말
-        popup_posting_list = new Dialog(Page_Main.this);
-        popup_posting_list.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        popup_posting_list.setContentView(R.layout.popup_posting_list);
         page_chat_button_communication = findViewById(R.id.page_main_button_communication);
         page_chat_button_communication.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,6 +179,8 @@ public class Page_Main extends AppCompatActivity {
             }
         });
     }
+
+    // region listner ==============================================================================
 
     // socket listner : 'onMatchOn'
     private Emitter.Listener matchOn = new Emitter.Listener() {
@@ -231,33 +226,15 @@ public class Page_Main extends AppCompatActivity {
         }
     };
 
-    // 툴바 : 메뉴
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.page_main_toolbar_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.page_main_toolbar_menu_myinfo:
-                Intent intent_menu_myinfo = new Intent(getApplicationContext(), Page_Myinfo.class);
-                startActivity(intent_menu_myinfo);
-                break;
-            case R.id.page_main_toolbar_menu_mylevel:
-                Intent intent_menu_mylevel = new Intent(getApplicationContext(), Page_Level.class);
-                startActivity(intent_menu_mylevel);
-                break;
-            case R.id.page_main_toolbar_menu_logout:
-                Toast.makeText(getApplicationContext(), "로그아웃", Toast.LENGTH_SHORT).show();;
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+    // endregion listner  ==========================================================================
+
+    // region popup ================================================================================
 
     // 팝업 : '개발자의 말'
     public void showPopupPostingList() {
+        Dialog popup_posting_list = new Dialog(Page_Main.this);
+        popup_posting_list.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        popup_posting_list.setContentView(R.layout.popup_posting_list);
         popup_posting_list.show();
 
         Button popup_posting_list_button_back = popup_posting_list.findViewById(R.id.popup_posting_list_button_back);
@@ -272,9 +249,6 @@ public class Page_Main extends AppCompatActivity {
         popup_posting_list_button_request.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popup_feedback_request = new Dialog(Page_Main.this);
-                popup_feedback_request.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                popup_feedback_request.setContentView(R.layout.popup_feedback_request);
                 showPopupFeedbackRequest();
             }
         });
@@ -282,48 +256,50 @@ public class Page_Main extends AppCompatActivity {
 
     // 팝업 : 의견보내기 contents
     public void showPopupFeedbackRequest() {
-        popup_feedback_request.show();
+        popup_input = new Dialog(Page_Main.this);
+        popup_input.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        popup_input.setContentView(R.layout.popup_input);
 
-        Button popup_feedback_request_button_back = popup_feedback_request.findViewById(R.id.popup_feedback_request_button_back);
-        popup_feedback_request_button_back.setOnClickListener(new View.OnClickListener() {
+        Button popup_input_button_back = popup_input.findViewById(R.id.popup_input_button_back);
+        popup_input_button_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popup_feedback_request.dismiss();
+                popup_input.dismiss();
             }
         });
 
-        Button popup_feedback_request_button_send = popup_feedback_request.findViewById(R.id.popup_feedback_request_button_send);
-        popup_feedback_request_button_send.setOnClickListener(new View.OnClickListener() {
+        Button popup_input_button_send = popup_input.findViewById(R.id.popup_input_button_send);
+        popup_input_button_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popup_alert_request = new Dialog(Page_Main.this);
-                popup_alert_request.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                popup_alert_request.setContentView(R.layout.popup_alert_request);
-                showPopupAlertRequest();
+                popup_alert = new Dialog(Page_Main.this);
+                popup_alert.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                popup_alert.setContentView(R.layout.popup_alert);
+
+                Button popup_alert_button_yes = popup_alert.findViewById(R.id.popup_alert_button_yes);
+                popup_alert_button_yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getApplicationContext(), "소중한 의견 전달되었습니다.", Toast.LENGTH_SHORT).show();
+                        popup_alert.dismiss();
+                        popup_input.dismiss();
+                    }
+                });
+
+                Button popup_alert_button_no = popup_alert.findViewById(R.id.popup_alert_button_no);
+                popup_alert_button_no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popup_alert.dismiss();
+                    }
+                });
+                popup_alert.show();
             }
         });
+
+        popup_input.show();
     }
 
-    // 팝업 : 의견보내기 alert
-    public void showPopupAlertRequest() {
-        popup_alert_request.show();
-
-        Button popup_alert_request_button_yes = popup_alert_request.findViewById(R.id.popup_alert_request_button_yes);
-        popup_alert_request_button_yes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "소중한 의견 전달되었습니다.", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        Button popup_alert_request_button_no = popup_alert_request.findViewById(R.id.popup_alert_request_button_no);
-        popup_alert_request_button_no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popup_alert_request.dismiss();
-            }
-        });
-    }
 
     // 팝업 : 랜덤매칭
     public void showPopupMatchingFilter() {
@@ -490,7 +466,7 @@ public class Page_Main extends AppCompatActivity {
             public void onResponse(Call<List<Item_Msg>> call, Response<List<Item_Msg>> response) {
                 msgList = response.body();
 
-                popup_repository_msg = new Dialog(Page_Main.this);
+                Dialog popup_repository_msg = new Dialog(Page_Main.this);
                 popup_repository_msg.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 popup_repository_msg.setContentView(R.layout.popup_repository_msg);
 
@@ -515,7 +491,7 @@ public class Page_Main extends AppCompatActivity {
                         popup_alert.setContentView(R.layout.popup_alert);
                         TextView popup_alert_textview_title = popup_alert.findViewById(R.id.popup_alert_textview_title);
                         popup_alert_textview_title.setText("정말 삭제하시겠습니까?");
-                        TextView popup_alert_textview_subtitle = popup_alert.findViewById(R.id.popup_alert_textview_subtitle);
+                        TextView popup_alert_textview_subtitle = popup_alert.findViewById(R.id.popup_alert_textview_description);
                         popup_alert_textview_subtitle.setText("다시 복구 못해 임마!");
                         TextView popup_alert_button_yes = popup_alert.findViewById(R.id.popup_alert_button_yes);
                         popup_alert_button_yes.setText("네");
@@ -576,7 +552,7 @@ public class Page_Main extends AppCompatActivity {
             public void onResponse(Call<List<Item_Chat_Title>> call, Response<List<Item_Chat_Title>> response) {
                 chatTitleList = response.body();
 
-                popup_repository_chat = new Dialog(Page_Main.this);
+                Dialog popup_repository_chat = new Dialog(Page_Main.this);
                 popup_repository_chat.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 popup_repository_chat.setContentView(R.layout.popup_repository_chat);
 
@@ -609,7 +585,7 @@ public class Page_Main extends AppCompatActivity {
                                     public void onResponse(Call<List<Item_Chat>> call, Response<List<Item_Chat>> response) {
 
                                         chatList = response.body();
-                                        page_chat = new Dialog(Page_Main.this, android.R.style.Theme_Light_NoTitleBar_Fullscreen);
+                                        Dialog page_chat = new Dialog(Page_Main.this, android.R.style.Theme_Light_NoTitleBar_Fullscreen);
                                         page_chat.setContentView(R.layout.page_chat);
 
                                         Toolbar page_chat_toolbar;
@@ -643,7 +619,7 @@ public class Page_Main extends AppCompatActivity {
                                 popup_alert.setContentView(R.layout.popup_alert);
                                 TextView popup_alert_textview_title = popup_alert.findViewById(R.id.popup_alert_textview_title);
                                 popup_alert_textview_title.setText("정말 삭제하시겠습니까?");
-                                TextView popup_alert_textview_subtitle = popup_alert.findViewById(R.id.popup_alert_textview_subtitle);
+                                TextView popup_alert_textview_subtitle = popup_alert.findViewById(R.id.popup_alert_textview_description);
                                 popup_alert_textview_subtitle.setText("다시 복구 못해 임마!");
                                 TextView popup_alert_button_yes = popup_alert.findViewById(R.id.popup_alert_button_yes);
                                 popup_alert_button_yes.setText("네");
@@ -693,5 +669,28 @@ public class Page_Main extends AppCompatActivity {
             public void onFailure(Call<List<Item_Chat_Title>> call, Throwable t) {
             }
         });
+    }
+
+    // endregion ===================================================================================
+
+    // 툴바
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.page_main_toolbar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.page_main_toolbar_menu_mylevel:
+                Intent intent_menu_mylevel = new Intent(getApplicationContext(), Page_Level.class);
+                startActivity(intent_menu_mylevel);
+                break;
+            case R.id.page_main_toolbar_menu_logout:
+                Toast.makeText(getApplicationContext(), "로그아웃", Toast.LENGTH_SHORT).show();;
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

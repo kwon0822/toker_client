@@ -21,7 +21,7 @@
         app:layout_constraintVertical_bias="0.189" />
 
     <TextView
-        android:id="@+id/popup_alert_textview_subtitle"
+        android:id="@+id/popup_alert_textview_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
@@ -45,9 +45,9 @@
         android:textColor="@color/tokerWhite"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/popup_alert_accuse_button_no"
+        app:layout_constraintEnd_toStartOf="@+id/popup_alert_button_no"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/popup_alert_textview_subtitle"
+        app:layout_constraintTop_toBottomOf="@+id/popup_alert_textview_description"
         app:layout_constraintVertical_bias="0.6" />
 
     <Button
@@ -61,8 +61,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/popup_alert_accuse_button_yes"
-        app:layout_constraintTop_toBottomOf="@+id/popup_alert_textview_subtitle"
+        app:layout_constraintStart_toEndOf="@+id/popup_alert_button_yes"
+        app:layout_constraintTop_toBottomOf="@+id/popup_alert_textview_description"
         app:layout_constraintVertical_bias="0.6" />
 
 

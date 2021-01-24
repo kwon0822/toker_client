@@ -44,18 +44,12 @@ public class Page_Chat extends AppCompatActivity {
     TextView page_chat_textview_block;
     EditText page_chat_edittext_chat;
     Button page_chat_button_chat;
+    Dialog popup_alert;
+    Dialog popup_input;
 
     RecyclerView page_chat_recyclerview_chat;
     private Adapter_Chat chatAdapter;
     private List<Item_Chat> chatList = new ArrayList<>();
-
-    Dialog popup_feedback_accuse;
-    Dialog popup_alert_accuse;
-    Dialog popup_feedback_msg;
-    Dialog popup_alert_msg;
-    Dialog popup_alert_block;
-    Dialog popup_alert_quit;
-    Dialog popup_alert_save;
 
     String id = Page_Login.myID;
     private Socket socket;
@@ -112,6 +106,10 @@ public class Page_Chat extends AppCompatActivity {
 
     private void initialize() {
 
+        popup_alert = new Dialog(Page_Chat.this);
+        popup_alert.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        popup_alert.setContentView(R.layout.popup_alert);
+
         Application_Socket application_socket = (Application_Socket) getApplication();
         socket = application_socket.getSocket();
 
@@ -142,15 +140,7 @@ public class Page_Chat extends AppCompatActivity {
         page_chat_actionbar.setDisplayShowTitleEnabled(false);
         page_chat_actionbar.setDisplayHomeAsUpEnabled(true);
 
-        // 툴바 : 대화 종료하기
-        popup_alert_quit = new Dialog(Page_Chat.this);
-        popup_alert_quit.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        popup_alert_quit.setContentView(R.layout.popup_alert_quit);
 
-        // 툴바 : 채팅 저장하기
-        popup_alert_save = new Dialog(Page_Chat.this);
-        popup_alert_save.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        popup_alert_save.setContentView(R.layout.popup_alert_save);
         
         // 팝업 : 신고하기
         page_chat_textview_accuse = findViewById(R.id.page_chat_textview_accuse);
@@ -249,49 +239,54 @@ public class Page_Chat extends AppCompatActivity {
                 if (item_chat.getType() == Item_Chat.TYPE_SEND_MSG) {
 
                     if (!isMsg) {
-                        popup_feedback_msg = new Dialog(Page_Chat.this);
-                        popup_feedback_msg.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                        popup_feedback_msg.setContentView(R.layout.popup_feedback_msg);
-                        popup_feedback_msg.show();
 
-                        Button popup_feedback_msg_button_back = popup_feedback_msg.findViewById(R.id.popup_feedback_msg_button_back);
+                        popup_input = new Dialog(Page_Chat.this);
+                        popup_input.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        popup_input.setContentView(R.layout.popup_input);
+
+                        Button popup_feedback_msg_button_back = popup_input.findViewById(R.id.popup_input_button_back);
                         popup_feedback_msg_button_back.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                popup_feedback_msg.dismiss();
+                                popup_input.dismiss();
                             }
                         });
 
-                        Button popup_feedback_msg_button_send = popup_feedback_msg.findViewById(R.id.popup_feedback_msg_button_send);
+                        Button popup_feedback_msg_button_send = popup_input.findViewById(R.id.popup_input_button_send);
                         popup_feedback_msg_button_send.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                popup_alert_msg = new Dialog(Page_Chat.this);
-                                popup_alert_msg.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                                popup_alert_msg.setContentView(R.layout.popup_alert_msg);
-                                popup_alert_msg.show();
 
-                                EditText popup_feedback_msg_edittext_contents = popup_feedback_msg.findViewById(R.id.popup_feedback_msg_edittext_contents);
-                                String msg = popup_feedback_msg_edittext_contents.getText().toString();
+                                EditText popup_input_edittext_contents = popup_input.findViewById(R.id.popup_input_edittext_contents);
+                                String msg = popup_input_edittext_contents.getText().toString();
 
-                                Button popup_alert_msg_button_yes = popup_alert_msg.findViewById(R.id.popup_alert_msg_button_yes);
-                                popup_alert_msg_button_yes.setOnClickListener(new View.OnClickListener() {
+                                popup_alert = new Dialog(Page_Chat.this);
+                                popup_alert.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                popup_alert.setContentView(R.layout.popup_alert);
+
+                                Button popup_alert_button_yes = popup_alert.findViewById(R.id.popup_alert_button_yes);
+                                popup_alert_button_yes.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         socket.emit("msgOn", msg);
-                                        popup_alert_msg.dismiss();
+                                        popup_alert.dismiss();
+                                        popup_input.dismiss();
                                     }
                                 });
 
-                                Button popup_alert_msg_button_no = popup_alert_msg.findViewById(R.id.popup_alert_msg_button_no);
-                                popup_alert_msg_button_no.setOnClickListener(new View.OnClickListener() {
+                                Button popup_alert_button_no = popup_alert.findViewById(R.id.popup_alert_button_no);
+                                popup_alert_button_no.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        popup_alert_msg.dismiss();
+                                        popup_alert.dismiss();
                                     }
                                 });
+
+                                popup_alert.show();
                             }
                         });
+
+                        popup_input.show();
                     }
                 }
             }
@@ -299,16 +294,8 @@ public class Page_Chat extends AppCompatActivity {
         addNotice("채팅이 시작되었습니다.");
     }
 
-    private void addNotice(String notice) {
-        Item_Chat item_chat = new Item_Chat(Item_Chat.TYPE_Notice, notice);
-        chatList.add(item_chat);
-        chatAdapter.notifyItemInserted(chatList.size() - 1);
 
-        Gson gson = new Gson();
-        String jsonStr = gson.toJson(item_chat);
-        socket.emit("chat", jsonStr);
-    }
-
+    // region listner ==============================================================================
 
     private Emitter.Listener Chat = new Emitter.Listener() {
         @Override
@@ -389,7 +376,7 @@ public class Page_Chat extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    popup_feedback_msg.dismiss();
+                    popup_alert.dismiss();
                     isMsg = true;
                 }
             });
@@ -402,7 +389,7 @@ public class Page_Chat extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    popup_alert_save.dismiss();
+                    popup_alert.dismiss();
                     if (isSave) {
                         Toast.makeText(getApplicationContext(), "대화저장이 취소되었습니다.", Toast.LENGTH_SHORT).show();
                         page_chat_toolbar.getMenu().getItem(0).setTitle("대화 저장하기");
@@ -457,7 +444,143 @@ public class Page_Chat extends AppCompatActivity {
         }
     };
 
-    // 툴바 : 메뉴 버튼
+    // endregion listner ===========================================================================
+
+    // region popup ================================================================================
+
+    // 채팅저장
+    public void showPopupAlertSave() {
+        popup_alert = new Dialog(Page_Chat.this);
+        popup_alert.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        popup_alert.setContentView(R.layout.popup_alert);
+
+        Button popup_alert_button_yes = popup_alert.findViewById(R.id.popup_alert_button_yes);
+        popup_alert_button_yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                socket.emit("saveOn");
+            }
+        });
+
+        Button popup_alert_button_no = popup_alert.findViewById(R.id.popup_alert_button_no);
+        popup_alert_button_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popup_alert.dismiss();
+            }
+        });
+
+        popup_alert.show();
+    }
+
+    // 채팅종료
+    public void showPopupAlertQuit() {
+        popup_alert = new Dialog(Page_Chat.this);
+        popup_alert.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        popup_alert.setContentView(R.layout.popup_alert);
+
+        Button popup_alert_button_yes = popup_alert.findViewById(R.id.popup_alert_button_yes);
+        popup_alert_button_yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isChat = false;
+                socket.emit("chatOff");
+                finish();
+            }
+        });
+
+        Button popup_alert_button_no = popup_alert.findViewById(R.id.popup_alert_button_no);
+        popup_alert_button_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popup_alert.dismiss();
+            }
+        });
+
+        popup_alert.show();
+    }
+
+    // 신고하기
+    public void showPopupFeedbackAccuse() {
+        popup_input = new Dialog(Page_Chat.this);
+        popup_input.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        popup_input.setContentView(R.layout.popup_input);
+
+        Button popup_input_button_back = popup_input.findViewById(R.id.popup_input_button_back);
+        popup_input_button_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popup_input.dismiss();
+            }
+        });
+
+        Button popup_input_button_send = popup_input.findViewById(R.id.popup_input_button_send);
+        popup_input_button_send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                EditText popup_input_edittext_contents = popup_input.findViewById(R.id.popup_input_edittext_contents);
+                String msg = popup_input_edittext_contents.getText().toString();
+
+                popup_alert = new Dialog(Page_Chat.this);
+                popup_alert.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                popup_alert.setContentView(R.layout.popup_alert);
+
+                Button popup_alert_button_yes = popup_alert.findViewById(R.id.popup_alert_button_yes);
+                popup_alert_button_yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        socket.emit("accuseOn", msg);
+                        popup_alert.dismiss();
+                        popup_input.dismiss();
+                    }
+                });
+
+                Button popup_alert_button_no = popup_alert.findViewById(R.id.popup_alert_button_no);
+                popup_alert_button_no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popup_alert.dismiss();
+                    }
+                });
+
+                popup_alert.show();
+            }
+        });
+        popup_input.show();
+    }
+
+    // 차단하기
+    public void showPopupAlertBlock() {
+        popup_alert = new Dialog(Page_Chat.this);
+        popup_alert.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        popup_alert.setContentView(R.layout.popup_alert);
+
+        Button popup_alert_button_yes = popup_alert.findViewById(R.id.popup_alert_button_yes);
+        popup_alert_button_yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                socket.emit("blockOn");
+                popup_alert.dismiss();
+            }
+        });
+
+        Button popup_alert_button_no = popup_alert.findViewById(R.id.popup_alert_button_no);
+        popup_alert_button_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popup_alert.dismiss();
+            }
+        });
+
+        popup_alert.show();
+    }
+
+    // endregion popup  ============================================================================
+
+
+
+    // 메뉴툴바
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -467,7 +590,7 @@ public class Page_Chat extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.page_chat_toolbar_menu_saveChat:                
+            case R.id.page_chat_toolbar_menu_saveChat:
                 showPopupAlertSave();
                 break;
             case R.id.page_chat_toolbar_menu_quitChat:
@@ -481,163 +604,18 @@ public class Page_Chat extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // 팝업 : 채팅 저장하기
-    public void showPopupAlertSave() {
-        popup_alert_save.show();
-
-        Button popup_alert_save_button_yes = popup_alert_save.findViewById(R.id.popup_alert_save_button_yes);
-        popup_alert_save_button_yes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                socket.emit("saveOn");
-            }
-        });
-
-        Button popup_alert_save_button_no = popup_alert_save.findViewById(R.id.popup_alert_save_button_no);
-        popup_alert_save_button_no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popup_alert_save.dismiss();
-            }
-        });
-    }
-
-    // 팝업 : 채팅 종료하기
-    public void showPopupAlertQuit() {
-        popup_alert_quit.show();
-
-        Button popup_alert_quit_button_yes = popup_alert_quit.findViewById(R.id.popup_alert_quit_button_yes);
-        popup_alert_quit_button_yes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isChat = false;
-                socket.emit("chatOff");
-                finish();
-            }
-        });
-
-        Button popup_alert_quit_button_no = popup_alert_quit.findViewById(R.id.popup_alert_quit_button_no);
-        popup_alert_quit_button_no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popup_alert_quit.dismiss();
-            }
-        });
-    }
-
-    // 팝업 : 신고하기 description
-    public void showPopupFeedbackAccuse() {
-        popup_feedback_accuse = new Dialog(Page_Chat.this);
-        popup_feedback_accuse.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        popup_feedback_accuse.setContentView(R.layout.popup_feedback_accuse);
-        popup_feedback_accuse.show();
-
-        Button popup_feedback_accuse_button_back = popup_feedback_accuse.findViewById(R.id.popup_feedback_accuse_button_back);
-        popup_feedback_accuse_button_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popup_feedback_accuse.dismiss();
-            }
-        });
-
-        Button popup_feedback_accuse_button_send = popup_feedback_accuse.findViewById(R.id.popup_feedback_accuse_button_send);
-        popup_feedback_accuse_button_send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popup_alert_accuse = new Dialog(Page_Chat.this);
-                popup_alert_accuse.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                popup_alert_accuse.setContentView(R.layout.popup_alert_accuse);
-                popup_alert_accuse.show();
-
-                EditText popup_feedback_accuse_edittext_contents = popup_feedback_accuse.findViewById(R.id.popup_feedback_accuse_edittext_contents);
-                String msg = popup_feedback_accuse_edittext_contents.getText().toString();
-
-                Button popup_alert_accuse_button_yes = popup_alert_accuse.findViewById(R.id.popup_alert_accuse_button_yes);
-                popup_alert_accuse_button_yes.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        socket.emit("accuseOn", msg);
-                        popup_alert_accuse.dismiss();
-                    }
-                });
-
-                Button popup_alert_accuse_button_no = popup_alert_accuse.findViewById(R.id.popup_alert_accuse_button_no);
-                popup_alert_accuse_button_no.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        popup_alert_accuse.dismiss();
-                    }
-                });
-            }
-        });
-    }
-
-    // 팝업 : 차단하기
-    public void showPopupAlertBlock() {
-        popup_alert_block = new Dialog(Page_Chat.this);
-        popup_alert_block.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        popup_alert_block.setContentView(R.layout.popup_alert_block);
-        popup_alert_block.show();
-
-        Button popup_alert_block_button_yes = popup_alert_block.findViewById(R.id.popup_alert_block_button_yes);
-        popup_alert_block_button_yes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                socket.emit("blockOn");
-                popup_alert_block.dismiss();
-            }
-        });
-
-        Button popup_alert_block_button_no = popup_alert_block.findViewById(R.id.popup_alert_block_button_no);
-        popup_alert_block_button_no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popup_alert_block.dismiss();
-            }
-        });
-    }
-
-    public void showPopupFeedbackMSG() {
-        popup_feedback_accuse.show();
-
-        popup_alert_accuse = new Dialog(Page_Chat.this);
-        popup_alert_accuse.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        popup_alert_accuse.setContentView(R.layout.popup_alert_accuse);
-
-        Button popup_feedback_accuse_button_back = popup_feedback_accuse.findViewById(R.id.popup_feedback_accuse_button_back);
-        popup_feedback_accuse_button_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popup_feedback_accuse.dismiss();
-            }
-        });
-
-        Button popup_feedback_accuse_button_send = popup_feedback_accuse.findViewById(R.id.popup_feedback_accuse_button_send);
-        popup_feedback_accuse_button_send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popup_alert_accuse.show();
-                Button popup_alert_accuse_button_yes = popup_alert_accuse.findViewById(R.id.popup_alert_accuse_button_yes);
-                popup_alert_accuse_button_yes.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(), "신고되었습니다.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                Button popup_alert_accuse_button_no = popup_alert_accuse.findViewById(R.id.popup_alert_accuse_button_no);
-                popup_alert_accuse_button_no.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        popup_alert_accuse.dismiss();
-                    }
-                });
-            }
-        });
-    }
-
     private void scrollToBottom() {
         page_chat_recyclerview_chat.scrollToPosition(chatAdapter.getItemCount() - 1);
+    }
+
+    private void addNotice(String notice) {
+        Item_Chat item_chat = new Item_Chat(Item_Chat.TYPE_Notice, notice);
+        chatList.add(item_chat);
+        chatAdapter.notifyItemInserted(chatList.size() - 1);
+
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(item_chat);
+        socket.emit("chat", jsonStr);
     }
 }
 
