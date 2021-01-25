@@ -1,11 +1,11 @@
 package com.example.toker.recyclerview;
 
-public class Item_Chat_History {
+public class ItemHistory {
 
     String date;
     int time;
 
-    public Item_Chat_History(String date, int time) {
+    public ItemHistory(String date, int time) {
         this.date = date;
         this.time = time;
     }

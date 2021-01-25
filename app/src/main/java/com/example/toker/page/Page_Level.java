@@ -5,18 +5,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toker.R;
-import com.example.toker.http.HTTP;
 import com.example.toker.http.RetrofitAPI;
-import com.example.toker.recyclerview.Adapter_Chat;
-import com.example.toker.recyclerview.Adapter_Chat_History;
-import com.example.toker.recyclerview.Item_Chat_History;
+import com.example.toker.recyclerview.AdapterHistory;
+import com.example.toker.recyclerview.ItemHistory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -39,8 +36,8 @@ public class Page_Level extends AppCompatActivity {
     TextView page_level_textview_chatData;
 
     RecyclerView page_level_recyclerview;
-    Adapter_Chat_History historyAdapter;
-    List<Item_Chat_History> historyList = new ArrayList<>();
+    AdapterHistory historyAdapter;
+    List<ItemHistory> historyList = new ArrayList<>();
 
     private String id = Page_Login.myID;
     Gson gson = new GsonBuilder().setLenient().create();
@@ -55,11 +52,11 @@ public class Page_Level extends AppCompatActivity {
     private void initialize() {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(HTTP.url)
+                .baseUrl(RetrofitAPI.url)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-        retrofitAPI.postLevelOn(id).enqueue(new Callback<String>() {
+        retrofitAPI.PostLevel(id).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
 
@@ -86,18 +83,18 @@ public class Page_Level extends AppCompatActivity {
             }
        });
 
-        retrofitAPI.postChatHistory(id).enqueue(new Callback<List<Item_Chat_History>>() {
+        retrofitAPI.PostHistory(id).enqueue(new Callback<List<ItemHistory>>() {
             @Override
-            public void onResponse(Call<List<Item_Chat_History>> call, Response<List<Item_Chat_History>> response) {
+            public void onResponse(Call<List<ItemHistory>> call, Response<List<ItemHistory>> response) {
                 historyList = response.body();
 
                 page_level_recyclerview = findViewById(R.id.page_level_recyclerview);
                 page_level_recyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                historyAdapter = new Adapter_Chat_History(historyList);
+                historyAdapter = new AdapterHistory(historyList);
                 page_level_recyclerview.setAdapter(historyAdapter);
             }
             @Override
-            public void onFailure(Call<List<Item_Chat_History>> call, Throwable t) {
+            public void onFailure(Call<List<ItemHistory>> call, Throwable t) {
                 System.out.println(t.getMessage());
             }
         });

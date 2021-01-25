@@ -13,13 +13,13 @@ import com.example.toker.R;
 
 import java.util.List;
 
-public class Adapter_Chat_Title extends RecyclerView.Adapter<Adapter_Chat_Title.ViewHolder> implements OnItemClickListner_Chat_Title {
+public class AdapterRead extends RecyclerView.Adapter<AdapterRead.ViewHolder> implements OnItemClickListner_Chat_Title {
 
-    private List<Item_Chat_Title> chatTitleList;
+    private List<ItemChat> chatTitleList;
     OnItemClickListner_Chat_Title onItemClickListner_chat_title;
 
     // 어댑터 생성자
-    public Adapter_Chat_Title(List<Item_Chat_Title> chatTitleList) {
+    public AdapterRead(List<ItemChat> chatTitleList) {
         this.chatTitleList = chatTitleList;
     }
 
@@ -33,7 +33,7 @@ public class Adapter_Chat_Title extends RecyclerView.Adapter<Adapter_Chat_Title.
     // 아이템을 레이아웃으로 전환하기
     @NonNull
     @Override
-    public Adapter_Chat_Title.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AdapterRead.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         int layout = R.layout.item_chat_title;
 
         View view = LayoutInflater
@@ -89,13 +89,13 @@ public class Adapter_Chat_Title extends RecyclerView.Adapter<Adapter_Chat_Title.
 
     // 뷰와 기능 연결하기
     @Override
-    public void onBindViewHolder(@NonNull Adapter_Chat_Title.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AdapterRead.ViewHolder holder, int position) {
         String message = chatTitleList.get(position).getTitle();
 
         holder.item_chat_title_textview_title.setText(message);
     }
 
-    public Item_Chat_Title getItem(int position) {
+    public ItemChat getItem(int position) {
         return chatTitleList.get(position);
     }
 
@@ -104,7 +104,7 @@ public class Adapter_Chat_Title extends RecyclerView.Adapter<Adapter_Chat_Title.
     }
 
     @Override
-    public void onItemClick(Adapter_Chat_Title.ViewHolder holder, View view, int position, String button) {
+    public void onItemClick(AdapterRead.ViewHolder holder, View view, int position, String button) {
         if(onItemClickListner_chat_title != null) {
             onItemClickListner_chat_title.onItemClick(holder,view,position, button);
         }

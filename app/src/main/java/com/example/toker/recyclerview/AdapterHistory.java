@@ -3,9 +3,7 @@ package com.example.toker.recyclerview;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,11 +15,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class Adapter_Chat_History extends RecyclerView.Adapter<Adapter_Chat_History.ViewHolder> {
-    private List<Item_Chat_History> historyList;
+public class AdapterHistory extends RecyclerView.Adapter<AdapterHistory.ViewHolder> {
+    private List<ItemHistory> historyList;
 
     // 어댑터 생성자
-    public Adapter_Chat_History(List<Item_Chat_History> historyList) {
+    public AdapterHistory(List<ItemHistory> historyList) {
         this.historyList = historyList;
     }
 
@@ -35,7 +33,7 @@ public class Adapter_Chat_History extends RecyclerView.Adapter<Adapter_Chat_Hist
     // 아이템을 레이아웃으로 전환하기
     @NonNull
     @Override
-    public Adapter_Chat_History.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AdapterHistory.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         int layout = R.layout.item_history;
 
         View view = LayoutInflater
@@ -60,7 +58,7 @@ public class Adapter_Chat_History extends RecyclerView.Adapter<Adapter_Chat_Hist
 
     // 뷰와 기능 연결하기
     @Override
-    public void onBindViewHolder(@NonNull Adapter_Chat_History.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AdapterHistory.ViewHolder holder, int position) {
 
         String date = historyList.get(position).getDate();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분");

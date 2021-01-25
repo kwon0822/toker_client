@@ -24,10 +24,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toker.R;
-import com.example.toker.recyclerview.Adapter_Chat;
-import com.example.toker.recyclerview.Item_Chat;
+import com.example.toker.recyclerview.AdapterChat;
+import com.example.toker.recyclerview.ItemRead;
 import com.example.toker.recyclerview.OnItemClickListner_Chat;
-import com.example.toker.tcp.Application_Socket;
+import com.example.toker.tcp.SocketAPI;
 
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.Socket;
@@ -50,8 +50,8 @@ public class Page_Chat extends AppCompatActivity {
     Button page_chat_button_chat;
 
     RecyclerView page_chat_recyclerview_chat;
-    private Adapter_Chat chatAdapter;
-    private List<Item_Chat> chatList = new ArrayList<>();
+    private AdapterChat chatAdapter;
+    private List<ItemRead> chatList = new ArrayList<>();
 
     String id = Page_Login.myID;
     private Socket socket;
@@ -68,44 +68,41 @@ public class Page_Chat extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.page_chat);
-
         initialize();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
         socket.on("chat", Chat);
         socket.on("chatOff", ChatOff);
         socket.on("typeOn", TypeOn);
         socket.on("typeOff", TypeOff);
-        socket.on("msgOn", MsgOn);
-        socket.on("saveOn", SaveOn);
-        socket.on("accuseOn", AccuseOn);
-        socket.on("blockOn", BlockOn);
+        socket.on("msg", Msg);
+        socket.on("save", Save);
+        socket.on("accuse", Accuse);
+        socket.on("block", Block);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-
         socket.off("chat", Chat);
         socket.off("chatOff", ChatOff);
         socket.off("typeOn", TypeOn);
-        socket.off("typeOff", TypeOn);
-        socket.off("msgOn", MsgOn);
-        socket.off("saveOff", SaveOn);
-        socket.off("accuseOn", AccuseOn);
-        socket.off("blockOn", BlockOn);
+        socket.off("typeOff", TypeOff);
+        socket.off("msg", Msg);
+        socket.off("save", Save);
+        socket.off("accuse", Accuse);
+        socket.off("block", Block);
 
     }
 
     private void initialize() {
 
         // 소켓
-        Application_Socket application_socket = (Application_Socket) getApplication();
-        socket = application_socket.getSocket();
+        SocketAPI socketAPI = (SocketAPI) getApplication();
+        socket = socketAPI.getSocket();
         socket.emit("chatOn", Page_Login.yourID);
         isChat = true;
         new Thread(new Runnable() {
@@ -193,12 +190,12 @@ public class Page_Chat extends AppCompatActivity {
                             socket.emit("typeOff");
                         }
 
-                        Item_Chat item_chat = new Item_Chat(Item_Chat.TYPE_MY_MSG, message);
-                        chatList.add(item_chat);
+                        ItemRead itemRead = new ItemRead(ItemRead.TYPE_MY_MSG, message);
+                        chatList.add(itemRead);
                         chatAdapter.notifyItemInserted(chatList.size() - 1);
 
                         Gson gson = new Gson();
-                        String jsonStr = gson.toJson(item_chat);
+                        String jsonStr = gson.toJson(itemRead);
                         socket.emit("chat", jsonStr);
 
                         scrollToBottom();
@@ -214,13 +211,13 @@ public class Page_Chat extends AppCompatActivity {
         // 채팅창
         page_chat_recyclerview_chat = findViewById(R.id.page_chat_recyclerview_chat);
         page_chat_recyclerview_chat.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        chatAdapter = new Adapter_Chat(chatList);
+        chatAdapter = new AdapterChat(chatList);
         page_chat_recyclerview_chat.setAdapter(chatAdapter);
         chatAdapter.setOnItemClicklistener(new OnItemClickListner_Chat() {
             @Override
-            public void onItemClick(Adapter_Chat.ViewHolder holder, View view, int position) {
-                Item_Chat item_chat = chatAdapter.getItem(position);
-                if (item_chat.getType() == Item_Chat.TYPE_SEND_MSG) {
+            public void onItemClick(AdapterChat.ViewHolder holder, View view, int position) {
+                ItemRead itemRead = chatAdapter.getItem(position);
+                if (itemRead.getType() == ItemRead.TYPE_SEND_MSG) {
 
                     if (!isMsg) {
                         showDialogMessage();
@@ -242,13 +239,13 @@ public class Page_Chat extends AppCompatActivity {
                 public void run() {
                     String message = args[0].toString();
 
-                    Item_Chat item_chat = new Item_Chat(Item_Chat.TYPE_YOUR_MSG, message);
-                    chatList.add(item_chat);
+                    ItemRead itemRead = new ItemRead(ItemRead.TYPE_YOUR_MSG, message);
+                    chatList.add(itemRead);
                     chatAdapter.notifyItemInserted(chatList.size() - 1);
                     scrollToBottom();
 
                     Gson gson = new Gson();
-                    String jsonStr = gson.toJson(item_chat);
+                    String jsonStr = gson.toJson(itemRead);
                     socket.emit("chat", jsonStr);
                 }
             });
@@ -268,11 +265,11 @@ public class Page_Chat extends AppCompatActivity {
                     socket.emit("chatOff");
                     
                     // 채팅종료 문구 띄어주기
-                    chatList.add(new Item_Chat(Item_Chat.TYPE_Notice, "채팅이 종료되었습니다."));
+                    chatList.add(new ItemRead(ItemRead.TYPE_Notice, "채팅이 종료되었습니다."));
                     chatAdapter.notifyItemInserted(chatList.size() - 1);
                     
                     // 쪽지버튼 문구 띄어주기
-                    chatList.add(new Item_Chat(Item_Chat.TYPE_SEND_MSG, "쪽지전송하기"));
+                    chatList.add(new ItemRead(ItemRead.TYPE_SEND_MSG, "쪽지전송하기"));
                     chatAdapter.notifyItemInserted(chatList.size() - 1);
                 }
             });
@@ -285,7 +282,7 @@ public class Page_Chat extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    chatList.add(new Item_Chat(Item_Chat.TYPE_TYPING, "입력 중"));
+                    chatList.add(new ItemRead(ItemRead.TYPE_TYPING, "입력 중"));
                     typePosition = chatList.size() - 1;
                     chatAdapter.notifyItemInserted(typePosition);
                     scrollToBottom();
@@ -307,7 +304,7 @@ public class Page_Chat extends AppCompatActivity {
         }
     };
 
-    private Emitter.Listener MsgOn = new Emitter.Listener() {
+    private Emitter.Listener Msg = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
             runOnUiThread(new Runnable() {
@@ -320,7 +317,7 @@ public class Page_Chat extends AppCompatActivity {
         }
     };
 
-    private Emitter.Listener SaveOn = new Emitter.Listener() {
+    private Emitter.Listener Save = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
             runOnUiThread(new Runnable() {
@@ -341,7 +338,7 @@ public class Page_Chat extends AppCompatActivity {
         }
     };
 
-    private Emitter.Listener AccuseOn = new Emitter.Listener() {
+    private Emitter.Listener Accuse = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
             runOnUiThread(new Runnable() {
@@ -355,7 +352,7 @@ public class Page_Chat extends AppCompatActivity {
         }
     };
 
-    private Emitter.Listener BlockOn = new Emitter.Listener() {
+    private Emitter.Listener Block = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
             runOnUiThread(new Runnable() {
@@ -366,18 +363,6 @@ public class Page_Chat extends AppCompatActivity {
                     finish();
                 }
             });
-        }
-    };
-
-    private Runnable TypeOffTimer = new Runnable() {
-        @Override
-        public void run() {
-            if (!isType) {
-                return;
-            }
-
-            isType = false;
-            socket.emit("typeOff");
         }
     };
 
@@ -395,7 +380,7 @@ public class Page_Chat extends AppCompatActivity {
         popup_alert_button_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                socket.emit("saveOn");
+                socket.emit("save");
             }
         });
 
@@ -467,7 +452,7 @@ public class Page_Chat extends AppCompatActivity {
                 popup_alert_button_yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        socket.emit("accuseOn", msg);
+                        socket.emit("accuse", msg);
                         popup_alert.dismiss();
                         popup_input.dismiss();
                     }
@@ -497,7 +482,7 @@ public class Page_Chat extends AppCompatActivity {
         popup_alert_button_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                socket.emit("blockOn");
+                socket.emit("block");
                 popup_alert.dismiss();
             }
         });
@@ -543,7 +528,7 @@ public class Page_Chat extends AppCompatActivity {
                 popup_alert_button_yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        socket.emit("msgOn", msg);
+                        socket.emit("msg", msg);
                         popup_alert.dismiss();
                         popup_input.dismiss();
                     }
@@ -594,14 +579,26 @@ public class Page_Chat extends AppCompatActivity {
         page_chat_recyclerview_chat.scrollToPosition(chatAdapter.getItemCount() - 1);
     }
 
+    private Runnable TypeOffTimer = new Runnable() {
+        @Override
+        public void run() {
+            if (!isType) {
+                return;
+            }
+
+            isType = false;
+            socket.emit("typeOff");
+        }
+    };
+
     // 공지추가
     private void addNotice(String notice) {
-        Item_Chat item_chat = new Item_Chat(Item_Chat.TYPE_Notice, notice);
-        chatList.add(item_chat);
+        ItemRead itemRead = new ItemRead(ItemRead.TYPE_Notice, notice);
+        chatList.add(itemRead);
         chatAdapter.notifyItemInserted(chatList.size() - 1);
 
         Gson gson = new Gson();
-        String jsonStr = gson.toJson(item_chat);
+        String jsonStr = gson.toJson(itemRead);
         socket.emit("chat", jsonStr);
     }
 }

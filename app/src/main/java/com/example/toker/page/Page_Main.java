@@ -21,17 +21,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toker.R;
-import com.example.toker.http.HTTP;
 import com.example.toker.http.RetrofitAPI;
-import com.example.toker.recyclerview.Adapter_Chat;
-import com.example.toker.recyclerview.Adapter_Chat_Title;
-import com.example.toker.recyclerview.Adapter_Msg;
-import com.example.toker.recyclerview.Item_Chat;
-import com.example.toker.recyclerview.Item_Chat_Title;
-import com.example.toker.recyclerview.Item_Msg;
+import com.example.toker.recyclerview.AdapterChat;
+import com.example.toker.recyclerview.AdapterRead;
+import com.example.toker.recyclerview.AdapterMsg;
+import com.example.toker.recyclerview.ItemRead;
+import com.example.toker.recyclerview.ItemChat;
+import com.example.toker.recyclerview.ItemMsg;
 import com.example.toker.recyclerview.OnItemClickListner_Chat_Title;
 import com.example.toker.recyclerview.OnItemClickListner_Msg;
-import com.example.toker.tcp.Application_Socket;
+import com.example.toker.tcp.SocketAPI;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.Socket;
 import com.google.gson.Gson;
@@ -71,12 +70,12 @@ public class Page_Main extends AppCompatActivity {
 
     String id = Page_Login.myID;
 
-    Adapter_Msg msgAdapter;
-    Adapter_Chat chatAdapter;
-    Adapter_Chat_Title chatTitleAdapter;
-    List<Item_Msg> msgList = new ArrayList<>();
-    List<Item_Chat_Title> chatTitleList = new ArrayList<>();
-    List<Item_Chat> chatList = new ArrayList<>();
+    AdapterMsg msgAdapter;
+    AdapterChat chatAdapter;
+    AdapterRead chatTitleAdapter;
+    List<ItemMsg> msgList = new ArrayList<>();
+    List<ItemChat> chatTitleList = new ArrayList<>();
+    List<ItemRead> chatList = new ArrayList<>();
 
     boolean isLevel1 = false;
     boolean isLevel2 = false;
@@ -128,8 +127,8 @@ public class Page_Main extends AppCompatActivity {
 
     private void initialize() {
 
-        Application_Socket application_socket = (Application_Socket) getApplication();
-        socket = application_socket.getSocket();
+        SocketAPI socketAPI = (SocketAPI) getApplication();
+        socket = socketAPI.getSocket();
 
         page_main_toolbar = findViewById(R.id.page_main_toolbar);
         setSupportActionBar(page_main_toolbar);
@@ -206,7 +205,6 @@ public class Page_Main extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-
                     Toast.makeText(getApplicationContext(), "matchOff", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -289,11 +287,11 @@ public class Page_Main extends AppCompatActivity {
 
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(HTTP.url)
+                .baseUrl(RetrofitAPI.url)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-        retrofitAPI.postLevelOn(id).enqueue(new Callback<String>() {
+        retrofitAPI.PostLevel(id).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
 
@@ -439,13 +437,13 @@ public class Page_Main extends AppCompatActivity {
     public void showDialogMessage() {
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(HTTP.url)
+                .baseUrl(RetrofitAPI.url)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-        retrofitAPI.postMsgOn(id).enqueue(new Callback<List<Item_Msg>>() {
+        retrofitAPI.PostMsgOn(id).enqueue(new Callback<List<ItemMsg>>() {
             @Override
-            public void onResponse(Call<List<Item_Msg>> call, Response<List<Item_Msg>> response) {
+            public void onResponse(Call<List<ItemMsg>> call, Response<List<ItemMsg>> response) {
                 msgList = response.body();
 
                 Dialog popup_repository_msg = new Dialog(Page_Main.this);
@@ -462,12 +460,12 @@ public class Page_Main extends AppCompatActivity {
 
                 RecyclerView popup_repository_msg_recyclerview_contents = popup_repository_msg.findViewById(R.id.popup_repository_msg_recyclerview_contents);
                 popup_repository_msg_recyclerview_contents.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                msgAdapter = new Adapter_Msg(msgList);
+                msgAdapter = new AdapterMsg(msgList);
                 popup_repository_msg_recyclerview_contents.setAdapter(msgAdapter);
                 msgAdapter.setOnItemClicklistener(new OnItemClickListner_Msg() {
                     @Override
-                    public void onItemClick(Adapter_Msg.ViewHolder holder, View view, int position) {
-                        Item_Msg item_msg = msgAdapter.getItem(position);
+                    public void onItemClick(AdapterMsg.ViewHolder holder, View view, int position) {
+                        ItemMsg item_msg = msgAdapter.getItem(position);
                         popup_alert = new Dialog(Page_Main.this);
                         popup_alert.requestWindowFeature(Window.FEATURE_NO_TITLE);
                         popup_alert.setContentView(R.layout.popup_alert);
@@ -482,11 +480,11 @@ public class Page_Main extends AppCompatActivity {
                             public void onClick(View v) {
                                 Gson gson = new GsonBuilder().setLenient().create();
                                 Retrofit retrofit = new Retrofit.Builder()
-                                        .baseUrl(HTTP.url)
+                                        .baseUrl(RetrofitAPI.url)
                                         .addConverterFactory(GsonConverterFactory.create(gson))
                                         .build();
                                 RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-                                retrofitAPI.postMsgOff(id, item_msg.getNo()).enqueue(new Callback<String>() {
+                                retrofitAPI.PostMsgOff(id, item_msg.getNo()).enqueue(new Callback<String>() {
                                     @Override
                                     public void onResponse(Call<String> call, Response<String> response) {
                                         if (response.body().equals("msgOff")) {
@@ -515,7 +513,7 @@ public class Page_Main extends AppCompatActivity {
                 popup_repository_msg.show();
             }
             @Override
-            public void onFailure(Call<List<Item_Msg>> call, Throwable t) {
+            public void onFailure(Call<List<ItemMsg>> call, Throwable t) {
             }
         });
     }
@@ -524,13 +522,13 @@ public class Page_Main extends AppCompatActivity {
 
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(HTTP.url)
+                .baseUrl(RetrofitAPI.url)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-        retrofitAPI.postChatOnTitle(id).enqueue(new Callback<List<Item_Chat_Title>>() {
+        retrofitAPI.PostChatOn(id).enqueue(new Callback<List<ItemChat>>() {
             @Override
-            public void onResponse(Call<List<Item_Chat_Title>> call, Response<List<Item_Chat_Title>> response) {
+            public void onResponse(Call<List<ItemChat>> call, Response<List<ItemChat>> response) {
                 chatTitleList = response.body();
 
                 Dialog popup_repository_chat = new Dialog(Page_Main.this);
@@ -547,23 +545,23 @@ public class Page_Main extends AppCompatActivity {
 
                 RecyclerView popup_repository_chat_recyclerview_title = popup_repository_chat.findViewById(R.id.popup_repository_chat_recyclerview_title);
                 popup_repository_chat_recyclerview_title.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                chatTitleAdapter = new Adapter_Chat_Title(chatTitleList);
+                chatTitleAdapter = new AdapterRead(chatTitleList);
                 popup_repository_chat_recyclerview_title.setAdapter(chatTitleAdapter);
                 chatTitleAdapter.setOnItemClicklistener(new OnItemClickListner_Chat_Title() {
                     @Override
-                    public void onItemClick(Adapter_Chat_Title.ViewHolder holder, View view, int position, String button) {
-                        Item_Chat_Title item_chat_title = chatTitleAdapter.getItem(position);
+                    public void onItemClick(AdapterRead.ViewHolder holder, View view, int position, String button) {
+                        ItemChat itemChat = chatTitleAdapter.getItem(position);
                         switch(button) {
                             case "item" :
                                 Gson gson = new GsonBuilder().setLenient().create();
                                 Retrofit retrofit = new Retrofit.Builder()
-                                        .baseUrl(HTTP.url)
+                                        .baseUrl(RetrofitAPI.url)
                                         .addConverterFactory(GsonConverterFactory.create(gson))
                                         .build();
                                 RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-                                retrofitAPI.postChatOnContents(item_chat_title.getNo()).enqueue(new Callback<List<Item_Chat>>() {
+                                retrofitAPI.PostRead(itemChat.getNo()).enqueue(new Callback<List<ItemRead>>() {
                                     @Override
-                                    public void onResponse(Call<List<Item_Chat>> call, Response<List<Item_Chat>> response) {
+                                    public void onResponse(Call<List<ItemRead>> call, Response<List<ItemRead>> response) {
 
                                         chatList = response.body();
                                         Dialog page_chat = new Dialog(Page_Main.this, android.R.style.Theme_Light_NoTitleBar_Fullscreen);
@@ -581,13 +579,13 @@ public class Page_Main extends AppCompatActivity {
 
                                         RecyclerView page_chat_recyclerview_chat = page_chat.findViewById(R.id.page_chat_recyclerview_chat);
                                         page_chat_recyclerview_chat.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                                        chatAdapter = new Adapter_Chat(chatList);
+                                        chatAdapter = new AdapterChat(chatList);
                                         page_chat_recyclerview_chat.setAdapter(chatAdapter);
 
                                         page_chat.show();
                                     }
                                     @Override
-                                    public void onFailure(Call<List<Item_Chat>> call, Throwable t) {
+                                    public void onFailure(Call<List<ItemRead>> call, Throwable t) {
                                         System.out.println(t.getMessage());
                                     }
                                 });
@@ -609,11 +607,11 @@ public class Page_Main extends AppCompatActivity {
                                     public void onClick(View v) {
                                         Gson gson = new GsonBuilder().setLenient().create();
                                         Retrofit retrofit = new Retrofit.Builder()
-                                                .baseUrl(HTTP.url)
+                                                .baseUrl(RetrofitAPI.url)
                                                 .addConverterFactory(GsonConverterFactory.create(gson))
                                                 .build();
                                         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-                                        retrofitAPI.postChatOffTitle(id, item_chat_title.getNo()).enqueue(new Callback<String>() {
+                                        retrofitAPI.PostChatOff(id, itemChat.getNo()).enqueue(new Callback<String>() {
                                             @Override
                                             public void onResponse(Call<String> call, Response<String> response) {
                                                 if (response.body().equals("chatOffTitle")) {
@@ -647,7 +645,7 @@ public class Page_Main extends AppCompatActivity {
                 popup_repository_chat.show();
             }
             @Override
-            public void onFailure(Call<List<Item_Chat_Title>> call, Throwable t) {
+            public void onFailure(Call<List<ItemChat>> call, Throwable t) {
             }
         });
     }

@@ -1,6 +1,6 @@
 package com.example.toker.recyclerview;
 
-public class Item_Chat {
+public class ItemRead {
 
     public static final int TYPE_Notice = 0;
     public static final int TYPE_MY_MSG = 1;
@@ -28,7 +28,7 @@ public class Item_Chat {
         this.message = message;
     }
 
-    public Item_Chat(int type, String message) {
+    public ItemRead(int type, String message) {
         this.type = type;
         this.message = message;
     }

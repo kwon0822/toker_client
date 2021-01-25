@@ -12,13 +12,13 @@ import com.example.toker.R;
 
 import java.util.List;
 
-public class Adapter_Chat extends RecyclerView.Adapter<Adapter_Chat.ViewHolder> implements OnItemClickListner_Chat {
+public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ViewHolder> implements OnItemClickListner_Chat {
 
-    private List<Item_Chat> chatList;
+    private List<ItemRead> chatList;
     OnItemClickListner_Chat onItemClickListner_Chat;
 
     // 어댑터 생성자
-    public Adapter_Chat(List<Item_Chat> chatList) {
+    public AdapterChat(List<ItemRead> chatList) {
         this.chatList = chatList;
     }
 
@@ -37,24 +37,24 @@ public class Adapter_Chat extends RecyclerView.Adapter<Adapter_Chat.ViewHolder> 
     // 아이템을 레이아웃으로 전환하기
     @NonNull
     @Override
-    public Adapter_Chat.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AdapterChat.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         int layout = -1;
         
         // 유형에 따라 다른 아이템으로
         switch (viewType) {
-            case Item_Chat.TYPE_Notice:
+            case ItemRead.TYPE_Notice:
                 layout = R.layout.item_chat_notice;
                 break;
-            case Item_Chat.TYPE_MY_MSG:
+            case ItemRead.TYPE_MY_MSG:
                 layout = R.layout.item_chat_my_msg;
                 break;
-            case Item_Chat.TYPE_YOUR_MSG:
+            case ItemRead.TYPE_YOUR_MSG:
                 layout = R.layout.item_chat_your_msg;
                 break;
-            case Item_Chat.TYPE_TYPING:
+            case ItemRead.TYPE_TYPING:
                 layout = R.layout.item_chat_type;
                 break;
-            case Item_Chat.TYPE_SEND_MSG:
+            case ItemRead.TYPE_SEND_MSG:
                 layout = R.layout.item_chat_send_msg;
                 break;
         }
@@ -87,13 +87,13 @@ public class Adapter_Chat extends RecyclerView.Adapter<Adapter_Chat.ViewHolder> 
 
     // 뷰와 기능 연결하기
     @Override
-    public void onBindViewHolder(@NonNull Adapter_Chat.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AdapterChat.ViewHolder holder, int position) {
         String message = chatList.get(position).getMessage();
 
         holder.item_chat_textview_msg.setText(message);
     }
 
-    public Item_Chat getItem(int position) {
+    public ItemRead getItem(int position) {
         return chatList.get(position);
     }
 
