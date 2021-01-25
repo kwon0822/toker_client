@@ -50,10 +50,11 @@ public class Page_Main extends AppCompatActivity {
 
     Toolbar page_main_toolbar;
     ActionBar page_main_actionbar;
-    Button page_chat_button_communication;
-    Button page_main_button_randomMatching;
-    Button page_main_button_readMSG;
-    Button page_main_button_readChat;
+
+    Button page_chat_button_notice;
+    Button page_main_button_filter;
+    Button page_main_button_message;
+    Button page_main_button_memory;
 
     TextView page_main_textview_connectingNum;
     TextView page_main_textview_waitingNum;
@@ -61,19 +62,20 @@ public class Page_Main extends AppCompatActivity {
 
     Dialog popup_alert;
     Dialog popup_input;
-    Dialog popup_matching_filter;
+    Dialog popup_filter;
 
     private Socket socket;
 
     private boolean isLogin = false;
     private boolean isMatch = false; // 매칭성사, 매칭취소, 매칭중앱강제종료
+
     String id = Page_Login.myID;
 
     Adapter_Msg msgAdapter;
-    List<Item_Msg> msgList = new ArrayList<>();
-    Adapter_Chat_Title chatTitleAdapter;
-    List<Item_Chat_Title> chatTitleList = new ArrayList<>();
     Adapter_Chat chatAdapter;
+    Adapter_Chat_Title chatTitleAdapter;
+    List<Item_Msg> msgList = new ArrayList<>();
+    List<Item_Chat_Title> chatTitleList = new ArrayList<>();
     List<Item_Chat> chatList = new ArrayList<>();
 
     boolean isLevel1 = false;
@@ -87,14 +89,12 @@ public class Page_Main extends AppCompatActivity {
         setContentView(R.layout.page_main);
 
         initialize();
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        // 소켓 연결하기
         socket.on("matchOn", matchOn);
         socket.on("matchOff", matchOff);
         socket.connect();
@@ -109,10 +109,8 @@ public class Page_Main extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-
         socket.off("matchOn", matchOn);
         socket.off("matchOff", matchOff);
-
     }
 
     @Override
@@ -130,11 +128,9 @@ public class Page_Main extends AppCompatActivity {
 
     private void initialize() {
 
-        // 소켓
         Application_Socket application_socket = (Application_Socket) getApplication();
         socket = application_socket.getSocket();
 
-        // 툴바
         page_main_toolbar = findViewById(R.id.page_main_toolbar);
         setSupportActionBar(page_main_toolbar);
         page_main_actionbar = getSupportActionBar();
@@ -142,47 +138,41 @@ public class Page_Main extends AppCompatActivity {
         page_main_actionbar.setDisplayShowTitleEnabled(false);
         page_main_actionbar.setDisplayHomeAsUpEnabled(false);
 
-        // 팝업 : 개발자의 말
-        page_chat_button_communication = findViewById(R.id.page_main_button_communication);
-        page_chat_button_communication.setOnClickListener(new View.OnClickListener() {
+        page_chat_button_notice = findViewById(R.id.page_main_button_notice);
+        page_chat_button_notice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopupPostingList();
+                showDialogNotice();
             }
         });
 
-
-        // 버튼 : 랜덤매칭
-        page_main_button_randomMatching = findViewById(R.id.page_main_button_randomMatching);
-        page_main_button_randomMatching.setOnClickListener(new View.OnClickListener() {
+        page_main_button_filter = findViewById(R.id.page_main_button_filter);
+        page_main_button_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopupMatchingFilter();
+                showDialogFilter();
             }
         });
 
-        // 팝업 : 쪽지읽기
-        page_main_button_readMSG = findViewById(R.id.page_main_button_readMSG);
-        page_main_button_readMSG.setOnClickListener(new View.OnClickListener() {
+        page_main_button_message = findViewById(R.id.page_main_button_message);
+        page_main_button_message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopupRepositoryMSG();
+                showDialogMessage();
             }
         });
 
-        // 팝업 : 채팅보관
-        page_main_button_readChat = findViewById(R.id.page_main_button_readChat);
-        page_main_button_readChat.setOnClickListener(new View.OnClickListener() {
+        page_main_button_memory = findViewById(R.id.page_main_button_memory);
+        page_main_button_memory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopupRepositoryChat();
+                showDialogMemory();
             }
         });
     }
 
-    // region listner ==============================================================================
+    // region Listner ==============================================================================
 
-    // socket listner : 'onMatchOn'
     private Emitter.Listener matchOn = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
@@ -192,17 +182,15 @@ public class Page_Main extends AppCompatActivity {
 
                     String message = args[0].toString();
 
-                    // 메세지 내용이 wait이면 토스트 띄우기
                     if (message.equals("wait")) {
                         Toast.makeText(getApplicationContext(), "matchOn : wait", Toast.LENGTH_SHORT).show();
 
-                    // 메세지 내용이 wait이 아니면 상대 아이디 받고 채팅창으로 이동하기
                     } else {
 
                         Page_Login.yourID = message;
 
                         isMatch = false;
-                        popup_matching_filter.dismiss();
+                        popup_filter.dismiss();
 
                         Intent intent = new Intent(getApplicationContext(), Page_Chat.class);
                         startActivity(intent);
@@ -212,7 +200,6 @@ public class Page_Main extends AppCompatActivity {
         }
     };
 
-    // socket listner : 'onMatchOff'
     private Emitter.Listener matchOff = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
@@ -228,13 +215,12 @@ public class Page_Main extends AppCompatActivity {
 
     // endregion listner  ==========================================================================
 
-    // region popup ================================================================================
+    // region Dialog ================================================================================
 
-    // 팝업 : '개발자의 말'
-    public void showPopupPostingList() {
+    public void showDialogNotice() {
         Dialog popup_posting_list = new Dialog(Page_Main.this);
         popup_posting_list.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        popup_posting_list.setContentView(R.layout.popup_posting_list);
+        popup_posting_list.setContentView(R.layout.page_posting);
         popup_posting_list.show();
 
         Button popup_posting_list_button_back = popup_posting_list.findViewById(R.id.popup_posting_list_button_back);
@@ -249,13 +235,12 @@ public class Page_Main extends AppCompatActivity {
         popup_posting_list_button_request.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopupFeedbackRequest();
+                showDialogRequest();
             }
         });
     }
 
-    // 팝업 : 의견보내기 contents
-    public void showPopupFeedbackRequest() {
+    public void showDialogRequest() {
         popup_input = new Dialog(Page_Main.this);
         popup_input.requestWindowFeature(Window.FEATURE_NO_TITLE);
         popup_input.setContentView(R.layout.popup_input);
@@ -300,9 +285,7 @@ public class Page_Main extends AppCompatActivity {
         popup_input.show();
     }
 
-
-    // 팝업 : 랜덤매칭
-    public void showPopupMatchingFilter() {
+    public void showDialogFilter() {
 
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit retrofit = new Retrofit.Builder()
@@ -319,13 +302,13 @@ public class Page_Main extends AppCompatActivity {
                 int chatTime = Integer.parseInt(response.body().split("@")[0]);
                 String chatLevel = response.body().split("@")[1];
 
-                popup_matching_filter = new Dialog(Page_Main.this);
-                popup_matching_filter.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                popup_matching_filter.setContentView(R.layout.popup_matching);
-                popup_matching_filter.show();
+                popup_filter = new Dialog(Page_Main.this);
+                popup_filter.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                popup_filter.setContentView(R.layout.popup_filter);
+                popup_filter.show();
 
-                Button popup_matching_filter_button_level1 = popup_matching_filter.findViewById(R.id.popup_matching_button_level1);
-                TextView popup_matching_filter_textview_level1 = popup_matching_filter.findViewById(R.id.popup_matching_textview_level1);
+                Button popup_matching_filter_button_level1 = popup_filter.findViewById(R.id.popup_matching_button_level1);
+                TextView popup_matching_filter_textview_level1 = popup_filter.findViewById(R.id.popup_matching_textview_level1);
                 popup_matching_filter_button_level1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -340,8 +323,8 @@ public class Page_Main extends AppCompatActivity {
                     }
                 });
 
-                Button popup_matching_filter_button_level2 = popup_matching_filter.findViewById(R.id.popup_matching_button_level2);
-                TextView popup_matching_filter_textview_level2 = popup_matching_filter.findViewById(R.id.popup_matching_textview_level2);
+                Button popup_matching_filter_button_level2 = popup_filter.findViewById(R.id.popup_matching_button_level2);
+                TextView popup_matching_filter_textview_level2 = popup_filter.findViewById(R.id.popup_matching_textview_level2);
                 popup_matching_filter_button_level2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -356,8 +339,8 @@ public class Page_Main extends AppCompatActivity {
                     }
                 });
 
-                Button popup_matching_filter_button_level3 = popup_matching_filter.findViewById(R.id.popup_matching_button_level3);
-                TextView popup_matching_filter_textview_level3 = popup_matching_filter.findViewById(R.id.popup_matching_textview_level3);
+                Button popup_matching_filter_button_level3 = popup_filter.findViewById(R.id.popup_matching_button_level3);
+                TextView popup_matching_filter_textview_level3 = popup_filter.findViewById(R.id.popup_matching_textview_level3);
                 popup_matching_filter_button_level3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -372,8 +355,8 @@ public class Page_Main extends AppCompatActivity {
                     }
                 });
 
-                Button popup_matching_filter_button_level4 = popup_matching_filter.findViewById(R.id.popup_matching_button_level4);
-                TextView popup_matching_filter_textview_level4 = popup_matching_filter.findViewById(R.id.popup_matching_textview_level4);
+                Button popup_matching_filter_button_level4 = popup_filter.findViewById(R.id.popup_matching_button_level4);
+                TextView popup_matching_filter_textview_level4 = popup_filter.findViewById(R.id.popup_matching_textview_level4);
                 popup_matching_filter_button_level4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -412,7 +395,7 @@ public class Page_Main extends AppCompatActivity {
                 }
 
                 // button : 뒤로가기
-                Button popup_matching_filter_button_back = popup_matching_filter.findViewById(R.id.popup_matching_button_back);
+                Button popup_matching_filter_button_back = popup_filter.findViewById(R.id.popup_matching_button_back);
                 popup_matching_filter_button_back.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -423,12 +406,12 @@ public class Page_Main extends AppCompatActivity {
                             isMatch = false;
                         }
 
-                        popup_matching_filter.dismiss();
+                        popup_filter.dismiss();
                     }
                 });
 
                 // button : 매칭시작
-                Button popup_matching_filter_button_matchingStart = popup_matching_filter.findViewById(R.id.popup_matching_button_matchingStart);
+                Button popup_matching_filter_button_matchingStart = popup_filter.findViewById(R.id.popup_matching_button_matchingStart);
                 popup_matching_filter_button_matchingStart.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -453,8 +436,7 @@ public class Page_Main extends AppCompatActivity {
         });
     }
 
-    // 팝업 : 쪽지읽기
-    public void showPopupRepositoryMSG() {
+    public void showDialogMessage() {
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(HTTP.url)
@@ -468,7 +450,7 @@ public class Page_Main extends AppCompatActivity {
 
                 Dialog popup_repository_msg = new Dialog(Page_Main.this);
                 popup_repository_msg.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                popup_repository_msg.setContentView(R.layout.popup_repository_msg);
+                popup_repository_msg.setContentView(R.layout.page_message);
 
                 Button popup_repository_msg_button_back = popup_repository_msg.findViewById(R.id.popup_repository_msg_button_back);
                 popup_repository_msg_button_back.setOnClickListener(new View.OnClickListener() {
@@ -538,8 +520,7 @@ public class Page_Main extends AppCompatActivity {
         });
     }
 
-    // 팝업 : 채팅보관
-    public void showPopupRepositoryChat() {
+    public void showDialogMemory() {
 
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit retrofit = new Retrofit.Builder()
@@ -554,7 +535,7 @@ public class Page_Main extends AppCompatActivity {
 
                 Dialog popup_repository_chat = new Dialog(Page_Main.this);
                 popup_repository_chat.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                popup_repository_chat.setContentView(R.layout.popup_repository_chat);
+                popup_repository_chat.setContentView(R.layout.page_memory);
 
                 Button popup_repository_chat_button_back = popup_repository_chat.findViewById(R.id.popup_repository_chat_button_back);
                 popup_repository_chat_button_back.setOnClickListener(new View.OnClickListener() {
@@ -673,7 +654,7 @@ public class Page_Main extends AppCompatActivity {
 
     // endregion ===================================================================================
 
-    // 툴바
+    // region ToolBar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -693,4 +674,6 @@ public class Page_Main extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    // endregion =================================================================================
 }

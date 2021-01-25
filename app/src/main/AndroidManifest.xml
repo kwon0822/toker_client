@@ -20,7 +20,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".page.Page_Login" />
-        <activity android:name=".page.Page_Signup" />
         <activity android:name=".page.Page_Main" />
         <activity android:name=".page.Page_Level" />
         <activity android:name=".page.Page_Chat" />

@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/page_main_button_communication"
+            android:id="@+id/page_main_button_notice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -97,7 +97,7 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout1" />
 
     <Button
-        android:id="@+id/page_main_button_randomMatching"
+        android:id="@+id/page_main_button_filter"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -114,7 +114,7 @@
         app:layout_constraintVertical_bias="0.265" />
 
     <Button
-        android:id="@+id/page_main_button_readMSG"
+        android:id="@+id/page_main_button_message"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -124,12 +124,12 @@
         android:text="쪽지읽기"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/page_main_button_readChat"
+        app:layout_constraintEnd_toStartOf="@+id/page_main_button_memory"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/page_main_button_randomMatching" />
+        app:layout_constraintTop_toBottomOf="@+id/page_main_button_filter" />
 
     <Button
-        android:id="@+id/page_main_button_readChat"
+        android:id="@+id/page_main_button_memory"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -140,7 +140,7 @@
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/page_main_button_readMSG"
-        app:layout_constraintTop_toBottomOf="@+id/page_main_button_randomMatching" />
+        app:layout_constraintStart_toEndOf="@+id/page_main_button_message"
+        app:layout_constraintTop_toBottomOf="@+id/page_main_button_filter" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

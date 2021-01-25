@@ -37,19 +37,18 @@ public class Page_Level extends AppCompatActivity {
     TextView page_level_textview_level;
     TextView page_level_textview_time;
     TextView page_level_textview_chatData;
+
     RecyclerView page_level_recyclerview;
+    Adapter_Chat_History historyAdapter;
+    List<Item_Chat_History> historyList = new ArrayList<>();
 
     private String id = Page_Login.myID;
     Gson gson = new GsonBuilder().setLenient().create();
-
-    List<Item_Chat_History> historyList = new ArrayList<>();
-    Adapter_Chat_History historyAdapter;
 
    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.page_level);
-
         initialize();
     }
 
@@ -64,11 +63,7 @@ public class Page_Level extends AppCompatActivity {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
 
-                System.out.println(response.body());
-
                 int chatTime = Integer.parseInt(response.body().split("@")[0]);
-                String chatLevel = response.body().split("@")[1];
-
                 String chatTimeSTR = String.format("%01d시간 %02d분 %02d초",
                         TimeUnit.MILLISECONDS.toHours(chatTime),
                         TimeUnit.MILLISECONDS.toMinutes(chatTime)
@@ -77,13 +72,13 @@ public class Page_Level extends AppCompatActivity {
                                 - TimeUnit.HOURS.toSeconds(TimeUnit.MILLISECONDS.toHours(chatTime))
                                 - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(chatTime))
                 );
+                String chatLevel = response.body().split("@")[1];
 
                 page_level_textview_level = findViewById(R.id.page_level_textview_level);
                 page_level_textview_level.setText(chatLevel);
 
                 page_level_textview_time = findViewById(R.id.page_level_textview_time);
                 page_level_textview_time.setText("( 평균 대화시간 : " + chatTimeSTR + " )");
-
             }
             @Override
             public void onFailure(Call<String> call, Throwable t) {
@@ -100,12 +95,10 @@ public class Page_Level extends AppCompatActivity {
                 page_level_recyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 historyAdapter = new Adapter_Chat_History(historyList);
                 page_level_recyclerview.setAdapter(historyAdapter);
-
             }
-
             @Override
             public void onFailure(Call<List<Item_Chat_History>> call, Throwable t) {
-
+                System.out.println(t.getMessage());
             }
         });
 
