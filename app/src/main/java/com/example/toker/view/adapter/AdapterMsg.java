@@ -1,4 +1,4 @@
-package com.example.toker.recyclerview;
+package com.example.toker.view.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toker.R;
+import com.example.toker.view.Item.ItemMsg;
 
 import java.util.List;
 

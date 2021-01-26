@@ -1,4 +1,4 @@
-package com.example.toker.recyclerview;
+package com.example.toker.view.adapter;
 
 import android.view.View;
 

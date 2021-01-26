@@ -23,6 +23,10 @@
         <activity android:name=".page.Page_Main" />
         <activity android:name=".page.Page_Level" />
         <activity android:name=".page.Page_Chat" />
+        <activity android:name=".page.Page_Filter"
+            android:theme="@style/Theme.AppCompat.Dialog"/>
+        <activity android:name=".page.Page_Message"
+            android:theme="@style/Theme.AppCompat.Dialog"/>
     </application>
 
 </manifest>
