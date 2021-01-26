@@ -1,4 +1,4 @@
-package com.example.toker.recyclerview;
+package com.example.toker.view.Item;
 
 import com.google.gson.annotations.SerializedName;
 

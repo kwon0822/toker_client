@@ -24,9 +24,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toker.R;
-import com.example.toker.recyclerview.AdapterChat;
-import com.example.toker.recyclerview.ItemRead;
-import com.example.toker.recyclerview.OnItemClickListner_Chat;
+import com.example.toker.view.adapter.AdapterChat;
+import com.example.toker.view.Item.ItemRead;
+import com.example.toker.view.adapter.OnItemClickListner_Chat;
 import com.example.toker.tcp.SocketAPI;
 
 import com.github.nkzawa.emitter.Emitter;

@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toker.R;
 import com.example.toker.http.RetrofitAPI;
-import com.example.toker.recyclerview.AdapterHistory;
-import com.example.toker.recyclerview.ItemHistory;
+import com.example.toker.view.adapter.AdapterHistory;
+import com.example.toker.view.Item.ItemHistory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

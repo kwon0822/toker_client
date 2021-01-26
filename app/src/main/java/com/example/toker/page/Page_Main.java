@@ -22,14 +22,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toker.R;
 import com.example.toker.http.RetrofitAPI;
-import com.example.toker.recyclerview.AdapterChat;
-import com.example.toker.recyclerview.AdapterRead;
-import com.example.toker.recyclerview.AdapterMsg;
-import com.example.toker.recyclerview.ItemRead;
-import com.example.toker.recyclerview.ItemChat;
-import com.example.toker.recyclerview.ItemMsg;
-import com.example.toker.recyclerview.OnItemClickListner_Chat_Title;
-import com.example.toker.recyclerview.OnItemClickListner_Msg;
+import com.example.toker.view.adapter.AdapterChat;
+import com.example.toker.view.adapter.AdapterRead;
+import com.example.toker.view.adapter.AdapterMsg;
+import com.example.toker.view.Item.ItemRead;
+import com.example.toker.view.Item.ItemChat;
+import com.example.toker.view.Item.ItemMsg;
+import com.example.toker.view.adapter.OnItemClickListner_Chat_Title;
+import com.example.toker.view.adapter.OnItemClickListner_Msg;
 import com.example.toker.tcp.SocketAPI;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.Socket;
@@ -59,8 +59,9 @@ public class Page_Main extends AppCompatActivity {
     TextView page_main_textview_waitingNum;
     TextView page_main_textview_noticeBar;
 
-    Dialog popup_alert;
-    Dialog popup_input;
+    Dialog alertDialog;
+    Dialog inputDialog;
+
     Dialog popup_filter;
 
     private Socket socket;
@@ -239,48 +240,48 @@ public class Page_Main extends AppCompatActivity {
     }
 
     public void showDialogRequest() {
-        popup_input = new Dialog(Page_Main.this);
-        popup_input.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        popup_input.setContentView(R.layout.popup_input);
+        inputDialog = new Dialog(Page_Main.this);
+        inputDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        inputDialog.setContentView(R.layout.popup_input);
 
-        Button popup_input_button_back = popup_input.findViewById(R.id.popup_input_button_back);
+        Button popup_input_button_back = inputDialog.findViewById(R.id.popup_input_button_back);
         popup_input_button_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popup_input.dismiss();
+                inputDialog.dismiss();
             }
         });
 
-        Button popup_input_button_send = popup_input.findViewById(R.id.popup_input_button_send);
+        Button popup_input_button_send = inputDialog.findViewById(R.id.popup_input_button_send);
         popup_input_button_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popup_alert = new Dialog(Page_Main.this);
-                popup_alert.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                popup_alert.setContentView(R.layout.popup_alert);
+                alertDialog = new Dialog(Page_Main.this);
+                alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                alertDialog.setContentView(R.layout.popup_alert);
 
-                Button popup_alert_button_yes = popup_alert.findViewById(R.id.popup_alert_button_yes);
+                Button popup_alert_button_yes = alertDialog.findViewById(R.id.popup_alert_button_yes);
                 popup_alert_button_yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(getApplicationContext(), "소중한 의견 전달되었습니다.", Toast.LENGTH_SHORT).show();
-                        popup_alert.dismiss();
-                        popup_input.dismiss();
+                        alertDialog.dismiss();
+                        inputDialog.dismiss();
                     }
                 });
 
-                Button popup_alert_button_no = popup_alert.findViewById(R.id.popup_alert_button_no);
+                Button popup_alert_button_no = alertDialog.findViewById(R.id.popup_alert_button_no);
                 popup_alert_button_no.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        popup_alert.dismiss();
+                        alertDialog.dismiss();
                     }
                 });
-                popup_alert.show();
+                alertDialog.show();
             }
         });
 
-        popup_input.show();
+        inputDialog.show();
     }
 
     public void showDialogFilter() {
@@ -466,14 +467,14 @@ public class Page_Main extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterMsg.ViewHolder holder, View view, int position) {
                         ItemMsg item_msg = msgAdapter.getItem(position);
-                        popup_alert = new Dialog(Page_Main.this);
-                        popup_alert.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                        popup_alert.setContentView(R.layout.popup_alert);
-                        TextView popup_alert_textview_title = popup_alert.findViewById(R.id.popup_alert_textview_title);
+                        alertDialog = new Dialog(Page_Main.this);
+                        alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        alertDialog.setContentView(R.layout.popup_alert);
+                        TextView popup_alert_textview_title = alertDialog.findViewById(R.id.popup_alert_textview_title);
                         popup_alert_textview_title.setText("정말 삭제하시겠습니까?");
-                        TextView popup_alert_textview_subtitle = popup_alert.findViewById(R.id.popup_alert_textview_description);
+                        TextView popup_alert_textview_subtitle = alertDialog.findViewById(R.id.popup_alert_textview_description);
                         popup_alert_textview_subtitle.setText("다시 복구 못해 임마!");
-                        TextView popup_alert_button_yes = popup_alert.findViewById(R.id.popup_alert_button_yes);
+                        TextView popup_alert_button_yes = alertDialog.findViewById(R.id.popup_alert_button_yes);
                         popup_alert_button_yes.setText("네");
                         popup_alert_button_yes.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -490,7 +491,7 @@ public class Page_Main extends AppCompatActivity {
                                         if (response.body().equals("msgOff")) {
                                             msgList.remove(position);
                                             msgAdapter.notifyItemRemoved(position);
-                                            popup_alert.dismiss();
+                                            alertDialog.dismiss();
                                         }
                                     }
                                     @Override
@@ -499,15 +500,15 @@ public class Page_Main extends AppCompatActivity {
                                 });
                             }
                         });
-                        TextView popup_alert_button_no = popup_alert.findViewById(R.id.popup_alert_button_no);
+                        TextView popup_alert_button_no = alertDialog.findViewById(R.id.popup_alert_button_no);
                         popup_alert_button_no.setText("아니오");
                         popup_alert_button_no.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                popup_alert.dismiss();
+                                alertDialog.dismiss();
                             }
                         });
-                        popup_alert.show();
+                        alertDialog.show();
                     }
                 });
                 popup_repository_msg.show();
@@ -593,14 +594,14 @@ public class Page_Main extends AppCompatActivity {
                                 break;
 
                             case "delete" :
-                                popup_alert = new Dialog(Page_Main.this);
-                                popup_alert.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                                popup_alert.setContentView(R.layout.popup_alert);
-                                TextView popup_alert_textview_title = popup_alert.findViewById(R.id.popup_alert_textview_title);
+                                alertDialog = new Dialog(Page_Main.this);
+                                alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                alertDialog.setContentView(R.layout.popup_alert);
+                                TextView popup_alert_textview_title = alertDialog.findViewById(R.id.popup_alert_textview_title);
                                 popup_alert_textview_title.setText("정말 삭제하시겠습니까?");
-                                TextView popup_alert_textview_subtitle = popup_alert.findViewById(R.id.popup_alert_textview_description);
+                                TextView popup_alert_textview_subtitle = alertDialog.findViewById(R.id.popup_alert_textview_description);
                                 popup_alert_textview_subtitle.setText("다시 복구 못해 임마!");
-                                TextView popup_alert_button_yes = popup_alert.findViewById(R.id.popup_alert_button_yes);
+                                TextView popup_alert_button_yes = alertDialog.findViewById(R.id.popup_alert_button_yes);
                                 popup_alert_button_yes.setText("네");
                                 popup_alert_button_yes.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -617,7 +618,7 @@ public class Page_Main extends AppCompatActivity {
                                                 if (response.body().equals("chatOffTitle")) {
                                                     chatTitleList.remove(position);
                                                     chatTitleAdapter.notifyItemRemoved(position);
-                                                    popup_alert.dismiss();
+                                                    alertDialog.dismiss();
                                                 }
                                             }
                                             @Override
@@ -626,15 +627,15 @@ public class Page_Main extends AppCompatActivity {
                                         });
                                     }
                                 });
-                                TextView popup_alert_button_no = popup_alert.findViewById(R.id.popup_alert_button_no);
+                                TextView popup_alert_button_no = alertDialog.findViewById(R.id.popup_alert_button_no);
                                 popup_alert_button_no.setText("아니오");
                                 popup_alert_button_no.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        popup_alert.dismiss();
+                                        alertDialog.dismiss();
                                     }
                                 });
-                                popup_alert.show();
+                                alertDialog.show();
                                 break;
                             case "edit" :
                                 Toast.makeText(getApplicationContext(), "수정", Toast.LENGTH_SHORT).show();
