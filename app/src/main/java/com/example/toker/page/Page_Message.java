@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toker.R;
 import com.example.toker.http.RetrofitAPI;
-import com.example.toker.view.Item.ItemMsg;
+import com.example.toker.view.Item.ItemMessage;
 import com.example.toker.view.adapter.AdapterMsg;
 import com.example.toker.view.adapter.OnItemClickListner_Msg;
 import com.google.gson.Gson;
@@ -36,7 +36,7 @@ public class Page_Message extends Activity {
     Dialog inputDialog;
 
     AdapterMsg msgAdapter;
-    List<ItemMsg> msgList = new ArrayList<>();
+    List<ItemMessage> msgList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +53,9 @@ public class Page_Message extends Activity {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-        retrofitAPI.PostMsgOn(id).enqueue(new Callback<List<ItemMsg>>() {
+        retrofitAPI.PostMsgOn(id).enqueue(new Callback<List<ItemMessage>>() {
             @Override
-            public void onResponse(Call<List<ItemMsg>> call, Response<List<ItemMsg>> response) {
+            public void onResponse(Call<List<ItemMessage>> call, Response<List<ItemMessage>> response) {
                 msgList = response.body();
 
                 Button page_message_button_back = findViewById(R.id.page_message_button_back);
@@ -73,7 +73,7 @@ public class Page_Message extends Activity {
                 msgAdapter.setOnItemClicklistener(new OnItemClickListner_Msg() {
                     @Override
                     public void onItemClick(AdapterMsg.ViewHolder holder, View view, int position) {
-                        ItemMsg item_msg = msgAdapter.getItem(position);
+                        ItemMessage item_msg = msgAdapter.getItem(position);
                         alertDialog = new Dialog(Page_Message.this);
                         alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                         alertDialog.setContentView(R.layout.popup_alert);
@@ -120,7 +120,7 @@ public class Page_Message extends Activity {
                 });
             }
             @Override
-            public void onFailure(Call<List<ItemMsg>> call, Throwable t) {
+            public void onFailure(Call<List<ItemMessage>> call, Throwable t) {
             }
         });
     }

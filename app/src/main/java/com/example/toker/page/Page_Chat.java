@@ -25,7 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toker.R;
 import com.example.toker.view.adapter.AdapterChat;
-import com.example.toker.view.Item.ItemRead;
+import com.example.toker.view.Item.ItemChat;
 import com.example.toker.view.adapter.OnItemClickListner_Chat;
 import com.example.toker.tcp.SocketAPI;
 
@@ -51,7 +51,7 @@ public class Page_Chat extends AppCompatActivity {
 
     RecyclerView page_chat_recyclerview_chat;
     private AdapterChat chatAdapter;
-    private List<ItemRead> chatList = new ArrayList<>();
+    private List<ItemChat> chatList = new ArrayList<>();
 
     String id = Page_Login.myID;
     private Socket socket;
@@ -190,12 +190,12 @@ public class Page_Chat extends AppCompatActivity {
                             socket.emit("typeOff");
                         }
 
-                        ItemRead itemRead = new ItemRead(ItemRead.TYPE_MY_MSG, message);
-                        chatList.add(itemRead);
+                        ItemChat itemChat = new ItemChat(ItemChat.TYPE_MY_MSG, message);
+                        chatList.add(itemChat);
                         chatAdapter.notifyItemInserted(chatList.size() - 1);
 
                         Gson gson = new Gson();
-                        String jsonStr = gson.toJson(itemRead);
+                        String jsonStr = gson.toJson(itemChat);
                         socket.emit("chat", jsonStr);
 
                         scrollToBottom();
@@ -216,8 +216,8 @@ public class Page_Chat extends AppCompatActivity {
         chatAdapter.setOnItemClicklistener(new OnItemClickListner_Chat() {
             @Override
             public void onItemClick(AdapterChat.ViewHolder holder, View view, int position) {
-                ItemRead itemRead = chatAdapter.getItem(position);
-                if (itemRead.getType() == ItemRead.TYPE_SEND_MSG) {
+                ItemChat itemChat = chatAdapter.getItem(position);
+                if (itemChat.getType() == ItemChat.TYPE_SEND_MSG) {
 
                     if (!isMsg) {
                         showDialogMessage();
@@ -239,13 +239,13 @@ public class Page_Chat extends AppCompatActivity {
                 public void run() {
                     String message = args[0].toString();
 
-                    ItemRead itemRead = new ItemRead(ItemRead.TYPE_YOUR_MSG, message);
-                    chatList.add(itemRead);
+                    ItemChat itemChat = new ItemChat(ItemChat.TYPE_YOUR_MSG, message);
+                    chatList.add(itemChat);
                     chatAdapter.notifyItemInserted(chatList.size() - 1);
                     scrollToBottom();
 
                     Gson gson = new Gson();
-                    String jsonStr = gson.toJson(itemRead);
+                    String jsonStr = gson.toJson(itemChat);
                     socket.emit("chat", jsonStr);
                 }
             });
@@ -265,11 +265,11 @@ public class Page_Chat extends AppCompatActivity {
                     socket.emit("chatOff");
                     
                     // 채팅종료 문구 띄어주기
-                    chatList.add(new ItemRead(ItemRead.TYPE_Notice, "채팅이 종료되었습니다."));
+                    chatList.add(new ItemChat(ItemChat.TYPE_Notice, "채팅이 종료되었습니다."));
                     chatAdapter.notifyItemInserted(chatList.size() - 1);
                     
                     // 쪽지버튼 문구 띄어주기
-                    chatList.add(new ItemRead(ItemRead.TYPE_SEND_MSG, "쪽지전송하기"));
+                    chatList.add(new ItemChat(ItemChat.TYPE_SEND_MSG, "쪽지전송하기"));
                     chatAdapter.notifyItemInserted(chatList.size() - 1);
                 }
             });
@@ -282,7 +282,7 @@ public class Page_Chat extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    chatList.add(new ItemRead(ItemRead.TYPE_TYPING, "입력 중"));
+                    chatList.add(new ItemChat(ItemChat.TYPE_TYPING, "입력 중"));
                     typePosition = chatList.size() - 1;
                     chatAdapter.notifyItemInserted(typePosition);
                     scrollToBottom();
@@ -593,12 +593,12 @@ public class Page_Chat extends AppCompatActivity {
 
     // 공지추가
     private void addNotice(String notice) {
-        ItemRead itemRead = new ItemRead(ItemRead.TYPE_Notice, notice);
-        chatList.add(itemRead);
+        ItemChat itemChat = new ItemChat(ItemChat.TYPE_Notice, notice);
+        chatList.add(itemChat);
         chatAdapter.notifyItemInserted(chatList.size() - 1);
 
         Gson gson = new Gson();
-        String jsonStr = gson.toJson(itemRead);
+        String jsonStr = gson.toJson(itemChat);
         socket.emit("chat", jsonStr);
     }
 }

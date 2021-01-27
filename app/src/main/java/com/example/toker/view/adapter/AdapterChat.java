@@ -9,17 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toker.R;
-import com.example.toker.view.Item.ItemRead;
+import com.example.toker.view.Item.ItemChat;
 
 import java.util.List;
 
 public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ViewHolder> implements OnItemClickListner_Chat {
 
-    private List<ItemRead> chatList;
+    private List<ItemChat> chatList;
     OnItemClickListner_Chat onItemClickListner_Chat;
 
     // 어댑터 생성자
-    public AdapterChat(List<ItemRead> chatList) {
+    public AdapterChat(List<ItemChat> chatList) {
         this.chatList = chatList;
     }
 
@@ -43,19 +43,19 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ViewHolder> im
         
         // 유형에 따라 다른 아이템으로
         switch (viewType) {
-            case ItemRead.TYPE_Notice:
+            case ItemChat.TYPE_Notice:
                 layout = R.layout.item_chat_notice;
                 break;
-            case ItemRead.TYPE_MY_MSG:
+            case ItemChat.TYPE_MY_MSG:
                 layout = R.layout.item_chat_my_msg;
                 break;
-            case ItemRead.TYPE_YOUR_MSG:
+            case ItemChat.TYPE_YOUR_MSG:
                 layout = R.layout.item_chat_your_msg;
                 break;
-            case ItemRead.TYPE_TYPING:
+            case ItemChat.TYPE_TYPING:
                 layout = R.layout.item_chat_type;
                 break;
-            case ItemRead.TYPE_SEND_MSG:
+            case ItemChat.TYPE_SEND_MSG:
                 layout = R.layout.item_chat_send_msg;
                 break;
         }
@@ -94,7 +94,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ViewHolder> im
         holder.item_chat_textview_msg.setText(message);
     }
 
-    public ItemRead getItem(int position) {
+    public ItemChat getItem(int position) {
         return chatList.get(position);
     }
 

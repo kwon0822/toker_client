@@ -1,9 +1,9 @@
 package com.example.toker.http;
 
-import com.example.toker.view.Item.ItemRead;
-import com.example.toker.view.Item.ItemHistory;
 import com.example.toker.view.Item.ItemChat;
-import com.example.toker.view.Item.ItemMsg;
+import com.example.toker.view.Item.ItemHistory;
+import com.example.toker.view.Item.ItemMemory;
+import com.example.toker.view.Item.ItemMessage;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public interface RetrofitAPI {
 
     @FormUrlEncoded
     @POST("/msgOn")
-    Call<List<ItemMsg>> PostMsgOn(@Field("id") String id);
+    Call<List<ItemMessage>> PostMsgOn(@Field("id") String id);
 
     @FormUrlEncoded
     @POST("/msgOff")
@@ -31,7 +31,7 @@ public interface RetrofitAPI {
 
     @FormUrlEncoded
     @POST("/chatOn")
-    Call<List<ItemChat>> PostChatOn(@Field("id") String id);
+    Call<List<ItemMemory>> PostChatOn(@Field("id") String id);
 
     @FormUrlEncoded
     @POST("/chatOff")
@@ -40,7 +40,7 @@ public interface RetrofitAPI {
 
     @FormUrlEncoded
     @POST("/read")
-    Call<List<ItemRead>> PostRead(@Field("no") String no);
+    Call<List<ItemChat>> PostRead(@Field("no") String no);
 
     @FormUrlEncoded
     @POST("/level")

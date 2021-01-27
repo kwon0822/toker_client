@@ -10,17 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toker.R;
-import com.example.toker.view.Item.ItemChat;
+import com.example.toker.view.Item.ItemMemory;
 
 import java.util.List;
 
-public class AdapterRead extends RecyclerView.Adapter<AdapterRead.ViewHolder> implements OnItemClickListner_Chat_Title {
+public class AdapterMemory extends RecyclerView.Adapter<AdapterMemory.ViewHolder> implements OnItemClickListner_Chat_Title {
 
-    private List<ItemChat> chatTitleList;
+    private List<ItemMemory> chatTitleList;
     OnItemClickListner_Chat_Title onItemClickListner_chat_title;
 
     // 어댑터 생성자
-    public AdapterRead(List<ItemChat> chatTitleList) {
+    public AdapterMemory(List<ItemMemory> chatTitleList) {
         this.chatTitleList = chatTitleList;
     }
 
@@ -34,7 +34,7 @@ public class AdapterRead extends RecyclerView.Adapter<AdapterRead.ViewHolder> im
     // 아이템을 레이아웃으로 전환하기
     @NonNull
     @Override
-    public AdapterRead.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AdapterMemory.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         int layout = R.layout.item_chat_title;
 
         View view = LayoutInflater
@@ -90,13 +90,13 @@ public class AdapterRead extends RecyclerView.Adapter<AdapterRead.ViewHolder> im
 
     // 뷰와 기능 연결하기
     @Override
-    public void onBindViewHolder(@NonNull AdapterRead.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AdapterMemory.ViewHolder holder, int position) {
         String message = chatTitleList.get(position).getTitle();
 
         holder.item_chat_title_textview_title.setText(message);
     }
 
-    public ItemChat getItem(int position) {
+    public ItemMemory getItem(int position) {
         return chatTitleList.get(position);
     }
 
@@ -105,7 +105,7 @@ public class AdapterRead extends RecyclerView.Adapter<AdapterRead.ViewHolder> im
     }
 
     @Override
-    public void onItemClick(AdapterRead.ViewHolder holder, View view, int position, String button) {
+    public void onItemClick(AdapterMemory.ViewHolder holder, View view, int position, String button) {
         if(onItemClickListner_chat_title != null) {
             onItemClickListner_chat_title.onItemClick(holder,view,position, button);
         }

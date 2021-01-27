@@ -2,7 +2,7 @@ package com.example.toker.view.Item;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ItemMsg {
+public class ItemMessage {
 
     @SerializedName("no")
     String no;
@@ -10,7 +10,7 @@ public class ItemMsg {
     @SerializedName("contents")
     String contents;
 
-    public ItemMsg(String no, String contents) {
+    public ItemMessage(String no, String contents) {
         this.no = no;
         this.contents = contents;
     }

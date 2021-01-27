@@ -10,17 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toker.R;
-import com.example.toker.view.Item.ItemMsg;
+import com.example.toker.view.Item.ItemMessage;
 
 import java.util.List;
 
 public class AdapterMsg extends RecyclerView.Adapter<AdapterMsg.ViewHolder> implements OnItemClickListner_Msg {
 
-    private List<ItemMsg> msgList;
+    private List<ItemMessage> msgList;
     OnItemClickListner_Msg onItemClickListner_msg;
 
     // 어댑터 생성자
-    public AdapterMsg(List<ItemMsg> msgList) {
+    public AdapterMsg(List<ItemMessage> msgList) {
         this.msgList = msgList;
     }
 
@@ -74,7 +74,7 @@ public class AdapterMsg extends RecyclerView.Adapter<AdapterMsg.ViewHolder> impl
         holder.item_msg_textview_contents.setText(message);
     }
 
-    public ItemMsg getItem(int position) {
+    public ItemMessage getItem(int position) {
         return msgList.get(position);
     }
 

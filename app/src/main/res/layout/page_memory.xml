@@ -7,7 +7,7 @@
     android:background="@color/tokerHeavyGray">
 
     <Button
-        android:id="@+id/popup_repository_chat_button_back"
+        android:id="@+id/page_memory_button_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="끄기"
@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/popup_repository_chat_textview_title"
+        android:id="@+id/page_memory_textview_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="채팅보관함"
@@ -30,7 +30,7 @@
         app:layout_constraintVertical_bias="0.036" />
 
     <TextView
-        android:id="@+id/popup_repository_chat_textview_subtitle"
+        android:id="@+id/page_memory_textview_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="토커의 채팅보관 기능이 궁금하시다면?"
@@ -41,11 +41,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.142"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/popup_repository_chat_textview_title"
+        app:layout_constraintTop_toBottomOf="@+id/page_memory_textview_title"
         app:layout_constraintVertical_bias="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/popup_repository_chat_recyclerview_title"
+        android:id="@+id/page_memory_recyclerview_title"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="15dp"
@@ -55,7 +55,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/popup_repository_chat_textview_subtitle" />
+        app:layout_constraintTop_toBottomOf="@+id/page_memory_textview_subtitle" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
