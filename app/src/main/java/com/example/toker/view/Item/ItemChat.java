@@ -1,33 +1,35 @@
 package com.example.toker.view.Item;
 
-import com.google.gson.annotations.SerializedName;
+public class ItemRead {
 
-public class ItemChat {
+    public static final int TYPE_Notice = 0;
+    public static final int TYPE_MY_MSG = 1;
+    public static final int TYPE_YOUR_MSG = 2;
+    public static final int TYPE_TYPING = 3;
+    public static final int TYPE_SEND_MSG = 4;
 
-    @SerializedName("no")
-    String no;
+    private int type;
+    private String message;
 
-    @SerializedName("title")
-    String title;
 
-    public ItemChat(String no, String title) {
-        this.no = no;
-        this.title = title;
+    public int getType() {
+        return type;
     }
 
-    public String getNo() {
-        return no;
+    public void setType(int type) {
+        this.type = type;
     }
 
-    public void setNo(String no) {
-        this.no = no;
+    public String getMessage() {
+        return message;
     }
 
-    public String getTitle() {
-        return title;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public ItemRead(int type, String message) {
+        this.type = type;
+        this.message = message;
     }
 }
