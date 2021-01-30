@@ -4,18 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/tokerBlack"
-    tools:context=".page.Page_Splash">
+    android:background="@color/tokerBlack">
 
     <TextView
-        android:id="@+id/page_login_textview_subtitle"
+        android:id="@+id/activity_login_textview_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="일상의 소소한 이야기를 나누고 싶다면"
         android:textColor="@color/tokerWhite"
         android:textSize="20dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/page_login_textview_title"
+        app:layout_constraintBottom_toTopOf="@+id/activity_login_textview_title"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -23,7 +22,7 @@
         app:layout_constraintVertical_bias="0.777" />
 
     <TextView
-        android:id="@+id/page_login_textview_title"
+        android:id="@+id/activity_login_textview_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="To:ker"
@@ -38,7 +37,7 @@
         app:layout_constraintVertical_bias="0.262" />
 
     <TextView
-        android:id="@+id/page_login_textview_about"
+        android:id="@+id/activity_login_textview_about"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="토커가 지향하는 랜덤채팅이 궁금하다면?"
@@ -49,11 +48,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/page_login_textview_title"
+        app:layout_constraintTop_toBottomOf="@+id/activity_login_textview_title"
         app:layout_constraintVertical_bias="0.221" />
 
     <EditText
-        android:id="@+id/page_login_edittext_phoneNumber"
+        android:id="@+id/activity_login_edittext_phoneNumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -68,11 +67,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/page_login_textview_about"
+        app:layout_constraintTop_toBottomOf="@+id/activity_login_textview_about"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/page_login_button_getAuth"
+        android:id="@+id/activity_login_button_getAuth"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -85,7 +84,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/page_login_edittext_phoneNumber"
+        app:layout_constraintTop_toBottomOf="@+id/activity_login_edittext_phoneNumber"
         app:layout_constraintVertical_bias="0.1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

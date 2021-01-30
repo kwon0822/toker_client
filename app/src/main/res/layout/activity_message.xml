@@ -7,7 +7,7 @@
     android:background="@color/tokerHeavyGray">
 
     <Button
-        android:id="@+id/popup_posting_list_button_back"
+        android:id="@+id/activity_message_button_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="끄기"
@@ -15,10 +15,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/popup_posting_list_textview_title"
+        android:id="@+id/activity_message_textview_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="개발자의 생각"
+        android:text="쪽지보관함"
         android:textColor="@color/tokerWhite"
         android:textSize="20dp"
         android:textStyle="bold"
@@ -30,30 +30,32 @@
         app:layout_constraintVertical_bias="0.036" />
 
     <TextView
-        android:id="@+id/popup_posting_list_textview_subtitle"
+        android:id="@+id/activity_message_textview_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="좋은 의견 있으시다면 언제든지 말씀해주세요. \n 진지하게 고민해서 꼭 답변드리겠습니다!"
+        android:text="토커의 쪽지보관 기능이 궁금하시다면?"
         android:textColor="@color/tokerWhite"
         android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.258"
+        app:layout_constraintHorizontal_bias="0.142"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/popup_posting_list_textview_title"
-        app:layout_constraintVertical_bias="0.015" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_message_textview_title"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/popup_posting_list_button_request"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="개발자에게 의견주기"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/activity_message_recyclerview_contents"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.077"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/popup_posting_list_textview_subtitle" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_message_textview_subtitle" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

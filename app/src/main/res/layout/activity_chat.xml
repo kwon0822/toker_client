@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/tokerBlack"
-    tools:context=".page.Page_Splash">
+    android:background="@color/tokerBlack">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/page_chatM_toolbar"
+        android:id="@+id/activity_chat_toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/tokerHeavyGray"
@@ -35,26 +33,39 @@
         android:background="@color/tokerLightGray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/page_chatM_toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/activity_chat_toolbar">
 
         <TextView
-            android:id="@+id/page_chatM_textview_accuse"
+            android:id="@+id/activity_chat_textview_accuse"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"            android:text="신고하기"
+            android:textAlignment="center"
+            android:textColor="@color/tokerHeavyGray"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/activity_chat_textview_block"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/activity_chat_textview_block"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="채팅 제목"
+            android:text="차단하기"
             android:textAlignment="center"
             android:textColor="@color/tokerHeavyGray"
             android:textSize="15dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/activity_chat_textview_accuse"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/page_chatM_recyclerview_chat"
+        android:id="@+id/activity_chat_recyclerview_chat"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
@@ -73,7 +84,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <EditText
-            android:id="@+id/page_chatM_edittext_chat"
+            android:id="@+id/activity_chat_edittext_chat"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -82,20 +93,20 @@
             android:hint="내용을 입력해주세요"
             android:textSize="22dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/page_chatM_button_chat"
+            app:layout_constraintEnd_toStartOf="@+id/activity_chat_button_chat"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/page_chatM_button_chat"
+            android:id="@+id/activity_chat_button_chat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:text="감상"
+            android:text="전송"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/page_chatM_edittext_chat"
+            app:layout_constraintStart_toEndOf="@+id/activity_chat_edittext_chat"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

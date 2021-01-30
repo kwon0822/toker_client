@@ -1,6 +1,4 @@
-package com.example.toker.page;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.toker.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,19 +8,19 @@ import android.view.WindowManager;
 
 import com.example.toker.R;
 
-public class Page_Splash extends Activity {
+public class Activity_Splash extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.page_splash);
+        setContentView(R.layout.activity_splash);
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(getApplicationContext(), Page_Login.class);
+                Intent intent = new Intent(getApplicationContext(), Activity_Login.class);
                 startActivity(intent);
                 finish();
             }

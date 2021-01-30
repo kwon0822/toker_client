@@ -10,13 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toker.R;
 import com.example.toker.view.Item.ItemChat;
+import com.example.toker.view.listner.OnItemClickListnerChat;
 
 import java.util.List;
 
-public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ViewHolder> implements OnItemClickListner_Chat {
+public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ViewHolder> implements OnItemClickListnerChat {
 
     private List<ItemChat> chatList;
-    OnItemClickListner_Chat onItemClickListner_Chat;
+    OnItemClickListnerChat onItemClickListnerChat;
 
     // 어댑터 생성자
     public AdapterChat(List<ItemChat> chatList) {
@@ -47,16 +48,16 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ViewHolder> im
                 layout = R.layout.item_chat_notice;
                 break;
             case ItemChat.TYPE_MY_MSG:
-                layout = R.layout.item_chat_my_msg;
+                layout = R.layout.item_chat_mine;
                 break;
             case ItemChat.TYPE_YOUR_MSG:
-                layout = R.layout.item_chat_your_msg;
+                layout = R.layout.item_chat_yours;
                 break;
             case ItemChat.TYPE_TYPING:
-                layout = R.layout.item_chat_type;
+                layout = R.layout.item_chat_typing;
                 break;
             case ItemChat.TYPE_SEND_MSG:
-                layout = R.layout.item_chat_send_msg;
+                layout = R.layout.item_chat_send;
                 break;
         }
         View view = LayoutInflater
@@ -78,8 +79,8 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ViewHolder> im
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-                    if (onItemClickListner_Chat != null) {
-                        onItemClickListner_Chat.onItemClick(ViewHolder.this, v, position);
+                    if (onItemClickListnerChat != null) {
+                        onItemClickListnerChat.onItemClick(ViewHolder.this, v, position);
                     }
                 }
             });
@@ -98,14 +99,14 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ViewHolder> im
         return chatList.get(position);
     }
 
-    public void setOnItemClicklistener(OnItemClickListner_Chat listener) {
-        this.onItemClickListner_Chat = listener;
+    public void setOnItemClicklistener(OnItemClickListnerChat listener) {
+        this.onItemClickListnerChat = listener;
     }
 
     @Override
     public void onItemClick(ViewHolder holder, View view, int position) {
-        if(onItemClickListner_Chat != null) {
-            onItemClickListner_Chat.onItemClick(holder,view,position);
+        if(onItemClickListnerChat != null) {
+            onItemClickListnerChat.onItemClick(holder,view,position);
         }
     }
 }

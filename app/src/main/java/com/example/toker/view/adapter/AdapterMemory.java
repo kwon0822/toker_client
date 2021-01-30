@@ -11,13 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toker.R;
 import com.example.toker.view.Item.ItemMemory;
+import com.example.toker.view.listner.OnItemClickListnerMemory;
 
 import java.util.List;
 
-public class AdapterMemory extends RecyclerView.Adapter<AdapterMemory.ViewHolder> implements OnItemClickListner_Chat_Title {
+public class AdapterMemory extends RecyclerView.Adapter<AdapterMemory.ViewHolder> implements OnItemClickListnerMemory {
 
     private List<ItemMemory> chatTitleList;
-    OnItemClickListner_Chat_Title onItemClickListner_chat_title;
+    OnItemClickListnerMemory onItemClickListnerMemory;
 
     // 어댑터 생성자
     public AdapterMemory(List<ItemMemory> chatTitleList) {
@@ -35,7 +36,7 @@ public class AdapterMemory extends RecyclerView.Adapter<AdapterMemory.ViewHolder
     @NonNull
     @Override
     public AdapterMemory.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        int layout = R.layout.item_chat_title;
+        int layout = R.layout.item_memory;
 
         View view = LayoutInflater
                 .from(parent.getContext())
@@ -60,8 +61,8 @@ public class AdapterMemory extends RecyclerView.Adapter<AdapterMemory.ViewHolder
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-                    if (onItemClickListner_chat_title != null) {
-                        onItemClickListner_chat_title.onItemClick(ViewHolder.this, v, position, "item");
+                    if (onItemClickListnerMemory != null) {
+                        onItemClickListnerMemory.onItemClick(ViewHolder.this, v, position, "item");
                     }
                 }
             });
@@ -70,8 +71,8 @@ public class AdapterMemory extends RecyclerView.Adapter<AdapterMemory.ViewHolder
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-                    if (onItemClickListner_chat_title != null) {
-                        onItemClickListner_chat_title.onItemClick(ViewHolder.this, v, position, "delete");
+                    if (onItemClickListnerMemory != null) {
+                        onItemClickListnerMemory.onItemClick(ViewHolder.this, v, position, "delete");
                     }
                 }
             });
@@ -80,8 +81,8 @@ public class AdapterMemory extends RecyclerView.Adapter<AdapterMemory.ViewHolder
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-                    if (onItemClickListner_chat_title != null) {
-                        onItemClickListner_chat_title.onItemClick(ViewHolder.this, v, position, "edit");
+                    if (onItemClickListnerMemory != null) {
+                        onItemClickListnerMemory.onItemClick(ViewHolder.this, v, position, "edit");
                     }
                 }
             });
@@ -100,14 +101,14 @@ public class AdapterMemory extends RecyclerView.Adapter<AdapterMemory.ViewHolder
         return chatTitleList.get(position);
     }
 
-    public void setOnItemClicklistener(OnItemClickListner_Chat_Title listener) {
-        this.onItemClickListner_chat_title = listener;
+    public void setOnItemClicklistener(OnItemClickListnerMemory listener) {
+        this.onItemClickListnerMemory = listener;
     }
 
     @Override
     public void onItemClick(AdapterMemory.ViewHolder holder, View view, int position, String button) {
-        if(onItemClickListner_chat_title != null) {
-            onItemClickListner_chat_title.onItemClick(holder,view,position, button);
+        if(onItemClickListnerMemory != null) {
+            onItemClickListnerMemory.onItemClick(holder,view,position, button);
         }
     }
 

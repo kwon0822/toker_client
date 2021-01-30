@@ -9,19 +9,19 @@
     android:background="@color/tokerLightGray">
 
     <TextView
-        android:id="@+id/item_msg_textview_contetns"
+        android:id="@+id/item_message_textview_contents"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:textColor="@color/tokerBlack"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/item_msg_button_delete"
+        app:layout_constraintEnd_toStartOf="@+id/item_message_button_delete"
         app:layout_constraintHorizontal_weight="4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/item_msg_button_delete"
+        android:id="@+id/item_message_button_delete"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="삭제"
@@ -29,7 +29,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/item_msg_textview_contetns"
+        app:layout_constraintStart_toEndOf="@+id/item_message_textview_contents"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

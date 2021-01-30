@@ -1,4 +1,4 @@
-package com.example.toker.page;
+package com.example.toker.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,10 +10,10 @@ import android.widget.EditText;
 
 import com.example.toker.R;
 
-public class Page_Login extends Activity {
+public class Activity_Login extends Activity {
 
-    EditText page_login_edittext_phoneNumber;
-    Button page_login_button_getAuth;
+    EditText activity_login_edittext_phoneNumber;
+    Button activity_login_button_getAuth;
 
     static public String myID = "";
     static public String yourID = "";
@@ -22,21 +22,20 @@ public class Page_Login extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.page_login);
+        setContentView(R.layout.activity_login);
         initialize();
     }
 
     private void initialize() {
-        page_login_edittext_phoneNumber = findViewById(R.id.page_login_edittext_phoneNumber);
-        page_login_button_getAuth = findViewById(R.id.page_login_button_getAuth);
-
-        page_login_button_getAuth.setOnClickListener(new View.OnClickListener() {
+        activity_login_edittext_phoneNumber = findViewById(R.id.activity_login_edittext_phoneNumber);
+        activity_login_button_getAuth = findViewById(R.id.activity_login_button_getAuth);
+        activity_login_button_getAuth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                myID = page_login_edittext_phoneNumber.getText().toString();
+                myID = activity_login_edittext_phoneNumber.getText().toString();
 
-                Intent intent = new Intent(getApplicationContext(), Page_Main.class);
+                Intent intent = new Intent(getApplicationContext(), Activity_Main.class);
                 startActivity(intent);
             }
         });
