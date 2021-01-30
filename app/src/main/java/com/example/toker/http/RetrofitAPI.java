@@ -4,6 +4,7 @@ import com.example.toker.view.Item.ItemChat;
 import com.example.toker.view.Item.ItemHistory;
 import com.example.toker.view.Item.ItemMemory;
 import com.example.toker.view.Item.ItemMessage;
+import com.example.toker.view.Item.ItemPost;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface RetrofitAPI {
@@ -49,4 +51,7 @@ public interface RetrofitAPI {
     @FormUrlEncoded
     @POST("/history")
     Call<List<ItemHistory>> PostHistory(@Field("id") String id);
+
+    @GET("/post")
+    Call<List<ItemPost>> GetPost();
 }

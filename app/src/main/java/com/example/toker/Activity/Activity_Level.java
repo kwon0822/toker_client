@@ -87,14 +87,16 @@ public class Activity_Level extends Activity {
             }
        });
 
+        activity_level_recyclerview = findViewById(R.id.activity_level_recyclerview);
+        activity_level_recyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        historyAdapter = new AdapterHistory(historyList);
+        activity_level_recyclerview.setAdapter(historyAdapter);
+
         retrofitAPI.PostHistory(id).enqueue(new Callback<List<ItemHistory>>() {
             @Override
             public void onResponse(Call<List<ItemHistory>> call, Response<List<ItemHistory>> response) {
-                historyList = response.body();
-                activity_level_recyclerview = findViewById(R.id.activity_level_recyclerview);
-                activity_level_recyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                historyAdapter = new AdapterHistory(historyList);
-                activity_level_recyclerview.setAdapter(historyAdapter);
+                historyList.addAll(response.body());
+                historyAdapter.notifyDataSetChanged();
             }
             @Override
             public void onFailure(Call<List<ItemHistory>> call, Throwable t) {

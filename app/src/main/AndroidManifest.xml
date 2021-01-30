@@ -25,6 +25,8 @@
         <activity android:name=".Activity.Activity_ChatM" />
         <activity android:name=".Activity.Activity_About"
             android:theme="@style/Theme.AppCompat.Dialog"/>
+        <activity android:name=".Activity.Activity_Post"
+            android:theme="@style/Theme.AppCompat.Dialog"/>
         <activity android:name=".Activity.Activity_Level"
             android:theme="@style/Theme.AppCompat.Dialog"/>
         <activity android:name=".Activity.Activity_Filter"
