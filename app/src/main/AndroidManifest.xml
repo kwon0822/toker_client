@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:name=".tcp.Application_Socket"
+        android:name=".tcp.SocketAPI"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,17 +13,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-        <activity android:name=".page.Page_Splash">
+        <activity android:name=".Activity.Activity_Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".page.Page_Login" />
-        <activity android:name=".page.Page_Signup" />
-        <activity android:name=".page.Page_Main" />
-        <activity android:name=".page.Page_Level" />
-        <activity android:name=".page.Page_Chat" />
+        <activity android:name=".Activity.Activity_Login" />
+        <activity android:name=".Activity.Activity_Main" />
+        <activity android:name=".Activity.Activity_Chat" />
+        <activity android:name=".Activity.Activity_ChatM" />
+        <activity android:name=".Activity.Activity_About"
+            android:theme="@style/Theme.AppCompat.Dialog"/>
+        <activity android:name=".Activity.Activity_Post"
+            android:theme="@style/Theme.AppCompat.Dialog"/>
+        <activity android:name=".Activity.Activity_Level"
+            android:theme="@style/Theme.AppCompat.Dialog"/>
+        <activity android:name=".Activity.Activity_Filter"
+            android:theme="@style/Theme.AppCompat.Dialog"/>
+        <activity android:name=".Activity.Activity_Message"
+            android:theme="@style/Theme.AppCompat.Dialog"/>
+        <activity android:name=".Activity.Activity_Memory"
+            android:theme="@style/Theme.AppCompat.Dialog"/>
     </application>
 
 </manifest>
