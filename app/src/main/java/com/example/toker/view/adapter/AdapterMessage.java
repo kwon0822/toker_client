@@ -42,12 +42,12 @@ public class AdapterMessage extends RecyclerView.Adapter<AdapterMessage.ViewHold
 
     public class ViewHolder extends  RecyclerView.ViewHolder {
 
-        private TextView item_message_textview_contents;
+        private TextView item_message_textview_description;
         private Button item_message_button_delete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            item_message_textview_contents = itemView.findViewById(R.id.item_message_textview_contents);
+            item_message_textview_description = itemView.findViewById(R.id.item_message_textview_description);
             item_message_button_delete = itemView.findViewById(R.id.item_message_button_delete);
 
             item_message_button_delete.setOnClickListener(new View.OnClickListener() {
@@ -64,9 +64,9 @@ public class AdapterMessage extends RecyclerView.Adapter<AdapterMessage.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull AdapterMessage.ViewHolder holder, int position) {
-        String message = messageList.get(position).getContents();
+        String message = messageList.get(position).getDescription();
 
-        holder.item_message_textview_contents.setText(message);
+        holder.item_message_textview_description.setText(message);
     }
 
     public ItemMessage getItem(int position) {

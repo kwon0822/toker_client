@@ -67,7 +67,7 @@ public class Activity_ChatM extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-        retrofitAPI.PostRead(ChatNo).enqueue(new Callback<List<ItemChat>>() {
+        retrofitAPI.PostChat(ChatNo).enqueue(new Callback<List<ItemChat>>() {
             @Override
             public void onResponse(Call<List<ItemChat>> call, Response<List<ItemChat>> response) {
                 chatList.addAll(response.body());

@@ -82,7 +82,7 @@ public class Activity_Message extends Activity {
                                 .addConverterFactory(GsonConverterFactory.create(gson))
                                 .build();
                         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-                        retrofitAPI.PostMsgOff(id, item_msg.getNo()).enqueue(new Callback<String>() {
+                        retrofitAPI.PostMessageOff(id, item_msg.getNo()).enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
                                 if (response.body().equals("msgOff")) {
@@ -115,7 +115,7 @@ public class Activity_Message extends Activity {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-        retrofitAPI.PostMsgOn(id).enqueue(new Callback<List<ItemMessage>>() {
+        retrofitAPI.PostMessageOn(id).enqueue(new Callback<List<ItemMessage>>() {
             @Override
             public void onResponse(Call<List<ItemMessage>> call, Response<List<ItemMessage>> response) {
                 messageList.addAll(response.body());

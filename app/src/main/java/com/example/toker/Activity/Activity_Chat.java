@@ -57,7 +57,7 @@ public class Activity_Chat extends AppCompatActivity {
     private Socket socket;
 
     private boolean isChat = false; // 채팅종료 -> 채팅전송버튼비활성화, 핑쓰레드정지
-    private boolean isMsg = false;
+    private boolean isMessage = false;
     private boolean isSave = false;
 
     private Handler handler = new Handler();
@@ -74,27 +74,27 @@ public class Activity_Chat extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        socket.on("chat", Chat);
-        socket.on("chatOff", ChatOff);
-        socket.on("typeOn", TypeOn);
-        socket.on("typeOff", TypeOff);
-        socket.on("msg", Msg);
-        socket.on("save", Save);
-        socket.on("accuse", Accuse);
-        socket.on("block", Block);
+        socket.on("chat", ChatListner);
+        socket.on("chatOff", ChatOffListner);
+        socket.on("typeOn", TypeOnListner);
+        socket.on("typeOff", TypeOffListner);
+        socket.on("message", MessageListner);
+        socket.on("save", SaveListner);
+        socket.on("accuse", AccuseListner);
+        socket.on("block", BlockListner);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        socket.off("chat", Chat);
-        socket.off("chatOff", ChatOff);
-        socket.off("typeOn", TypeOn);
-        socket.off("typeOff", TypeOff);
-        socket.off("msg", Msg);
-        socket.off("save", Save);
-        socket.off("accuse", Accuse);
-        socket.off("block", Block);
+        socket.off("chat", ChatListner);
+        socket.off("chatOff", ChatOffListner);
+        socket.off("typeOn", TypeOnListner);
+        socket.off("typeOff", TypeOffListner);
+        socket.off("message", MessageListner);
+        socket.off("save", SaveListner);
+        socket.off("accuse", AccuseListner);
+        socket.off("block", BlockListner);
 
     }
 
@@ -219,7 +219,7 @@ public class Activity_Chat extends AppCompatActivity {
                 ItemChat itemChat = chatAdapter.getItem(position);
                 if (itemChat.getType() == ItemChat.TYPE_SEND_MSG) {
 
-                    if (!isMsg) {
+                    if (!isMessage) {
                         showDialogMessage();
                     }
                 }
@@ -231,7 +231,7 @@ public class Activity_Chat extends AppCompatActivity {
 
     // region listner ==============================================================================
 
-    private Emitter.Listener Chat = new Emitter.Listener() {
+    private Emitter.Listener ChatListner = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
             runOnUiThread(new Runnable() {
@@ -252,7 +252,7 @@ public class Activity_Chat extends AppCompatActivity {
         }
     };
 
-    private Emitter.Listener ChatOff = new Emitter.Listener() {
+    private Emitter.Listener ChatOffListner = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
             runOnUiThread(new Runnable() {
@@ -276,7 +276,7 @@ public class Activity_Chat extends AppCompatActivity {
         }
     };
 
-    private Emitter.Listener TypeOn = new Emitter.Listener() {
+    private Emitter.Listener TypeOnListner = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
             runOnUiThread(new Runnable() {
@@ -291,7 +291,7 @@ public class Activity_Chat extends AppCompatActivity {
         }
     };
 
-    private Emitter.Listener TypeOff = new Emitter.Listener() {
+    private Emitter.Listener TypeOffListner = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
             runOnUiThread(new Runnable() {
@@ -304,20 +304,20 @@ public class Activity_Chat extends AppCompatActivity {
         }
     };
 
-    private Emitter.Listener Msg = new Emitter.Listener() {
+    private Emitter.Listener MessageListner = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     popup_alert.dismiss();
-                    isMsg = true;
+                    isMessage = true;
                 }
             });
         }
     };
 
-    private Emitter.Listener Save = new Emitter.Listener() {
+    private Emitter.Listener SaveListner = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
             runOnUiThread(new Runnable() {
@@ -338,7 +338,7 @@ public class Activity_Chat extends AppCompatActivity {
         }
     };
 
-    private Emitter.Listener Accuse = new Emitter.Listener() {
+    private Emitter.Listener AccuseListner = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
             runOnUiThread(new Runnable() {
@@ -352,7 +352,7 @@ public class Activity_Chat extends AppCompatActivity {
         }
     };
 
-    private Emitter.Listener Block = new Emitter.Listener() {
+    private Emitter.Listener BlockListner = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
             runOnUiThread(new Runnable() {
@@ -518,7 +518,7 @@ public class Activity_Chat extends AppCompatActivity {
             public void onClick(View v) {
 
                 EditText popup_input_edittext_contents = popup_input.findViewById(R.id.popup_input_edittext_description);
-                String msg = popup_input_edittext_contents.getText().toString();
+                String message = popup_input_edittext_contents.getText().toString();
 
                 popup_alert = new Dialog(Activity_Chat.this);
                 popup_alert.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -528,7 +528,7 @@ public class Activity_Chat extends AppCompatActivity {
                 popup_alert_button_yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        socket.emit("msg", msg);
+                        socket.emit("message", message);
                         popup_alert.dismiss();
                         popup_input.dismiss();
                     }

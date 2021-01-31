@@ -7,12 +7,12 @@ public class ItemMessage {
     @SerializedName("no")
     String no;
 
-    @SerializedName("contents")
-    String contents;
+    @SerializedName("description")
+    String description;
 
-    public ItemMessage(String no, String contents) {
+    public ItemMessage(String no, String description) {
         this.no = no;
-        this.contents = contents;
+        this.description = description;
     }
 
     public String getNo() {
@@ -23,11 +23,11 @@ public class ItemMessage {
         this.no = no;
     }
 
-    public String getContents() {
-        return contents;
+    public String getDescription() {
+        return description;
     }
 
-    public void setContents(String contents) {
-        this.contents = contents;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

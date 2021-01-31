@@ -24,13 +24,13 @@ public interface RetrofitAPI {
     Call<String> postAuth(@Body String id);
 
     @FormUrlEncoded
-    @POST("/msgOn")
-    Call<List<ItemMessage>> PostMsgOn(@Field("id") String id);
+    @POST("/messageOn")
+    Call<List<ItemMessage>> PostMessageOn(@Field("id") String id);
 
     @FormUrlEncoded
-    @POST("/msgOff")
-    Call<String> PostMsgOff(@Field("id") String id,
-                            @Field("no") String no);
+    @POST("/messageOff")
+    Call<String> PostMessageOff(@Field("id") String id,
+                                @Field("no") String no);
 
     @FormUrlEncoded
     @POST("/chatOn")
@@ -42,8 +42,8 @@ public interface RetrofitAPI {
                              @Field("no") String no);
 
     @FormUrlEncoded
-    @POST("/read")
-    Call<List<ItemChat>> PostRead(@Field("no") String no);
+    @POST("/chat")
+    Call<List<ItemChat>> PostChat(@Field("no") String no);
 
     @FormUrlEncoded
     @POST("/level")

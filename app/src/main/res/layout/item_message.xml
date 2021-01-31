@@ -9,7 +9,7 @@
     android:background="@color/tokerLightGray">
 
     <TextView
-        android:id="@+id/item_message_textview_contents"
+        android:id="@+id/item_message_textview_description"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:textColor="@color/tokerBlack"
@@ -29,7 +29,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/item_message_textview_contents"
+        app:layout_constraintStart_toEndOf="@+id/item_message_textview_description"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
