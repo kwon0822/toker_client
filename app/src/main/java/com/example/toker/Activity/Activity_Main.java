@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,8 +19,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.toker.R;
+import com.example.toker.http.RetrofitAPI;
 import com.example.toker.tcp.SocketAPI;
 import com.github.nkzawa.socketio.client.Socket;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Activity_Main extends AppCompatActivity {
 
@@ -36,6 +46,13 @@ public class Activity_Main extends AppCompatActivity {
 
     Dialog alertDialog;
     Dialog inputDialog;
+
+    Gson gson = new GsonBuilder().setLenient().create();
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl(RetrofitAPI.url)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build();
+    RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
 
     private Socket socket;
 
@@ -163,9 +180,24 @@ public class Activity_Main extends AppCompatActivity {
                         popup_alert_button_yes.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Toast.makeText(getApplicationContext(), "소중한 의견 전달되었습니다.", Toast.LENGTH_SHORT).show();
-                                alertDialog.dismiss();
-                                inputDialog.dismiss();
+                                EditText popup_input_edittext_description = inputDialog.findViewById(R.id.popup_input_edittext_description);
+                                String description = popup_input_edittext_description.getText().toString();
+
+                                retrofitAPI.PostRequest(Activity_Login.myID, description).enqueue(new Callback<String>() {
+                                    @Override
+                                    public void onResponse(Call<String> call, Response<String> response) {
+
+                                        if (response.body().equals("success")) {
+                                            Toast.makeText(getApplicationContext(), "소중한 의견 전달되었습니다.", Toast.LENGTH_SHORT).show();
+                                            alertDialog.dismiss();
+                                            inputDialog.dismiss();
+                                        }
+                                    }
+                                    @Override
+                                    public void onFailure(Call<String> call, Throwable t) {
+                                        System.out.println(t.getMessage());
+                                    }
+                                });
                             }
                         });
 
@@ -179,7 +211,6 @@ public class Activity_Main extends AppCompatActivity {
                         alertDialog.show();
                     }
                 });
-
                 inputDialog.show();
                 break;
             case R.id.menu_main_logout:

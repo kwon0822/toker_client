@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -15,12 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toker.R;
 import com.example.toker.http.RetrofitAPI;
-import com.example.toker.view.Item.ItemHistory;
-import com.example.toker.view.Item.ItemMessage;
-import com.example.toker.view.Item.ItemPost;
-import com.example.toker.view.adapter.AdapterHistory;
-import com.example.toker.view.adapter.AdapterPost;
-import com.example.toker.view.listner.OnItemClickListnerPost;
+import com.example.toker.view.Item.ItemAbout;
+import com.example.toker.view.adapter.AdapterAbout;
+import com.example.toker.view.listner.OnItemClickListnerAbout;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -42,9 +40,15 @@ public class Activity_About extends Activity {
     Button activity_about_button_request;
 
     RecyclerView activity_post_recyclerview;
-    AdapterPost postAdapter;
-    List<ItemPost> postList = new ArrayList<>();
+    AdapterAbout postAdapter;
+    List<ItemAbout> postList = new ArrayList<>();
+
     Gson gson = new GsonBuilder().setLenient().create();
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl(RetrofitAPI.url)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build();
+    RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,9 +96,24 @@ public class Activity_About extends Activity {
                         popup_alert_button_yes.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Toast.makeText(getApplicationContext(), "소중한 의견 전달되었습니다.", Toast.LENGTH_SHORT).show();
-                                alertDialog.dismiss();
-                                inputDialog.dismiss();
+                                EditText popup_input_edittext_description = inputDialog.findViewById(R.id.popup_input_edittext_description);
+                                String description = popup_input_edittext_description.getText().toString();
+
+                                retrofitAPI.PostRequest(Activity_Login.myID, description).enqueue(new Callback<String>() {
+                                    @Override
+                                    public void onResponse(Call<String> call, Response<String> response) {
+
+                                        if (response.body().equals("success")) {
+                                            Toast.makeText(getApplicationContext(), "소중한 의견 전달되었습니다.", Toast.LENGTH_SHORT).show();
+                                            alertDialog.dismiss();
+                                            inputDialog.dismiss();
+                                        }
+                                    }
+                                    @Override
+                                    public void onFailure(Call<String> call, Throwable t) {
+                                        System.out.println(t.getMessage());
+                                    }
+                                });
                             }
                         });
 
@@ -114,13 +133,13 @@ public class Activity_About extends Activity {
 
         activity_post_recyclerview = findViewById(R.id.activity_about_recyclerview);
         activity_post_recyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        postAdapter = new AdapterPost(postList);
+        postAdapter = new AdapterAbout(postList);
         activity_post_recyclerview.setAdapter(postAdapter);
-        postAdapter.setOnItemClicklistener(new OnItemClickListnerPost() {
+        postAdapter.setOnItemClicklistener(new OnItemClickListnerAbout() {
             @Override
-            public void onItemClick(AdapterPost.ViewHolder holder, View view, int position) {
-                ItemPost itemPost = postAdapter.getItem(position);
-                String postNo = itemPost.getNo();
+            public void onItemClick(AdapterAbout.ViewHolder holder, View view, int position) {
+                ItemAbout itemAbout = postAdapter.getItem(position);
+                String postNo = itemAbout.getNo();
 
                 Intent intent = new Intent(getApplicationContext(), Activity_Post.class);
                 intent.putExtra("postNo", postNo);
@@ -133,9 +152,9 @@ public class Activity_About extends Activity {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-        retrofitAPI.GetPost().enqueue(new Callback<List<ItemPost>>() {
+        retrofitAPI.GetAbout().enqueue(new Callback<List<ItemAbout>>() {
             @Override
-            public void onResponse(Call<List<ItemPost>> call, Response<List<ItemPost>> response) {
+            public void onResponse(Call<List<ItemAbout>> call, Response<List<ItemAbout>> response) {
 //                if (!response.isSuccessful()) {
 //                    textViewResult.setText("code: " + response.code());
 //                    return;
@@ -145,7 +164,7 @@ public class Activity_About extends Activity {
                 postAdapter.notifyDataSetChanged();
             }
             @Override
-            public void onFailure(Call<List<ItemPost>> call, Throwable t) {
+            public void onFailure(Call<List<ItemAbout>> call, Throwable t) {
                 System.out.println(t.getMessage());
             }
         });

@@ -9,22 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toker.R;
-import com.example.toker.view.Item.ItemMessage;
-import com.example.toker.view.Item.ItemPost;
-import com.example.toker.view.listner.OnItemClickListnerMessage;
-import com.example.toker.view.listner.OnItemClickListnerPost;
+import com.example.toker.view.Item.ItemAbout;
+import com.example.toker.view.listner.OnItemClickListnerAbout;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> implements OnItemClickListnerPost {
-    private List<ItemPost> postList;
-    OnItemClickListnerPost onItemClickListnerPost;
+public class AdapterAbout extends RecyclerView.Adapter<AdapterAbout.ViewHolder> implements OnItemClickListnerAbout {
+    private List<ItemAbout> postList;
+    OnItemClickListnerAbout onItemClickListnerAbout;
 
     // 어댑터 생성자
-    public AdapterPost(List<ItemPost> postList) {
+    public AdapterAbout(List<ItemAbout> postList) {
         this.postList = postList;
     }
 
@@ -38,7 +33,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> im
     // 아이템을 레이아웃으로 전환하기
     @NonNull
     @Override
-    public AdapterPost.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AdapterAbout.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         int layout = R.layout.item_post;
 
         View view = LayoutInflater
@@ -61,8 +56,8 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> im
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-                    if (onItemClickListnerPost != null) {
-                        onItemClickListnerPost.onItemClick(AdapterPost.ViewHolder.this, v, position);
+                    if (onItemClickListnerAbout != null) {
+                        onItemClickListnerAbout.onItemClick(AdapterAbout.ViewHolder.this, v, position);
                     }
                 }
             });
@@ -71,24 +66,24 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> im
 
     // 뷰와 기능 연결하기
     @Override
-    public void onBindViewHolder(@NonNull AdapterPost.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AdapterAbout.ViewHolder holder, int position) {
 
         String title = postList.get(position).getTitle();
         holder.item_post_textview_title.setText(title);
     }
 
-    public ItemPost getItem(int position) {
+    public ItemAbout getItem(int position) {
         return postList.get(position);
     }
 
-    public void setOnItemClicklistener(OnItemClickListnerPost listener) {
-        this.onItemClickListnerPost = listener;
+    public void setOnItemClicklistener(OnItemClickListnerAbout listener) {
+        this.onItemClickListnerAbout = listener;
     }
 
     @Override
-    public void onItemClick(AdapterPost.ViewHolder holder, View view, int position) {
-        if(onItemClickListnerPost != null) {
-            onItemClickListnerPost.onItemClick(holder,view,position);
+    public void onItemClick(AdapterAbout.ViewHolder holder, View view, int position) {
+        if(onItemClickListnerAbout != null) {
+            onItemClickListnerAbout.onItemClick(holder,view,position);
         }
     }
 }

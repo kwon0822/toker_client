@@ -441,7 +441,7 @@ public class Activity_Chat extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                EditText popup_input_edittext_contents = popup_input.findViewById(R.id.popup_input_edittext_contents);
+                EditText popup_input_edittext_contents = popup_input.findViewById(R.id.popup_input_edittext_description);
                 String msg = popup_input_edittext_contents.getText().toString();
 
                 popup_alert = new Dialog(Activity_Chat.this);
@@ -517,7 +517,7 @@ public class Activity_Chat extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                EditText popup_input_edittext_contents = popup_input.findViewById(R.id.popup_input_edittext_contents);
+                EditText popup_input_edittext_contents = popup_input.findViewById(R.id.popup_input_edittext_description);
                 String msg = popup_input_edittext_contents.getText().toString();
 
                 popup_alert = new Dialog(Activity_Chat.this);

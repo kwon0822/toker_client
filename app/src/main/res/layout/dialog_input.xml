@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/popup_input_edittext_contents"
+        android:id="@+id/popup_input_edittext_description"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
@@ -47,7 +47,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/popup_input_edittext_contents"
+        app:layout_constraintTop_toBottomOf="@+id/popup_input_edittext_description"
         app:layout_constraintVertical_bias="0.131" />
 
     <Button

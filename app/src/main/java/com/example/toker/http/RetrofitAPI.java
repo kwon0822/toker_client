@@ -4,6 +4,7 @@ import com.example.toker.view.Item.ItemChat;
 import com.example.toker.view.Item.ItemHistory;
 import com.example.toker.view.Item.ItemMemory;
 import com.example.toker.view.Item.ItemMessage;
+import com.example.toker.view.Item.ItemAbout;
 import com.example.toker.view.Item.ItemPost;
 
 import java.util.List;
@@ -52,6 +53,15 @@ public interface RetrofitAPI {
     @POST("/history")
     Call<List<ItemHistory>> PostHistory(@Field("id") String id);
 
-    @GET("/post")
-    Call<List<ItemPost>> GetPost();
+    @GET("/about")
+    Call<List<ItemAbout>> GetAbout();
+
+    @FormUrlEncoded
+    @POST("/post")
+    Call<ItemPost> PostPost(@Field("no") String no);
+
+    @FormUrlEncoded
+    @POST("/request")
+    Call<String> PostRequest(@Field("id") String id,
+                          @Field("description") String description);
 }

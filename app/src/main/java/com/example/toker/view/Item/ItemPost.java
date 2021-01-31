@@ -2,19 +2,12 @@ package com.example.toker.view.Item;
 
 public class ItemPost {
 
-    String no;
     String title;
+    String description;
 
-    public ItemPost(String no, String title) {
-        this.no = no;
+    public ItemPost(String title, String description) {
         this.title = title;
-    }
-    public String getNo() {
-        return no;
-    }
-
-    public void setNo(String date) {
-        this.no = no;
+        this.description = description;
     }
 
     public String getTitle() {
@@ -23,5 +16,13 @@ public class ItemPost {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
