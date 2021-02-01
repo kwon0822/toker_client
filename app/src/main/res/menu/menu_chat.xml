@@ -6,7 +6,11 @@
         android:title="채팅 저장하기"/>
 
     <item
+        android:id="@+id/menu_chat_request"
+        android:title="개발자에 건의하기"/>
+
+    <item
         android:id="@+id/menu_chat_quit"
-        android:title="채팅 종료하기"/>
+        android:title="채팅 그만하기"/>
 
 </menu>

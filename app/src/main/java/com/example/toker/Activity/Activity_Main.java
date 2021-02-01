@@ -55,11 +55,9 @@ public class Activity_Main extends AppCompatActivity {
     RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
 
     private Socket socket;
-
-    private boolean isLogin = false;
-
     String id = Activity_Login.myID;
 
+    private boolean isLogin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,10 +72,9 @@ public class Activity_Main extends AppCompatActivity {
         socket.connect();
 
         if (!isLogin) {
-            socket.emit("login", id);
             isLogin = true;
+            socket.emit("login", id);
         }
-
     }
 
     @Override
@@ -105,30 +102,21 @@ public class Activity_Main extends AppCompatActivity {
         activity_main_actionbar.setDisplayHomeAsUpEnabled(false);
 
         activity_main_button_filter = findViewById(R.id.activity_main_button_filter);
-        activity_main_button_filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Activity_Filter.class);
-                startActivity(intent);
-            }
+        activity_main_button_filter.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), Activity_Filter.class);
+            startActivity(intent);
         });
 
         activity_main_button_message = findViewById(R.id.activity_main_button_message);
-        activity_main_button_message.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Activity_Message.class);
-                startActivity(intent);
-            }
+        activity_main_button_message.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), Activity_Message.class);
+            startActivity(intent);
         });
 
         activity_main_button_memory = findViewById(R.id.activity_main_button_memory);
-        activity_main_button_memory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Activity_Memory.class);
-                startActivity(intent);
-            }
+        activity_main_button_memory.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), Activity_Memory.class);
+            startActivity(intent);
         });
     }
 
@@ -161,58 +149,48 @@ public class Activity_Main extends AppCompatActivity {
                 inputDialog.setContentView(R.layout.dialog_input);
 
                 Button popup_input_button_back = inputDialog.findViewById(R.id.popup_input_button_back);
-                popup_input_button_back.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        inputDialog.dismiss();
-                    }
-                });
+                popup_input_button_back.setOnClickListener(v -> inputDialog.dismiss());
 
                 Button popup_input_button_send = inputDialog.findViewById(R.id.popup_input_button_send);
-                popup_input_button_send.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog = new Dialog(Activity_Main.this);
-                        alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                        alertDialog.setContentView(R.layout.dialog_alert);
+                popup_input_button_send.setOnClickListener(v -> {
+                    alertDialog = new Dialog(Activity_Main.this);
+                    alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    alertDialog.setContentView(R.layout.dialog_alert);
 
-                        Button popup_alert_button_yes = alertDialog.findViewById(R.id.popup_alert_button_yes);
-                        popup_alert_button_yes.setOnClickListener(new View.OnClickListener() {
+                    Button popup_alert_button_yes = alertDialog.findViewById(R.id.popup_alert_button_yes);
+                    popup_alert_button_yes.setOnClickListener(v1 -> {
+                        EditText popup_input_edittext_description = inputDialog.findViewById(R.id.popup_input_edittext_description);
+                        String description = popup_input_edittext_description.getText().toString();
+
+                        retrofitAPI.PostRequest(Activity_Login.myID, description).enqueue(new Callback<String>() {
                             @Override
-                            public void onClick(View v) {
-                                EditText popup_input_edittext_description = inputDialog.findViewById(R.id.popup_input_edittext_description);
-                                String description = popup_input_edittext_description.getText().toString();
+                            public void onResponse(Call<String> call, Response<String> response) {
 
-                                retrofitAPI.PostRequest(Activity_Login.myID, description).enqueue(new Callback<String>() {
-                                    @Override
-                                    public void onResponse(Call<String> call, Response<String> response) {
-
-                                        if (response.body().equals("success")) {
-                                            Toast.makeText(getApplicationContext(), "소중한 의견 전달되었습니다.", Toast.LENGTH_SHORT).show();
-                                            alertDialog.dismiss();
-                                            inputDialog.dismiss();
-                                        }
-                                    }
-                                    @Override
-                                    public void onFailure(Call<String> call, Throwable t) {
-                                        System.out.println(t.getMessage());
-                                    }
-                                });
+                                if (response.body().equals("success")) {
+                                    Toast.makeText(getApplicationContext(), "소중한 의견 전달되었습니다.", Toast.LENGTH_SHORT).show();
+                                    alertDialog.dismiss();
+                                    inputDialog.dismiss();
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
+                                System.out.println(t.getMessage());
                             }
                         });
+                    });
 
-                        Button popup_alert_button_no = alertDialog.findViewById(R.id.popup_alert_button_no);
-                        popup_alert_button_no.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                alertDialog.dismiss();
-                            }
-                        });
-                        alertDialog.show();
-                    }
+                    Button popup_alert_button_no = alertDialog.findViewById(R.id.popup_alert_button_no);
+                    popup_alert_button_no.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.dismiss();
+                        }
+                    });
+                    alertDialog.show();
                 });
                 inputDialog.show();
                 break;
+
             case R.id.menu_main_logout:
                 Intent intent_logout = new Intent(getApplicationContext(), Activity_Login.class);
                 startActivity(intent_logout);

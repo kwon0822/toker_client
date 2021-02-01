@@ -29,12 +29,15 @@ public class Activity_Filter extends Activity {
     String id = Activity_Login.myID;
     private Socket socket;
 
-    private boolean isMatch = false; // 매칭성사, 매칭취소, 매칭중앱강제종료
+    private boolean isMatch = false; // matchOn, matchOff
 
     boolean isLevel1 = false;
     boolean isLevel2 = false;
     boolean isLevel3 = false;
     boolean isLevel4 = false;
+
+    Button activity_filter_filter_button_back;
+    Button activity_filter_filter_button_match;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,32 +50,24 @@ public class Activity_Filter extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-
         socket.on("matchOn", matchOn);
         socket.on("matchOff", matchOff);
-        socket.connect();
-
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+
+        
+
         socket.off("matchOn", matchOn);
         socket.off("matchOff", matchOff);
     }
 
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//
-//        if (isMatch) {
-//            socket.emit("matchOff");
-//            isMatch = false;
-//        }
-//
-//        socket.disconnect();
-//        socket.close();
-//    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 
     public void initialize() {
 
@@ -181,13 +176,11 @@ public class Activity_Filter extends Activity {
                         break;
                 }
 
-                // button : 뒤로가기
-                Button activity_filter_filter_button_back = findViewById(R.id.activity_filter_button_back);
+                activity_filter_filter_button_back = findViewById(R.id.activity_filter_button_back);
                 activity_filter_filter_button_back.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
-                        // emit : 'matchOff', 매칭 취소하기
                         if (isMatch) {
                             socket.emit("matchOff");
                             isMatch = false;
@@ -197,22 +190,23 @@ public class Activity_Filter extends Activity {
                     }
                 });
 
-                // button : 매칭시작
-                Button activity_filter_filter_button_matchingStart = findViewById(R.id.activity_filter_button_matchingStart);
-                activity_filter_filter_button_matchingStart.setOnClickListener(new View.OnClickListener() {
+                activity_filter_filter_button_match = findViewById(R.id.activity_filter_button_match);
+                activity_filter_filter_button_match.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
-                        int isLevel1INT = Boolean.compare(isLevel1, false);
-                        int isLevel2INT = Boolean.compare(isLevel2, false);
-                        int isLevel3INT = Boolean.compare(isLevel3, false);
-                        int isLevel4INT = Boolean.compare(isLevel4, false);
+                        if (!isMatch) {
+                            int isLevel1INT = Boolean.compare(isLevel1, false);
+                            int isLevel2INT = Boolean.compare(isLevel2, false);
+                            int isLevel3INT = Boolean.compare(isLevel3, false);
+                            int isLevel4INT = Boolean.compare(isLevel4, false);
 
-                        String matchCode = Integer.toString(isLevel1INT) + Integer.toString(isLevel2INT) + Integer.toString(isLevel3INT) + Integer.toString(isLevel4INT);
+                            String matchCode = String.valueOf(isLevel1INT + isLevel2INT + isLevel3INT + isLevel4INT);
+                            socket.emit("matchOn", chatLevel + "@" + matchCode);
 
-                        // 채팅 명단에 이름 올리기
-                        isMatch = true;
-                        socket.emit("matchOn", chatLevel + "@" + matchCode);
+                        } else {
+                            socket.emit("matchOff");
+                        }
                     }
                 });
             }
@@ -235,7 +229,10 @@ public class Activity_Filter extends Activity {
                     String message = args[0].toString();
 
                     if (message.equals("wait")) {
-                        Toast.makeText(getApplicationContext(), "matchOn : wait", Toast.LENGTH_SHORT).show();
+                        isMatch = true;
+                        Toast.makeText(getApplicationContext(), "매칭을 기다리고 있습니다. 잠시만 기다려주세요.", Toast.LENGTH_SHORT).show();
+
+                        activity_filter_filter_button_match.setText("매칭취소");
 
                     } else {
 
@@ -258,7 +255,10 @@ public class Activity_Filter extends Activity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(getApplicationContext(), "matchOff", Toast.LENGTH_SHORT).show();
+                    isMatch = false;
+                    Toast.makeText(getApplicationContext(), "매칭을 취소하셨습니다.", Toast.LENGTH_SHORT).show();
+
+                    activity_filter_filter_button_match.setText("매칭시작");
                 }
             });
         }
