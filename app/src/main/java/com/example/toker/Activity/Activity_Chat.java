@@ -217,7 +217,6 @@ public class Activity_Chat extends AppCompatActivity {
             }
         });
 
-        // 채팅창
         activity_chat_recyclerview_chat = findViewById(R.id.activity_chat_recyclerview_chat);
         activity_chat_recyclerview_chat.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         chatAdapter = new AdapterChat(chatList);
@@ -234,6 +233,9 @@ public class Activity_Chat extends AppCompatActivity {
                 }
             }
         });
+
+        addNotice("변태 광고는 신고해주세요. 다시 대면하기 싫은 상대는 차단해주세요. ");
+        addNotice("신고/차단 된 채팅은 레벨시스템에 산정되지 않으니 걱정마세요! ");
         addNotice("채팅이 시작되었습니다.");
     }
 
@@ -333,7 +335,13 @@ public class Activity_Chat extends AppCompatActivity {
                         activity_chat_toolbar.getMenu().getItem(0).setTitle("채팅 저장하기");
                         isSave = false;
                     } else {
-                        Toast.makeText(getApplicationContext(), "채팅종료 후 모든 채팅내용이 저장됩니다.", Toast.LENGTH_SHORT).show();
+
+                        if (isChat) {
+                            Toast.makeText(getApplicationContext(), "채팅종료 후 모든 채팅내용이 저장됩니다.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "채팅내용이 저장되었습니다!", Toast.LENGTH_SHORT).show();
+                        }
+
                         activity_chat_toolbar.getMenu().getItem(0).setTitle("채팅저장 취소하기");
                         isSave = true;
                     }
@@ -350,7 +358,10 @@ public class Activity_Chat extends AppCompatActivity {
                 public void run() {
                     Toast.makeText(getApplicationContext(), "신고가 접수되었습니다.", Toast.LENGTH_SHORT).show();
                     socket.emit("chatOff");
-                    finish();
+
+                    if (isChat) {
+                        finish();
+                    }
                 }
             });
         }
@@ -364,7 +375,10 @@ public class Activity_Chat extends AppCompatActivity {
                 public void run() {
                     Toast.makeText(getApplicationContext(), "차단이 접수되었습니다.", Toast.LENGTH_SHORT).show();
                     socket.emit("chatOff");
-                    finish();
+
+                    if (isChat) {
+                        finish();
+                    }
                 }
             });
         }
