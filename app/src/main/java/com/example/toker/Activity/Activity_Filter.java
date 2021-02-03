@@ -30,6 +30,7 @@ public class Activity_Filter extends Activity {
     private Socket socket;
 
     private boolean isMatch = false; // matchOn, matchOff
+    private boolean isRest = false;
 
     boolean isLevel1 = false;
     boolean isLevel2 = false;
@@ -38,6 +39,9 @@ public class Activity_Filter extends Activity {
 
     Button activity_filter_filter_button_back;
     Button activity_filter_filter_button_match;
+
+    String chatLevel;
+    String matchCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,21 +56,27 @@ public class Activity_Filter extends Activity {
         super.onResume();
         socket.on("matchOn", matchOn);
         socket.on("matchOff", matchOff);
+
+        if (isRest) {
+            socket.emit("matchOn", chatLevel + "@" + matchCode);
+        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        if (isMatch) {
+            isRest = true;
 
-        
-
-        socket.off("matchOn", matchOn);
-        socket.off("matchOff", matchOff);
+            socket.emit("matchOff");
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        socket.off("matchOn", matchOn);
+        socket.off("matchOff", matchOff);
     }
 
     public void initialize() {
@@ -87,7 +97,7 @@ public class Activity_Filter extends Activity {
                 System.out.println(response.body());
 
                 int chatTime = Integer.parseInt(response.body().split("@")[0]);
-                String chatLevel = response.body().split("@")[1];
+                chatLevel = response.body().split("@")[1];
 
                 Button activity_filter_filter_button_level1 = findViewById(R.id.activity_filter_button_level1);
                 TextView activity_filter_filter_textview_level1 = findViewById(R.id.activity_filter_textview_level1);
@@ -201,7 +211,7 @@ public class Activity_Filter extends Activity {
                             int isLevel3INT = Boolean.compare(isLevel3, false);
                             int isLevel4INT = Boolean.compare(isLevel4, false);
 
-                            String matchCode = String.valueOf(isLevel1INT + isLevel2INT + isLevel3INT + isLevel4INT);
+                            matchCode = String.valueOf(isLevel1INT + isLevel2INT + isLevel3INT + isLevel4INT);
                             socket.emit("matchOn", chatLevel + "@" + matchCode);
 
                         } else {
@@ -229,12 +239,23 @@ public class Activity_Filter extends Activity {
                     String message = args[0].toString();
 
                     if (message.equals("wait")) {
-                        isMatch = true;
-                        Toast.makeText(getApplicationContext(), "매칭을 기다리고 있습니다. 잠시만 기다려주세요.", Toast.LENGTH_SHORT).show();
 
-                        activity_filter_filter_button_match.setText("매칭취소");
+                        isMatch = true;
+
+                        if (!isRest) {
+
+                            Toast.makeText(getApplicationContext(), "매칭을 기다리고 있습니다. 잠시만 기다려주세요.", Toast.LENGTH_SHORT).show();
+
+                            activity_filter_filter_button_match.setText("매칭취소");
+
+                        } else {
+                            Toast.makeText(getApplicationContext(), "집중해주세요. 처음부터 다시 기다려야 합니다.", Toast.LENGTH_SHORT).show();
+
+                            isRest = false;
+                        }
 
                     } else {
+                        Toast.makeText(getApplicationContext(), "매칭되었습니다. 채팅을 시작합니다.", Toast.LENGTH_SHORT).show();
 
                         Activity_Login.yourID = message;
 
@@ -255,10 +276,16 @@ public class Activity_Filter extends Activity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    isMatch = false;
-                    Toast.makeText(getApplicationContext(), "매칭을 취소하셨습니다.", Toast.LENGTH_SHORT).show();
 
-                    activity_filter_filter_button_match.setText("매칭시작");
+                    isMatch = false;
+
+                    if (!isRest) {
+                        Toast.makeText(getApplicationContext(), "매칭을 취소하셨습니다.", Toast.LENGTH_SHORT).show();
+
+                        activity_filter_filter_button_match.setText("매칭시작");
+                    } else {
+                        Toast.makeText(getApplicationContext(), "매칭을 중지하셨습니다.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }
