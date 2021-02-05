@@ -49,11 +49,13 @@ public class AdapterHistory extends RecyclerView.Adapter<AdapterHistory.ViewHold
 
         private TextView item_history_textview_date;
         private TextView item_history_textview_time;
+        private TextView item_history_textview_state;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             item_history_textview_date = itemView.findViewById(R.id.item_history_textview_date);
             item_history_textview_time = itemView.findViewById(R.id.item_history_textview_time);
+            item_history_textview_state = itemView.findViewById(R.id.item_history_textview_state);
         }
     }
 
@@ -66,6 +68,7 @@ public class AdapterHistory extends RecyclerView.Adapter<AdapterHistory.ViewHold
         long dateLong = Long.parseLong(date);
         Date dateDate = new Date(dateLong);
         String dateSTR = simpleDateFormat.format(dateDate);
+        holder.item_history_textview_date.setText(dateSTR);
 
         int time = historyList.get(position).getTime();
         String timeSTR = String.format("%02d분 %02d초",
@@ -73,8 +76,24 @@ public class AdapterHistory extends RecyclerView.Adapter<AdapterHistory.ViewHold
                 TimeUnit.MILLISECONDS.toSeconds(time)
                         - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(time))
         );
-
-        holder.item_history_textview_date.setText(dateSTR);
         holder.item_history_textview_time.setText(timeSTR + " 동안 채팅");
+
+        String state = historyList.get(position).getState();
+        String stateString = "";
+        switch (state) {
+            case "normal":
+                stateString = "정상대화";
+                break;
+            case "abnormal":
+                stateString = "비정상종료";
+                break;
+            case "accuse":
+                stateString = "상대신고";
+                break;
+            case "block":
+                stateString = "상대차단";
+                break;
+        }
+        holder.item_history_textview_state.setText(stateString);
     }
 }

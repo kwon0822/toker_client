@@ -4,10 +4,12 @@ public class ItemHistory {
 
     String date;
     int time;
+    String state;
 
-    public ItemHistory(String date, int time) {
+    public ItemHistory(String date, int time, String state) {
         this.date = date;
         this.time = time;
+        this.state = state;
     }
 
 
@@ -25,5 +27,13 @@ public class ItemHistory {
 
     public void setTime(int time) {
         this.time = time;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

@@ -37,7 +37,7 @@
         app:layout_constraintTop_toBottomOf="@+id/activity_chatM_toolbar">
 
         <TextView
-            android:id="@+id/activity_chatM_textview_accuse"
+            android:id="@+id/activity_chatM_textview_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="채팅 제목"

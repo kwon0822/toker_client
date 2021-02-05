@@ -46,6 +46,12 @@ public interface RetrofitAPI {
     Call<List<ItemChat>> PostChat(@Field("no") String no);
 
     @FormUrlEncoded
+    @POST("/chatEdit")
+    Call<String> PostChatEdit(@Field("id") String id,
+                             @Field("no") String no,
+                              @Field("description") String description);
+
+    @FormUrlEncoded
     @POST("/level")
     Call<String> PostLevel(@Field("id") String id);
 

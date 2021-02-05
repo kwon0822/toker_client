@@ -1,4 +1,4 @@
-package com.example.toker.Activity;
+package com.example.toker.activity;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,6 +39,13 @@ public class Activity_Memory extends Activity {
 
     AdapterMemory memoryAdapter;
     List<ItemMemory> memoryList = new ArrayList<>();
+
+    Gson gson = new GsonBuilder().setLenient().create();
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl(RetrofitAPI.url)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build();
+    RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +79,7 @@ public class Activity_Memory extends Activity {
                     case "item" :
                         Intent intent = new Intent(getApplicationContext(), Activity_ChatM.class);
                         intent.putExtra("no", itemMemory.getNo());
+                        intent.putExtra("title", itemMemory.getTitle());
                         startActivity(intent);
                         break;
 
@@ -91,12 +99,6 @@ public class Activity_Memory extends Activity {
                         popup_alert_button_yes.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Gson gson = new GsonBuilder().setLenient().create();
-                                Retrofit retrofit = new Retrofit.Builder()
-                                        .baseUrl(RetrofitAPI.url)
-                                        .addConverterFactory(GsonConverterFactory.create(gson))
-                                        .build();
-                                RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
                                 retrofitAPI.PostChatOff(id, itemMemory.getNo()).enqueue(new Callback<String>() {
                                     @Override
                                     public void onResponse(Call<String> call, Response<String> response) {
@@ -120,19 +122,71 @@ public class Activity_Memory extends Activity {
                         });
                         alertDialog.show();
                         break;
+
                     case "edit" :
-                        Toast.makeText(getApplicationContext(), "수정", Toast.LENGTH_SHORT).show();
+                        inputDialog = new Dialog(Activity_Memory.this);
+                        inputDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        inputDialog.setContentView(R.layout.dialog_input);
+
+                        Button popup_input_button_back = inputDialog.findViewById(R.id.popup_input_button_back);
+                        popup_input_button_back.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                inputDialog.dismiss();
+                            }
+                        });
+
+                        Button popup_input_button_send = inputDialog.findViewById(R.id.popup_input_button_send);
+                        popup_input_button_send.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alertDialog = new Dialog(Activity_Memory.this);
+                                alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                alertDialog.setContentView(R.layout.dialog_alert);
+
+                                Button popup_alert_button_yes = alertDialog.findViewById(R.id.popup_alert_button_yes);
+                                popup_alert_button_yes.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        EditText popup_input_edittext_description = inputDialog.findViewById(R.id.popup_input_edittext_description);
+                                        String description = popup_input_edittext_description.getText().toString();
+
+                                        retrofitAPI.PostChatEdit(Activity_Login.myID, itemMemory.getNo(), description).enqueue(new Callback<String>() {
+                                            @Override
+                                            public void onResponse(Call<String> call, Response<String> response) {
+
+                                                if (response.body().equals("success")) {
+                                                    alertDialog.dismiss();
+                                                    inputDialog.dismiss();
+
+                                                    memoryAdapter.getItem(position).setTitle(description);
+                                                    memoryAdapter.notifyItemChanged(position);
+                                                }
+                                            }
+                                            @Override
+                                            public void onFailure(Call<String> call, Throwable t) {
+                                                System.out.println(t.getMessage());
+                                            }
+                                        });
+                                    }
+                                });
+
+                                Button popup_alert_button_no = alertDialog.findViewById(R.id.popup_alert_button_no);
+                                popup_alert_button_no.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        alertDialog.dismiss();
+                                    }
+                                });
+                                alertDialog.show();
+                            }
+                        });
+                        inputDialog.show();
                         break;
                 }
             }
         });
 
-        Gson gson = new GsonBuilder().setLenient().create();
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(RetrofitAPI.url)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
         retrofitAPI.PostChatOn(id).enqueue(new Callback<List<ItemMemory>>() {
             @Override
             public void onResponse(Call<List<ItemMemory>> call, Response<List<ItemMemory>> response) {
@@ -144,5 +198,4 @@ public class Activity_Memory extends Activity {
             }
         });
     }
-
 }

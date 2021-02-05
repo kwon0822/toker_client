@@ -46,4 +46,6 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0' // 리사이클러뷰
 
     implementation 'androidx.core:core:1.5.0-alpha04'
+
+    implementation 'com.airbnb.android:lottie:3.6.0' // 로티
 }

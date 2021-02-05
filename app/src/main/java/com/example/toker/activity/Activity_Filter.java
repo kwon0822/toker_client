@@ -1,4 +1,4 @@
-package com.example.toker.Activity;
+package com.example.toker.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.UiThread;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.toker.R;
 import com.example.toker.http.RetrofitAPI;
 import com.example.toker.tcp.SocketAPI;
@@ -29,6 +33,13 @@ public class Activity_Filter extends Activity {
     String id = Activity_Login.myID;
     private Socket socket;
 
+    Gson gson = new GsonBuilder().setLenient().create();
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl(RetrofitAPI.url)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build();
+    RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+
     private boolean isMatch = false; // matchOn, matchOff
     private boolean isRest = false;
 
@@ -37,8 +48,15 @@ public class Activity_Filter extends Activity {
     boolean isLevel3 = false;
     boolean isLevel4 = false;
 
-    Button activity_filter_filter_button_back;
-    Button activity_filter_filter_button_match;
+    Thread AxiomThread = new Thread();
+
+    ConstraintLayout activity_filter_constraintlayout_selector;
+    ConstraintLayout activity_filter_constraintlayout_animator;
+    LottieAnimationView activity_filter_lottie_loading;
+    Button activity_filter_button_back;
+    Button activity_filter_button_match;
+    TextView activity_filter_textview_axiom;
+    String[] axioms = {"대화는 보약이다.", "대화는 된장이다.", "대화 존맛탱"};
 
     String chatLevel;
     String matchCode;
@@ -59,6 +77,7 @@ public class Activity_Filter extends Activity {
 
         if (isRest) {
             socket.emit("matchOn", chatLevel + "@" + matchCode);
+            activity_filter_lottie_loading.playAnimation();
         }
     }
 
@@ -69,6 +88,7 @@ public class Activity_Filter extends Activity {
             isRest = true;
 
             socket.emit("matchOff");
+            activity_filter_lottie_loading.cancelAnimation();
         }
     }
 
@@ -84,12 +104,11 @@ public class Activity_Filter extends Activity {
         SocketAPI socketAPI = (SocketAPI) getApplication();
         socket = socketAPI.getSocket();
 
-        Gson gson = new GsonBuilder().setLenient().create();
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(RetrofitAPI.url)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+        activity_filter_constraintlayout_animator = findViewById(R.id.activity_filter_constraintlayout_animator);
+        activity_filter_constraintlayout_selector = findViewById(R.id.activity_filter_constraintlayout_selector);
+        activity_filter_lottie_loading = findViewById(R.id.activity_filter_lottie_loading);
+        activity_filter_textview_axiom = findViewById(R.id.activity_filter_textview_axiom);
+
         retrofitAPI.PostLevel(id).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
@@ -186,8 +205,8 @@ public class Activity_Filter extends Activity {
                         break;
                 }
 
-                activity_filter_filter_button_back = findViewById(R.id.activity_filter_button_back);
-                activity_filter_filter_button_back.setOnClickListener(new View.OnClickListener() {
+                activity_filter_button_back = findViewById(R.id.activity_filter_button_back);
+                activity_filter_button_back.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -200,8 +219,8 @@ public class Activity_Filter extends Activity {
                     }
                 });
 
-                activity_filter_filter_button_match = findViewById(R.id.activity_filter_button_match);
-                activity_filter_filter_button_match.setOnClickListener(new View.OnClickListener() {
+                activity_filter_button_match = findViewById(R.id.activity_filter_button_match);
+                activity_filter_button_match.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -212,6 +231,12 @@ public class Activity_Filter extends Activity {
                             int isLevel4INT = Boolean.compare(isLevel4, false);
 
                             matchCode = String.valueOf(isLevel1INT + isLevel2INT + isLevel3INT + isLevel4INT);
+
+                            if (matchCode.equals("0000")) {
+                                Toast.makeText(getApplicationContext(), "매칭상대를 선택해주세요!", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
                             socket.emit("matchOn", chatLevel + "@" + matchCode);
 
                         } else {
@@ -242,11 +267,15 @@ public class Activity_Filter extends Activity {
 
                         isMatch = true;
 
+
                         if (!isRest) {
 
                             Toast.makeText(getApplicationContext(), "매칭을 기다리고 있습니다. 잠시만 기다려주세요.", Toast.LENGTH_SHORT).show();
+                            activity_filter_button_match.setText("매칭취소");
 
-                            activity_filter_filter_button_match.setText("매칭취소");
+                            activity_filter_constraintlayout_selector.setVisibility(View.INVISIBLE);
+                            activity_filter_constraintlayout_animator.setVisibility(View.VISIBLE);
+                            activity_filter_lottie_loading.playAnimation();
 
                         } else {
                             Toast.makeText(getApplicationContext(), "집중해주세요. 처음부터 다시 기다려야 합니다.", Toast.LENGTH_SHORT).show();
@@ -282,7 +311,12 @@ public class Activity_Filter extends Activity {
                     if (!isRest) {
                         Toast.makeText(getApplicationContext(), "매칭을 취소하셨습니다.", Toast.LENGTH_SHORT).show();
 
-                        activity_filter_filter_button_match.setText("매칭시작");
+                        activity_filter_button_match.setText("매칭시작");
+
+                        activity_filter_constraintlayout_selector.setVisibility(View.VISIBLE);
+                        activity_filter_constraintlayout_animator.setVisibility(View.INVISIBLE);
+                        activity_filter_lottie_loading.cancelAnimation();
+
                     } else {
                         Toast.makeText(getApplicationContext(), "매칭을 중지하셨습니다.", Toast.LENGTH_SHORT).show();
                     }

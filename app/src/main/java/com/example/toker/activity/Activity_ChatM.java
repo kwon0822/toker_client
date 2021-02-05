@@ -1,7 +1,8 @@
-package com.example.toker.Activity;
+package com.example.toker.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +31,8 @@ public class Activity_ChatM extends AppCompatActivity {
 
     Utill utill = new Utill();
 
+    TextView activity_chatM_textview_title;
+
     RecyclerView activity_chat_recyclerview_chat;
     private AdapterChat chatAdapter;
     private List<ItemChat> chatList = new ArrayList<>();
@@ -44,7 +47,11 @@ public class Activity_ChatM extends AppCompatActivity {
     public void initialize() {
 
         Intent intent = getIntent();
-        String ChatNo = intent.getExtras().getString("no");
+        String chatNo = intent.getExtras().getString("no");
+        String chatTitle = intent.getExtras().getString("title");
+
+        activity_chatM_textview_title = findViewById(R.id.activity_chatM_textview_title);
+        activity_chatM_textview_title.setText(chatTitle);
 
         activity_chat_recyclerview_chat = findViewById(R.id.activity_chatM_recyclerview_chat);
         activity_chat_recyclerview_chat.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -67,7 +74,7 @@ public class Activity_ChatM extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-        retrofitAPI.PostChat(ChatNo).enqueue(new Callback<List<ItemChat>>() {
+        retrofitAPI.PostChat(chatNo).enqueue(new Callback<List<ItemChat>>() {
             @Override
             public void onResponse(Call<List<ItemChat>> call, Response<List<ItemChat>> response) {
                 chatList.addAll(response.body());

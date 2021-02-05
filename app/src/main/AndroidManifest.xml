@@ -13,27 +13,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-        <activity android:name=".Activity.Activity_Splash">
+        <activity android:name=".activity.Activity_Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.Activity_Login" />
-        <activity android:name=".Activity.Activity_Main" />
-        <activity android:name=".Activity.Activity_Chat" />
-        <activity android:name=".Activity.Activity_ChatM" />
-        <activity android:name=".Activity.Activity_About"
+        <activity android:name=".activity.Activity_Login" />
+        <activity android:name=".activity.Activity_Main" />
+        <activity android:name=".activity.Activity_Chat" />
+        <activity android:name=".activity.Activity_ChatM" />
+        <activity android:name=".activity.Activity_About"
             android:theme="@style/Theme.AppCompat.Dialog"/>
-        <activity android:name=".Activity.Activity_Post"
+        <activity android:name=".activity.Activity_Post"
             android:theme="@style/Theme.AppCompat.Dialog"/>
-        <activity android:name=".Activity.Activity_Level"
+        <activity android:name=".activity.Activity_Level"
             android:theme="@style/Theme.AppCompat.Dialog"/>
-        <activity android:name=".Activity.Activity_Filter"
+        <activity android:name=".activity.Activity_Filter"
             android:theme="@style/Theme.AppCompat.Dialog"/>
-        <activity android:name=".Activity.Activity_Message"
+        <activity android:name=".activity.Activity_Message"
             android:theme="@style/Theme.AppCompat.Dialog"/>
-        <activity android:name=".Activity.Activity_Memory"
+        <activity android:name=".activity.Activity_Memory"
             android:theme="@style/Theme.AppCompat.Dialog"/>
     </application>
 

@@ -45,160 +45,235 @@
         app:layout_constraintVertical_bias="0.016" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/activity_filter_constraintlayout1"
+        android:id="@+id/activity_filter_constraintlayout"
         android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/activity_filter_constraintlayout2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_filter_textview_subtitle"
-        app:layout_constraintVertical_bias="0.168">
-
-        <Button
-            android:id="@+id/activity_filter_button_level1"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="광고의심"
-            app:layout_constraintBottom_toTopOf="@+id/activity_filter_textview_level1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_weight="4" />
-
-        <TextView
-            android:id="@+id/activity_filter_textview_level1"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="선택가능"
-            android:textAlignment="center"
-            android:textColor="@color/tokerLightGray"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_filter_button_level1"
-            app:layout_constraintVertical_weight="1" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/activity_filter_constraintlayout2"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:layout_marginEnd="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/activity_filter_constraintlayout3"
-        app:layout_constraintStart_toEndOf="@+id/activity_filter_constraintlayout1"
-        app:layout_constraintTop_toBottomOf="@+id/activity_filter_textview_subtitle"
-        app:layout_constraintVertical_bias="0.168">
-
-        <Button
-            android:id="@+id/activity_filter_button_level2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="변태의심"
-            app:layout_constraintBottom_toTopOf="@+id/activity_filter_textview_level2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_weight="4" />
-
-        <TextView
-            android:id="@+id/activity_filter_textview_level2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="선택가능"
-            android:textAlignment="center"
-            android:textColor="@color/tokerLightGray"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_filter_button_level2"
-            app:layout_constraintVertical_weight="1" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/activity_filter_constraintlayout3"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:layout_marginEnd="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/activity_filter_constraintlayout4"
-        app:layout_constraintStart_toEndOf="@+id/activity_filter_constraintlayout2"
-        app:layout_constraintTop_toBottomOf="@+id/activity_filter_textview_subtitle"
-        app:layout_constraintVertical_bias="0.168">
-
-        <Button
-            android:id="@+id/activity_filter_button_level3"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="일반대화"
-            app:layout_constraintBottom_toTopOf="@+id/activity_filter_textview_level3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_weight="4" />
-
-        <TextView
-            android:id="@+id/activity_filter_textview_level3"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="선택가능"
-            android:textAlignment="center"
-            android:textColor="@color/tokerLightGray"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_filter_button_level3"
-            app:layout_constraintVertical_weight="1" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/activity_filter_constraintlayout4"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:layout_marginEnd="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/activity_filter_button_match"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/activity_filter_constraintlayout3"
-        app:layout_constraintTop_toBottomOf="@+id/activity_filter_textview_subtitle"
-        app:layout_constraintVertical_bias="0.168">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_filter_textview_subtitle">
 
-        <Button
-            android:id="@+id/activity_filter_button_level4"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/activity_filter_constraintlayout_selector"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="깊은대화"
-            app:layout_constraintBottom_toTopOf="@+id/activity_filter_textview_level4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_weight="4" />
-
-        <TextView
-            android:id="@+id/activity_filter_textview_level4"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="선택가능"
-            android:textAlignment="center"
-            android:textColor="@color/tokerLightGray"
-            android:textStyle="bold"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_filter_button_level4"
-            app:layout_constraintVertical_weight="1" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/activity_filter_constraintlayout_select1"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/activity_filter_constraintlayout_select2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <Button
+                    android:id="@+id/activity_filter_button_level1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="광고의심"
+                    app:layout_constraintBottom_toTopOf="@+id/activity_filter_textview_level1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_weight="4" />
+
+                <TextView
+                    android:id="@+id/activity_filter_textview_level1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="선택가능"
+                    android:textAlignment="center"
+                    android:textColor="@color/tokerLightGray"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_filter_button_level1"
+                    app:layout_constraintVertical_weight="1" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/activity_filter_constraintlayout_select2"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/activity_filter_constraintlayout_select3"
+                app:layout_constraintStart_toEndOf="@+id/activity_filter_constraintlayout_select1"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <Button
+                    android:id="@+id/activity_filter_button_level2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="변태의심"
+                    app:layout_constraintBottom_toTopOf="@+id/activity_filter_textview_level2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_weight="4" />
+
+                <TextView
+                    android:id="@+id/activity_filter_textview_level2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="선택가능"
+                    android:textAlignment="center"
+                    android:textColor="@color/tokerLightGray"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_filter_button_level2"
+                    app:layout_constraintVertical_weight="1" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/activity_filter_constraintlayout_select3"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/activity_filter_constraintlayout_select4"
+                app:layout_constraintStart_toEndOf="@+id/activity_filter_constraintlayout_select2"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <Button
+                    android:id="@+id/activity_filter_button_level3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="일반대화"
+                    app:layout_constraintBottom_toTopOf="@+id/activity_filter_textview_level3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_weight="4" />
+
+                <TextView
+                    android:id="@+id/activity_filter_textview_level3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="선택가능"
+                    android:textAlignment="center"
+                    android:textColor="@color/tokerLightGray"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_filter_button_level3"
+                    app:layout_constraintVertical_weight="1" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/activity_filter_constraintlayout_select4"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/activity_filter_constraintlayout_select3"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <Button
+                    android:id="@+id/activity_filter_button_level4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="깊은대화"
+                    app:layout_constraintBottom_toTopOf="@+id/activity_filter_textview_level4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_weight="4" />
+
+                <TextView
+                    android:id="@+id/activity_filter_textview_level4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="선택가능"
+                    android:textAlignment="center"
+                    android:textColor="@color/tokerLightGray"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_filter_button_level4"
+                    app:layout_constraintVertical_weight="1" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/activity_filter_constraintlayout_animator"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/activity_filter_constraintlayout_selector">
+
+            <TextView
+                android:id="@+id/activity_filter_textview_state"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="채팅 상대를 찾고있어요!"
+                android:textColor="@color/tokerWhite"
+                android:textSize="18dp"
+                app:layout_constraintBottom_toTopOf="@+id/activity_filter_lottie_loading"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_weight="1" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/activity_filter_lottie_loading"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center_horizontal|center_vertical"
+                app:layout_constraintBottom_toTopOf="@+id/activity_filter_textview_axiom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/activity_filter_textview_state"
+                app:layout_constraintVertical_weight="1.5"
+                app:lottie_autoPlay="false"
+                app:lottie_fileName="activity_filter_lottie_loading.json"
+                app:lottie_loop="true" />
+
+            <TextView
+                android:id="@+id/activity_filter_textview_axiom"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="대화는 보약이다"
+                android:textColor="@color/tokerWhite"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/activity_filter_lottie_loading"
+                app:layout_constraintVertical_weight="1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -206,15 +281,13 @@
         android:id="@+id/activity_filter_button_match"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="70dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
         android:text="매칭시작"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
-        app:layout_constraintStart_toStartOf="@+id/activity_filter_textview_title"
-        app:layout_constraintTop_toBottomOf="@+id/activity_filter_constraintlayout1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_filter_constraintlayout"
         app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

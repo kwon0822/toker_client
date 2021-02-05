@@ -1,4 +1,4 @@
-package com.example.toker.Activity;
+package com.example.toker.activity;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -64,6 +64,7 @@ public class Activity_Message extends Activity {
             @Override
             public void onItemClick(AdapterMessage.ViewHolder holder, View view, int position) {
                 ItemMessage item_msg = messageAdapter.getItem(position);
+
                 alertDialog = new Dialog(Activity_Message.this);
                 alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 alertDialog.setContentView(R.layout.dialog_alert);

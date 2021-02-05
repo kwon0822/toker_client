@@ -16,7 +16,7 @@
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/item_history_textview_time"
-        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintHorizontal_weight="2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,9 +27,21 @@
         android:textColor="@color/tokerBlack"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/item_history_textview_state"
         app:layout_constraintHorizontal_weight="2"
         app:layout_constraintStart_toEndOf="@+id/item_history_textview_date"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/item_history_textview_state"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textColor="@color/tokerBlack"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/item_history_textview_time"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.example.toker.Activity;
+package com.example.toker.activity;
 
 import android.app.Activity;
 import android.app.Dialog;

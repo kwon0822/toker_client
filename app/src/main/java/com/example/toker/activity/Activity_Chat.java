@@ -1,4 +1,4 @@
-package com.example.toker.Activity;
+package com.example.toker.activity;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -74,6 +74,8 @@ public class Activity_Chat extends AppCompatActivity {
     private boolean isChat = false; // ping, chat, chatOff
     private boolean isSave = false; // saveOn, saveOff
     private boolean isMessage = false; // message
+    private boolean isAccuse = false;
+    private boolean isBlock = false;
 
     private Handler handler = new Handler();
     private boolean isType = false; // typeOn, typeOff
@@ -144,6 +146,17 @@ public class Activity_Chat extends AppCompatActivity {
         activity_chat_textview_accuse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (isAccuse) {
+                    Toast.makeText(getApplicationContext(), "이미 신고하셨어요! 더 하실말씀 있으시면 \n 개발자에 건의하기를 이용해주세요!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (isBlock) {
+                    Toast.makeText(getApplicationContext(), "이미 차단하셨어요! 더 하실말씀 있으시면 \n 개발자에 건의하기를 이용해주세요!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 ShowAccuseDialog();
             }
         });
@@ -152,6 +165,17 @@ public class Activity_Chat extends AppCompatActivity {
         activity_chat_textview_block.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (isBlock) {
+                    Toast.makeText(getApplicationContext(), "이미 차단하셨어요!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (isAccuse) {
+                    Toast.makeText(getApplicationContext(), "이미 신고하셨어요! \n 신고가 접수되면 상대가 바로 차단된답니다~", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 ShowBlockDialog();
             }
         });
@@ -227,6 +251,16 @@ public class Activity_Chat extends AppCompatActivity {
                 ItemChat itemChat = chatAdapter.getItem(position);
                 if (itemChat.getType() == ItemChat.TYPE_SEND_MSG) {
 
+                    if (isBlock) {
+                        Toast.makeText(getApplicationContext(), "차단한 상대에게는 쪽지를 보낼 수 없어요!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    if (isAccuse) {
+                        Toast.makeText(getApplicationContext(), "신고한 상대에게는 쪽지를 보낼 수 없어요!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                     if (!isMessage) {
                         ShowMessageDialog();
                     }
@@ -273,6 +307,9 @@ public class Activity_Chat extends AppCompatActivity {
                     socket.emit("chatOff");
 
                     chatList.add(new ItemChat(ItemChat.TYPE_Notice, "채팅이 종료되었습니다."));
+                    chatAdapter.notifyItemInserted(chatList.size() - 1);
+
+                    chatList.add(new ItemChat(ItemChat.TYPE_Notice, "비매너 대화를 나눴다면 신고 또는 차단해주세요."));
                     chatAdapter.notifyItemInserted(chatList.size() - 1);
 
                     chatList.add(new ItemChat(ItemChat.TYPE_SEND_MSG, "쪽지전송하기"));
@@ -357,6 +394,8 @@ public class Activity_Chat extends AppCompatActivity {
                 @Override
                 public void run() {
                     Toast.makeText(getApplicationContext(), "신고가 접수되었습니다.", Toast.LENGTH_SHORT).show();
+                    isAccuse = true;
+
                     socket.emit("chatOff");
 
                     if (isChat) {
@@ -374,6 +413,8 @@ public class Activity_Chat extends AppCompatActivity {
                 @Override
                 public void run() {
                     Toast.makeText(getApplicationContext(), "차단이 접수되었습니다.", Toast.LENGTH_SHORT).show();
+                    isBlock = true;
+
                     socket.emit("chatOff");
 
                     if (isChat) {
