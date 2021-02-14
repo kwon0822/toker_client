@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.toker">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".tcp.SocketAPI"
@@ -16,6 +16,7 @@
         <activity android:name=".activity.Activity_Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -23,18 +24,24 @@
         <activity android:name=".activity.Activity_Main" />
         <activity android:name=".activity.Activity_Chat" />
         <activity android:name=".activity.Activity_ChatM" />
-        <activity android:name=".activity.Activity_About"
-            android:theme="@style/Theme.AppCompat.Dialog"/>
-        <activity android:name=".activity.Activity_Post"
-            android:theme="@style/Theme.AppCompat.Dialog"/>
-        <activity android:name=".activity.Activity_Level"
-            android:theme="@style/Theme.AppCompat.Dialog"/>
-        <activity android:name=".activity.Activity_Filter"
-            android:theme="@style/Theme.AppCompat.Dialog"/>
-        <activity android:name=".activity.Activity_Message"
-            android:theme="@style/Theme.AppCompat.Dialog"/>
-        <activity android:name=".activity.Activity_Memory"
-            android:theme="@style/Theme.AppCompat.Dialog"/>
+        <activity
+            android:name=".activity.Activity_About"
+            android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity
+            android:name=".activity.Activity_Post"
+            android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity
+            android:name=".activity.Activity_Level"
+            android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity
+            android:name=".activity.Activity_Filter"
+            android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity
+            android:name=".activity.Activity_Message"
+            android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity
+            android:name=".activity.Activity_Memory"
+            android:theme="@style/Theme.AppCompat.Dialog" />
     </application>
 
 </manifest>

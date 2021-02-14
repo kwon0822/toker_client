@@ -89,21 +89,8 @@ public class Activity_Chat extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        socket.on("chat", ChatListner);
-        socket.on("chatOff", ChatOffListner);
-        socket.on("typeOn", TypeOnListner);
-        socket.on("typeOff", TypeOffListner);
-        socket.on("save", SaveListner);
-        socket.on("accuse", AccuseListner);
-        socket.on("block", BlockListner);
-        socket.on("message", MessageListner);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         socket.off("chat", ChatListner);
         socket.off("chatOff", ChatOffListner);
         socket.off("typeOn", TypeOnListner);
@@ -118,6 +105,16 @@ public class Activity_Chat extends AppCompatActivity {
 
         SocketAPI socketAPI = (SocketAPI) getApplication();
         socket = socketAPI.getSocket();
+
+        socket.on("chat", ChatListner);
+        socket.on("chatOff", ChatOffListner);
+        socket.on("typeOn", TypeOnListner);
+        socket.on("typeOff", TypeOffListner);
+        socket.on("save", SaveListner);
+        socket.on("accuse", AccuseListner);
+        socket.on("block", BlockListner);
+        socket.on("message", MessageListner);
+
         socket.emit("chatOn", Activity_Login.yourID);
         isChat = true;
 
