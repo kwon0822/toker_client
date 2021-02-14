@@ -68,11 +68,11 @@ public class Activity_Message extends Activity {
                 alertDialog = new Dialog(Activity_Message.this);
                 alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 alertDialog.setContentView(R.layout.dialog_alert);
-                TextView popup_alert_textview_title = alertDialog.findViewById(R.id.popup_alert_textview_title);
+                TextView popup_alert_textview_title = alertDialog.findViewById(R.id.dialog_alert_textview_title);
                 popup_alert_textview_title.setText("정말 삭제하시겠습니까?");
-                TextView popup_alert_textview_subtitle = alertDialog.findViewById(R.id.popup_alert_textview_description);
+                TextView popup_alert_textview_subtitle = alertDialog.findViewById(R.id.dialog_alert_textview_description);
                 popup_alert_textview_subtitle.setText("다시 복구 못해 임마!");
-                TextView popup_alert_button_yes = alertDialog.findViewById(R.id.popup_alert_button_yes);
+                TextView popup_alert_button_yes = alertDialog.findViewById(R.id.dialog_alert_button_yes);
                 popup_alert_button_yes.setText("네");
                 popup_alert_button_yes.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -98,7 +98,7 @@ public class Activity_Message extends Activity {
                         });
                     }
                 });
-                TextView popup_alert_button_no = alertDialog.findViewById(R.id.popup_alert_button_no);
+                TextView popup_alert_button_no = alertDialog.findViewById(R.id.dialog_alert_button_no);
                 popup_alert_button_no.setText("아니오");
                 popup_alert_button_no.setOnClickListener(new View.OnClickListener() {
                     @Override

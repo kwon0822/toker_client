@@ -29,8 +29,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Activity_ChatM extends AppCompatActivity {
 
-    Utill utill = new Utill();
-
     TextView activity_chatM_textview_title;
 
     RecyclerView activity_chat_recyclerview_chat;

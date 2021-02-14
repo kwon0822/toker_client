@@ -7,7 +7,7 @@
     android:background="@color/tokerHeavyGray">
 
     <Button
-        android:id="@+id/activity_about_button_back"
+        android:id="@+id/activity_notice_button_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="끄기"
@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/popup_posting_list_textview_title"
+        android:id="@+id/activity_notice_textview_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="개발자의 생각"
@@ -30,7 +30,7 @@
         app:layout_constraintVertical_bias="0.036" />
 
     <TextView
-        android:id="@+id/popup_posting_list_textview_subtitle"
+        android:id="@+id/activity_notice_textview_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="좋은 의견 있으시다면 언제든지 말씀해주세요. \n 진지하게 고민해서 꼭 답변드리겠습니다!"
@@ -41,11 +41,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.258"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/popup_posting_list_textview_title"
+        app:layout_constraintTop_toBottomOf="@+id/activity_notice_textview_title"
         app:layout_constraintVertical_bias="0.015" />
 
     <Button
-        android:id="@+id/activity_about_button_request"
+        android:id="@+id/activity_notice_button_request"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -53,10 +53,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.077"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/popup_posting_list_textview_subtitle" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_notice_textview_subtitle" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/activity_about_recyclerview"
+        android:id="@+id/activity_notice_recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
@@ -66,6 +66,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_about_button_request" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_notice_button_request" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

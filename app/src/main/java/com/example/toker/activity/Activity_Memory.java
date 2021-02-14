@@ -87,13 +87,13 @@ public class Activity_Memory extends Activity {
                         alertDialog = new Dialog(Activity_Memory.this);
                         alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                         alertDialog.setContentView(R.layout.dialog_alert);
-                        TextView popup_alert_textview_title = alertDialog.findViewById(R.id.popup_alert_textview_title);
+                        TextView popup_alert_textview_title = alertDialog.findViewById(R.id.dialog_alert_textview_title);
                         popup_alert_textview_title.setText("정말 삭제하시겠습니까?");
-                        TextView popup_alert_textview_subtitle = alertDialog.findViewById(R.id.popup_alert_textview_description);
+                        TextView popup_alert_textview_subtitle = alertDialog.findViewById(R.id.dialog_alert_textview_description);
                         popup_alert_textview_subtitle.setText("다시 복구 못해 임마!");
-                        TextView popup_alert_button_yes = alertDialog.findViewById(R.id.popup_alert_button_yes);
+                        TextView popup_alert_button_yes = alertDialog.findViewById(R.id.dialog_alert_button_yes);
                         popup_alert_button_yes.setText("네");
-                        TextView popup_alert_button_no = alertDialog.findViewById(R.id.popup_alert_button_no);
+                        TextView popup_alert_button_no = alertDialog.findViewById(R.id.dialog_alert_button_no);
                         popup_alert_button_no.setText("아니오");
 
                         popup_alert_button_yes.setOnClickListener(new View.OnClickListener() {
@@ -128,27 +128,33 @@ public class Activity_Memory extends Activity {
                         inputDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                         inputDialog.setContentView(R.layout.dialog_input);
 
-                        Button popup_input_button_back = inputDialog.findViewById(R.id.popup_input_button_back);
-                        popup_input_button_back.setOnClickListener(new View.OnClickListener() {
+                        EditText dialog_input_edittext_description = inputDialog.findViewById(R.id.dialog_input_edittext_description);
+                        dialog_input_edittext_description.setHint(R.string.dialog_input_memory_editTitle_editText);
+                        TextView dialog_input_textview_description = inputDialog.findViewById(R.id.dialog_input_textview_description);
+                        dialog_input_textview_description.setText(R.string.dialog_input_memory_editTitle_textView);
+                        Button dialog_input_button_send = inputDialog.findViewById(R.id.dialog_input_button_send);
+                        dialog_input_button_send.setText(R.string.dialog_input_memory_editTitle_button);
+
+                        Button dialog_input_button_back = inputDialog.findViewById(R.id.dialog_input_button_back);
+                        dialog_input_button_back.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 inputDialog.dismiss();
                             }
                         });
 
-                        Button popup_input_button_send = inputDialog.findViewById(R.id.popup_input_button_send);
-                        popup_input_button_send.setOnClickListener(new View.OnClickListener() {
+                        dialog_input_button_send.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 alertDialog = new Dialog(Activity_Memory.this);
                                 alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                                 alertDialog.setContentView(R.layout.dialog_alert);
 
-                                Button popup_alert_button_yes = alertDialog.findViewById(R.id.popup_alert_button_yes);
+                                Button popup_alert_button_yes = alertDialog.findViewById(R.id.dialog_alert_button_yes);
                                 popup_alert_button_yes.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        EditText popup_input_edittext_description = inputDialog.findViewById(R.id.popup_input_edittext_description);
+                                        EditText popup_input_edittext_description = inputDialog.findViewById(R.id.dialog_input_edittext_description);
                                         String description = popup_input_edittext_description.getText().toString();
 
                                         retrofitAPI.PostChatEdit(Activity_Login.myID, itemMemory.getNo(), description).enqueue(new Callback<String>() {
@@ -171,7 +177,7 @@ public class Activity_Memory extends Activity {
                                     }
                                 });
 
-                                Button popup_alert_button_no = alertDialog.findViewById(R.id.popup_alert_button_no);
+                                Button popup_alert_button_no = alertDialog.findViewById(R.id.dialog_alert_button_no);
                                 popup_alert_button_no.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {

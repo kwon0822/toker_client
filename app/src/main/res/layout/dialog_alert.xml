@@ -7,7 +7,7 @@
     android:background="@color/tokerHeavyGray">
 
     <TextView
-        android:id="@+id/popup_alert_textview_title"
+        android:id="@+id/dialog_alert_textview_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
@@ -21,7 +21,7 @@
         app:layout_constraintVertical_bias="0.189" />
 
     <TextView
-        android:id="@+id/popup_alert_textview_description"
+        android:id="@+id/dialog_alert_textview_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
@@ -31,12 +31,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/popup_alert_textview_title"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_alert_textview_title"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintVertical_bias="0.221"/>
 
     <Button
-        android:id="@+id/popup_alert_button_yes"
+        android:id="@+id/dialog_alert_button_yes"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
@@ -45,13 +45,13 @@
         android:textColor="@color/tokerWhite"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/popup_alert_button_no"
+        app:layout_constraintEnd_toStartOf="@+id/dialog_alert_button_no"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/popup_alert_textview_description"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_alert_textview_description"
         app:layout_constraintVertical_bias="0.6" />
 
     <Button
-        android:id="@+id/popup_alert_button_no"
+        android:id="@+id/dialog_alert_button_no"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -61,8 +61,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/popup_alert_button_yes"
-        app:layout_constraintTop_toBottomOf="@+id/popup_alert_textview_description"
+        app:layout_constraintStart_toEndOf="@+id/dialog_alert_button_yes"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_alert_textview_description"
         app:layout_constraintVertical_bias="0.6" />
 
 

@@ -139,7 +139,7 @@ public class Activity_Main extends AppCompatActivity {
                 break;
 
             case R.id.menu_main_level:
-                Intent intent_level = new Intent(getApplicationContext(), Activity_About.class);
+                Intent intent_level = new Intent(getApplicationContext(), Activity_Notice.class);
                 startActivity(intent_level);
                 break;
 
@@ -148,18 +148,24 @@ public class Activity_Main extends AppCompatActivity {
                 inputDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 inputDialog.setContentView(R.layout.dialog_input);
 
-                Button popup_input_button_back = inputDialog.findViewById(R.id.popup_input_button_back);
-                popup_input_button_back.setOnClickListener(v -> inputDialog.dismiss());
+                EditText dialog_input_edittext_description = inputDialog.findViewById(R.id.dialog_input_edittext_description);
+                dialog_input_edittext_description.setHint(R.string.dialog_input_main_request_editText);
+                TextView dialog_input_textview_description = inputDialog.findViewById(R.id.dialog_input_textview_description);
+                dialog_input_textview_description.setText(R.string.dialog_input_main_request_textView);
+                Button dialog_input_button_send = inputDialog.findViewById(R.id.dialog_input_button_send);
+                dialog_input_button_send.setText(R.string.dialog_input_main_request_button);
 
-                Button popup_input_button_send = inputDialog.findViewById(R.id.popup_input_button_send);
-                popup_input_button_send.setOnClickListener(v -> {
+                Button dialog_input_button_back = inputDialog.findViewById(R.id.dialog_input_button_back);
+                dialog_input_button_back.setOnClickListener(v -> inputDialog.dismiss());
+
+                dialog_input_button_send.setOnClickListener(v -> {
                     alertDialog = new Dialog(Activity_Main.this);
                     alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     alertDialog.setContentView(R.layout.dialog_alert);
 
-                    Button popup_alert_button_yes = alertDialog.findViewById(R.id.popup_alert_button_yes);
+                    Button popup_alert_button_yes = alertDialog.findViewById(R.id.dialog_alert_button_yes);
                     popup_alert_button_yes.setOnClickListener(v1 -> {
-                        EditText popup_input_edittext_description = inputDialog.findViewById(R.id.popup_input_edittext_description);
+                        EditText popup_input_edittext_description = inputDialog.findViewById(R.id.dialog_input_edittext_description);
                         String description = popup_input_edittext_description.getText().toString();
 
                         retrofitAPI.PostRequest(Activity_Login.myID, description).enqueue(new Callback<String>() {
@@ -179,7 +185,7 @@ public class Activity_Main extends AppCompatActivity {
                         });
                     });
 
-                    Button popup_alert_button_no = alertDialog.findViewById(R.id.popup_alert_button_no);
+                    Button popup_alert_button_no = alertDialog.findViewById(R.id.dialog_alert_button_no);
                     popup_alert_button_no.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

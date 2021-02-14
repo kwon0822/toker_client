@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -31,15 +32,15 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Activity_About extends Activity {
+public class Activity_Notice extends Activity {
 
     Dialog alertDialog;
     Dialog inputDialog;
 
-    Button activity_about_button_back;
-    Button activity_about_button_request;
+    Button activity_notice_button_back;
+    Button activity_notice_button_request;
 
-    RecyclerView activity_post_recyclerview;
+    RecyclerView activity_notice_recyclerview;
     AdapterAbout postAdapter;
     List<ItemAbout> postList = new ArrayList<>();
 
@@ -54,49 +55,55 @@ public class Activity_About extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_about);
+        setContentView(R.layout.activity_notice);
         initialize();
     }
 
     public void initialize() {
-        
-        activity_about_button_back = findViewById(R.id.activity_about_button_back);
-        activity_about_button_back.setOnClickListener(new View.OnClickListener() {
+
+        activity_notice_button_back = findViewById(R.id.activity_notice_button_back);
+        activity_notice_button_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
 
-        activity_about_button_request = findViewById(R.id.activity_about_button_request);
-        activity_about_button_request.setOnClickListener(new View.OnClickListener() {
+        activity_notice_button_request = findViewById(R.id.activity_notice_button_request);
+        activity_notice_button_request.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputDialog = new Dialog(Activity_About.this);
+                inputDialog = new Dialog(Activity_Notice.this);
                 inputDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 inputDialog.setContentView(R.layout.dialog_input);
 
-                Button popup_input_button_back = inputDialog.findViewById(R.id.popup_input_button_back);
-                popup_input_button_back.setOnClickListener(new View.OnClickListener() {
+                EditText dialog_input_edittext_description = inputDialog.findViewById(R.id.dialog_input_edittext_description);
+                dialog_input_edittext_description.setHint(R.string.dialog_input_notice_request_editText);
+                TextView dialog_input_textview_description = inputDialog.findViewById(R.id.dialog_input_textview_description);
+                dialog_input_textview_description.setText(R.string.dialog_input_notice_request_textView);
+                Button dialog_input_button_send = inputDialog.findViewById(R.id.dialog_input_button_send);
+                dialog_input_button_send.setText(R.string.dialog_input_notice_request_button);
+
+                Button dialog_input_button_back = inputDialog.findViewById(R.id.dialog_input_button_back);
+                dialog_input_button_back.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         inputDialog.dismiss();
                     }
                 });
 
-                Button popup_input_button_send = inputDialog.findViewById(R.id.popup_input_button_send);
-                popup_input_button_send.setOnClickListener(new View.OnClickListener() {
+                dialog_input_button_send.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        alertDialog = new Dialog(Activity_About.this);
+                        alertDialog = new Dialog(Activity_Notice.this);
                         alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                         alertDialog.setContentView(R.layout.dialog_alert);
 
-                        Button popup_alert_button_yes = alertDialog.findViewById(R.id.popup_alert_button_yes);
+                        Button popup_alert_button_yes = alertDialog.findViewById(R.id.dialog_alert_button_yes);
                         popup_alert_button_yes.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                EditText popup_input_edittext_description = inputDialog.findViewById(R.id.popup_input_edittext_description);
+                                EditText popup_input_edittext_description = inputDialog.findViewById(R.id.dialog_input_edittext_description);
                                 String description = popup_input_edittext_description.getText().toString();
 
                                 retrofitAPI.PostRequest(Activity_Login.myID, description).enqueue(new Callback<String>() {
@@ -117,7 +124,7 @@ public class Activity_About extends Activity {
                             }
                         });
 
-                        Button popup_alert_button_no = alertDialog.findViewById(R.id.popup_alert_button_no);
+                        Button popup_alert_button_no = alertDialog.findViewById(R.id.dialog_alert_button_no);
                         popup_alert_button_no.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -131,10 +138,10 @@ public class Activity_About extends Activity {
             }
         });
 
-        activity_post_recyclerview = findViewById(R.id.activity_about_recyclerview);
-        activity_post_recyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        activity_notice_recyclerview = findViewById(R.id.activity_notice_recyclerview);
+        activity_notice_recyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         postAdapter = new AdapterAbout(postList);
-        activity_post_recyclerview.setAdapter(postAdapter);
+        activity_notice_recyclerview.setAdapter(postAdapter);
         postAdapter.setOnItemClicklistener(new OnItemClickListnerAbout() {
             @Override
             public void onItemClick(AdapterAbout.ViewHolder holder, View view, int position) {

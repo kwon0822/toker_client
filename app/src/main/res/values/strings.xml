@@ -1,6 +1,37 @@
 <resources>
     <string name="app_name">To:ker</string>
 
+<!--    dialog_input -->
+
+    <string name="dialog_input_chat_request_editText">chat 개발자요청</string>
+    <string name="dialog_input_chat_request_textView">chat 개발자요청</string>
+    <string name="dialog_input_chat_request_button">chat 개발자요청</string>
+
+    <string name="dialog_input_main_request_editText">main 개발자요청</string>
+    <string name="dialog_input_main_request_textView">main 개발자요청</string>
+    <string name="dialog_input_main_request_button">main 개발자요청</string>
+
+    <string name="dialog_input_notice_request_editText">notice 개발자요청</string>
+    <string name="dialog_input_notice_request_textView">notice 개발자요청</string>
+    <string name="dialog_input_notice_request_button">notice 개발자요청</string>
+
+    <string name="dialog_input_post_request_editText">post 개발자요청</string>
+    <string name="dialog_input_post_request_textView">post 개발자요청</string>
+    <string name="dialog_input_post_request_button">post 개발자요청</string>
+
+    <string name="dialog_input_chat_sendMessage_editText">chat 메세지전송</string>
+    <string name="dialog_input_chat_sendMessage_textView">chat 메세지전송</string>
+    <string name="dialog_input_chat_sendMessage_button">chat 메세지전송</string>
+
+    <string name="dialog_input_chat_accuse_editText">chat 신고</string>
+    <string name="dialog_input_chat_accuse_textView">chat 신고</string>
+    <string name="dialog_input_chat_accuse_button">chat 신고</string>
+
+    <string name="dialog_input_memory_editTitle_editText">memory 제목수정</string>
+    <string name="dialog_input_memory_editTitle_textView">memory 제목수정</string>
+    <string name="dialog_input_memory_editTitle_button">memory 제목수정</string>
+
+<!--    alertDialog -->
 
 
 </resources>
