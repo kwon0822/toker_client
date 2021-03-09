@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.UiThread;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -30,8 +29,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Activity_Filter extends Activity {
 
-    String id = Activity_Login.myID;
+
     private Socket socket;
+    String user1 = Activity_Main.user1;
+    String user2 = "";
 
     Gson gson = new GsonBuilder().setLenient().create();
     Retrofit retrofit = new Retrofit.Builder()
@@ -109,7 +110,7 @@ public class Activity_Filter extends Activity {
         activity_filter_lottie_loading = findViewById(R.id.activity_filter_lottie_loading);
         activity_filter_textview_axiom = findViewById(R.id.activity_filter_textview_axiom);
 
-        retrofitAPI.PostLevel(id).enqueue(new Callback<String>() {
+        retrofitAPI.PostLevel(user1).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
 
@@ -286,12 +287,13 @@ public class Activity_Filter extends Activity {
                     } else {
                         Toast.makeText(getApplicationContext(), "매칭되었습니다. 채팅을 시작합니다.", Toast.LENGTH_SHORT).show();
 
-                        Activity_Login.yourID = message;
+                        user2 = message;
 
                         isMatch = false;
                         finish();
 
                         Intent intent = new Intent(getApplicationContext(), Activity_Chat.class);
+                        intent.putExtra("user2", user2);
                         startActivity(intent);
                     }
                 }

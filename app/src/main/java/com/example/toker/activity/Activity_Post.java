@@ -100,8 +100,9 @@ public class Activity_Post extends Activity {
                             public void onClick(View v) {
                                 EditText popup_input_edittext_description = inputDialog.findViewById(R.id.dialog_input_edittext_description);
                                 String description = popup_input_edittext_description.getText().toString();
+                                String location = "post";
 
-                                retrofitAPI.PostRequest(Activity_Login.myID, description).enqueue(new Callback<String>() {
+                                retrofitAPI.PostRequest(Activity_Main.user1, description, location).enqueue(new Callback<String>() {
                                     @Override
                                     public void onResponse(Call<String> call, Response<String> response) {
 

@@ -1,11 +1,11 @@
 package com.example.toker.view.Item;
 
-public class ItemAbout {
+public class ItemNotice {
 
     String no;
     String title;
 
-    public ItemAbout(String no, String title) {
+    public ItemNotice(String no, String title) {
         this.no = no;
         this.title = title;
     }

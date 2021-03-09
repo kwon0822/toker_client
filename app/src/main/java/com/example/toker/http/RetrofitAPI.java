@@ -4,7 +4,7 @@ import com.example.toker.view.Item.ItemChat;
 import com.example.toker.view.Item.ItemHistory;
 import com.example.toker.view.Item.ItemMemory;
 import com.example.toker.view.Item.ItemMessage;
-import com.example.toker.view.Item.ItemAbout;
+import com.example.toker.view.Item.ItemNotice;
 import com.example.toker.view.Item.ItemPost;
 
 import java.util.List;
@@ -23,6 +23,7 @@ public interface RetrofitAPI {
     @POST("/auth")
     Call<String> postAuth(@Body String id);
 
+//    쪽지보관
     @FormUrlEncoded
     @POST("/messageOn")
     Call<List<ItemMessage>> PostMessageOn(@Field("id") String id);
@@ -32,6 +33,7 @@ public interface RetrofitAPI {
     Call<String> PostMessageOff(@Field("id") String id,
                                 @Field("no") String no);
 
+//    대화보관
     @FormUrlEncoded
     @POST("/chatOn")
     Call<List<ItemMemory>> PostChatOn(@Field("id") String id);
@@ -51,6 +53,7 @@ public interface RetrofitAPI {
                              @Field("no") String no,
                               @Field("description") String description);
 
+//    레벨확인
     @FormUrlEncoded
     @POST("/level")
     Call<String> PostLevel(@Field("id") String id);
@@ -59,15 +62,21 @@ public interface RetrofitAPI {
     @POST("/history")
     Call<List<ItemHistory>> PostHistory(@Field("id") String id);
 
-    @GET("/about")
-    Call<List<ItemAbout>> GetAbout();
+
+
+// 공지
+    @GET("/notice")
+    Call<List<ItemNotice>> GetNotice();
 
     @FormUrlEncoded
     @POST("/post")
     Call<ItemPost> PostPost(@Field("no") String no);
 
+
+// 요청
     @FormUrlEncoded
     @POST("/request")
-    Call<String> PostRequest(@Field("id") String id,
-                          @Field("description") String description);
+    Call<String> PostRequest(@Field("user") String user,
+                          @Field("description") String description,
+                             @Field("location") String location);
 }

@@ -47,6 +47,8 @@ public class Activity_Main extends AppCompatActivity {
     Dialog alertDialog;
     Dialog inputDialog;
 
+    public static String user1;
+
     Gson gson = new GsonBuilder().setLenient().create();
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(RetrofitAPI.url)
@@ -55,7 +57,6 @@ public class Activity_Main extends AppCompatActivity {
     RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
 
     private Socket socket;
-    String id = Activity_Login.myID;
 
     private boolean isLogin = false;
 
@@ -73,7 +74,7 @@ public class Activity_Main extends AppCompatActivity {
 
         if (!isLogin) {
             isLogin = true;
-            socket.emit("login", id);
+            socket.emit("login", user1);
         }
     }
 
@@ -94,6 +95,10 @@ public class Activity_Main extends AppCompatActivity {
         SocketAPI socketAPI = (SocketAPI) getApplication();
         socket = socketAPI.getSocket();
 
+        Intent intent = getIntent();
+        user1 = intent.getExtras().getString("user1");
+
+
         activity_main_toolbar = findViewById(R.id.activity_main_toolbar);
         setSupportActionBar(activity_main_toolbar);
         activity_main_actionbar = getSupportActionBar();
@@ -103,20 +108,20 @@ public class Activity_Main extends AppCompatActivity {
 
         activity_main_button_filter = findViewById(R.id.activity_main_button_filter);
         activity_main_button_filter.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), Activity_Filter.class);
-            startActivity(intent);
+            Intent intent_filter = new Intent(getApplicationContext(), Activity_Filter.class);
+            startActivity(intent_filter);
         });
 
         activity_main_button_message = findViewById(R.id.activity_main_button_message);
         activity_main_button_message.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), Activity_Message.class);
-            startActivity(intent);
+            Intent intent_message = new Intent(getApplicationContext(), Activity_Message.class);
+            startActivity(intent_message);
         });
 
         activity_main_button_memory = findViewById(R.id.activity_main_button_memory);
         activity_main_button_memory.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), Activity_Memory.class);
-            startActivity(intent);
+            Intent intent_memory = new Intent(getApplicationContext(), Activity_Memory.class);
+            startActivity(intent_memory);
         });
     }
 
@@ -167,8 +172,9 @@ public class Activity_Main extends AppCompatActivity {
                     popup_alert_button_yes.setOnClickListener(v1 -> {
                         EditText popup_input_edittext_description = inputDialog.findViewById(R.id.dialog_input_edittext_description);
                         String description = popup_input_edittext_description.getText().toString();
+                        String location = "main";
 
-                        retrofitAPI.PostRequest(Activity_Login.myID, description).enqueue(new Callback<String>() {
+                        retrofitAPI.PostRequest(user1, description, location).enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
 

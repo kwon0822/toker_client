@@ -9,17 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toker.R;
-import com.example.toker.view.Item.ItemAbout;
+import com.example.toker.view.Item.ItemNotice;
 import com.example.toker.view.listner.OnItemClickListnerAbout;
 
 import java.util.List;
 
 public class AdapterAbout extends RecyclerView.Adapter<AdapterAbout.ViewHolder> implements OnItemClickListnerAbout {
-    private List<ItemAbout> postList;
+    private List<ItemNotice> postList;
     OnItemClickListnerAbout onItemClickListnerAbout;
 
     // 어댑터 생성자
-    public AdapterAbout(List<ItemAbout> postList) {
+    public AdapterAbout(List<ItemNotice> postList) {
         this.postList = postList;
     }
 
@@ -72,7 +72,7 @@ public class AdapterAbout extends RecyclerView.Adapter<AdapterAbout.ViewHolder> 
         holder.item_post_textview_title.setText(title);
     }
 
-    public ItemAbout getItem(int position) {
+    public ItemNotice getItem(int position) {
         return postList.get(position);
     }
 

@@ -30,7 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Activity_Message extends Activity {
 
-    String id = Activity_Login.myID;
+    String id = Activity_Main.user1;
 
     Dialog alertDialog;
     Dialog inputDialog;

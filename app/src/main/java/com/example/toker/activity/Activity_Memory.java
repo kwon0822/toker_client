@@ -32,7 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Activity_Memory extends Activity {
 
-    String id = Activity_Login.myID;
+    String id = Activity_Main.user1;
 
     Dialog alertDialog;
     Dialog inputDialog;
@@ -157,7 +157,7 @@ public class Activity_Memory extends Activity {
                                         EditText popup_input_edittext_description = inputDialog.findViewById(R.id.dialog_input_edittext_description);
                                         String description = popup_input_edittext_description.getText().toString();
 
-                                        retrofitAPI.PostChatEdit(Activity_Login.myID, itemMemory.getNo(), description).enqueue(new Callback<String>() {
+                                        retrofitAPI.PostChatEdit(Activity_Main.user1, itemMemory.getNo(), description).enqueue(new Callback<String>() {
                                             @Override
                                             public void onResponse(Call<String> call, Response<String> response) {
 

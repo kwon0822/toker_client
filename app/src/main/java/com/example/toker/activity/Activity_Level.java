@@ -39,7 +39,7 @@ public class Activity_Level extends Activity {
     AdapterHistory historyAdapter;
     List<ItemHistory> historyList = new ArrayList<>();
 
-    private String id = Activity_Login.myID;
+    private String id = Activity_Main.user1;
     Gson gson = new GsonBuilder().setLenient().create();
 
    @Override

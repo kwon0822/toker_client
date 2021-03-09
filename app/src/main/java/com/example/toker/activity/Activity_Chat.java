@@ -1,6 +1,7 @@
 package com.example.toker.activity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -68,7 +69,7 @@ public class Activity_Chat extends AppCompatActivity {
     private AdapterChat chatAdapter;
     private List<ItemChat> chatList = new ArrayList<>();
 
-    String id = Activity_Login.myID;
+    String id = Activity_Main.user1;
     private Socket socket;
 
     private boolean isChat = false; // ping, chat, chatOff
@@ -106,6 +107,9 @@ public class Activity_Chat extends AppCompatActivity {
         SocketAPI socketAPI = (SocketAPI) getApplication();
         socket = socketAPI.getSocket();
 
+        Intent intent = getIntent();
+        String user2 = intent.getExtras().getString("user2");
+
         socket.on("chat", ChatListner);
         socket.on("chatOff", ChatOffListner);
         socket.on("typeOn", TypeOnListner);
@@ -115,7 +119,7 @@ public class Activity_Chat extends AppCompatActivity {
         socket.on("block", BlockListner);
         socket.on("message", MessageListner);
 
-        socket.emit("chatOn", Activity_Login.yourID);
+        socket.emit("chatOn", user2);
         isChat = true;
 
         new Thread(new Runnable() {
@@ -484,8 +488,9 @@ public class Activity_Chat extends AppCompatActivity {
                     public void onClick(View v) {
                         EditText popup_input_edittext_description = inputDialog.findViewById(R.id.dialog_input_edittext_description);
                         String description = popup_input_edittext_description.getText().toString();
+                        String location = "chat";
 
-                        retrofitAPI.PostRequest(Activity_Login.myID, description).enqueue(new Callback<String>() {
+                        retrofitAPI.PostRequest(Activity_Main.user1, description, location).enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
 

@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toker.R;
 import com.example.toker.http.RetrofitAPI;
-import com.example.toker.view.Item.ItemAbout;
+import com.example.toker.view.Item.ItemNotice;
 import com.example.toker.view.adapter.AdapterAbout;
 import com.example.toker.view.listner.OnItemClickListnerAbout;
 import com.google.gson.Gson;
@@ -42,7 +42,7 @@ public class Activity_Notice extends Activity {
 
     RecyclerView activity_notice_recyclerview;
     AdapterAbout postAdapter;
-    List<ItemAbout> postList = new ArrayList<>();
+    List<ItemNotice> postList = new ArrayList<>();
 
     Gson gson = new GsonBuilder().setLenient().create();
     Retrofit retrofit = new Retrofit.Builder()
@@ -105,8 +105,9 @@ public class Activity_Notice extends Activity {
                             public void onClick(View v) {
                                 EditText popup_input_edittext_description = inputDialog.findViewById(R.id.dialog_input_edittext_description);
                                 String description = popup_input_edittext_description.getText().toString();
+                                String location = "notice";
 
-                                retrofitAPI.PostRequest(Activity_Login.myID, description).enqueue(new Callback<String>() {
+                                retrofitAPI.PostRequest(Activity_Main.user1, description, location).enqueue(new Callback<String>() {
                                     @Override
                                     public void onResponse(Call<String> call, Response<String> response) {
 
@@ -145,8 +146,8 @@ public class Activity_Notice extends Activity {
         postAdapter.setOnItemClicklistener(new OnItemClickListnerAbout() {
             @Override
             public void onItemClick(AdapterAbout.ViewHolder holder, View view, int position) {
-                ItemAbout itemAbout = postAdapter.getItem(position);
-                String postNo = itemAbout.getNo();
+                ItemNotice itemNotice = postAdapter.getItem(position);
+                String postNo = itemNotice.getNo();
 
                 Intent intent = new Intent(getApplicationContext(), Activity_Post.class);
                 intent.putExtra("postNo", postNo);
@@ -159,19 +160,18 @@ public class Activity_Notice extends Activity {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-        retrofitAPI.GetAbout().enqueue(new Callback<List<ItemAbout>>() {
+        retrofitAPI.GetNotice().enqueue(new Callback<List<ItemNotice>>() {
             @Override
-            public void onResponse(Call<List<ItemAbout>> call, Response<List<ItemAbout>> response) {
-//                if (!response.isSuccessful()) {
-//                    textViewResult.setText("code: " + response.code());
-//                    return;
-//                }
+            public void onResponse(Call<List<ItemNotice>> call, Response<List<ItemNotice>> response) {
+                if (!response.isSuccessful()) {
+
+                }
 
                 postList.addAll(response.body());
                 postAdapter.notifyDataSetChanged();
             }
             @Override
-            public void onFailure(Call<List<ItemAbout>> call, Throwable t) {
+            public void onFailure(Call<List<ItemNotice>> call, Throwable t) {
                 System.out.println(t.getMessage());
             }
         });

@@ -15,9 +15,6 @@ public class Activity_Login extends Activity {
     EditText activity_login_edittext_phoneNumber;
     Button activity_login_button_getAuth;
 
-    static public String myID = "";
-    static public String yourID = "";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,10 +29,10 @@ public class Activity_Login extends Activity {
         activity_login_button_getAuth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                myID = activity_login_edittext_phoneNumber.getText().toString();
+                String user1 = activity_login_edittext_phoneNumber.getText().toString();
 
                 Intent intent = new Intent(getApplicationContext(), Activity_Main.class);
+                intent.putExtra("user1", user1);
                 startActivity(intent);
             }
         });
