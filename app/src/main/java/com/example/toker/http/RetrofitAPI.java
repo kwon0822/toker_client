@@ -23,6 +23,7 @@ public interface RetrofitAPI {
     @POST("/auth")
     Call<String> postAuth(@Body String id);
 
+
 //    쪽지보관
     @FormUrlEncoded
     @POST("/messageOn")
@@ -30,8 +31,8 @@ public interface RetrofitAPI {
 
     @FormUrlEncoded
     @POST("/messageOff")
-    Call<String> PostMessageOff(@Field("id") String id,
-                                @Field("no") String no);
+    Call<String> PostMessageOff(@Field("no") String no);
+
 
 //    대화보관
     @FormUrlEncoded
@@ -40,8 +41,7 @@ public interface RetrofitAPI {
 
     @FormUrlEncoded
     @POST("/chatOff")
-    Call<String> PostChatOff(@Field("id") String id,
-                             @Field("no") String no);
+    Call<String> PostChatOff(@Field("no") String no);
 
     @FormUrlEncoded
     @POST("/chat")
@@ -49,8 +49,7 @@ public interface RetrofitAPI {
 
     @FormUrlEncoded
     @POST("/chatEdit")
-    Call<String> PostChatEdit(@Field("id") String id,
-                             @Field("no") String no,
+    Call<String> PostChatEdit(@Field("no") String no,
                               @Field("description") String description);
 
 //    레벨확인

@@ -32,7 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Activity_Memory extends Activity {
 
-    String id = Activity_Main.user1;
+    String user = Activity_Main.user1;
 
     Dialog alertDialog;
     Dialog inputDialog;
@@ -99,10 +99,10 @@ public class Activity_Memory extends Activity {
                         popup_alert_button_yes.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                retrofitAPI.PostChatOff(id, itemMemory.getNo()).enqueue(new Callback<String>() {
+                                retrofitAPI.PostChatOff(itemMemory.getNo()).enqueue(new Callback<String>() {
                                     @Override
                                     public void onResponse(Call<String> call, Response<String> response) {
-                                        if (response.body().equals("chatOffTitle")) {
+                                        if (response.body().equals("chatOff")) {
                                             memoryList.remove(position);
                                             memoryAdapter.notifyItemRemoved(position);
                                             alertDialog.dismiss();
@@ -157,7 +157,7 @@ public class Activity_Memory extends Activity {
                                         EditText popup_input_edittext_description = inputDialog.findViewById(R.id.dialog_input_edittext_description);
                                         String description = popup_input_edittext_description.getText().toString();
 
-                                        retrofitAPI.PostChatEdit(Activity_Main.user1, itemMemory.getNo(), description).enqueue(new Callback<String>() {
+                                        retrofitAPI.PostChatEdit(itemMemory.getNo(), description).enqueue(new Callback<String>() {
                                             @Override
                                             public void onResponse(Call<String> call, Response<String> response) {
 
@@ -193,7 +193,7 @@ public class Activity_Memory extends Activity {
             }
         });
 
-        retrofitAPI.PostChatOn(id).enqueue(new Callback<List<ItemMemory>>() {
+        retrofitAPI.PostChatOn(user).enqueue(new Callback<List<ItemMemory>>() {
             @Override
             public void onResponse(Call<List<ItemMemory>> call, Response<List<ItemMemory>> response) {
                 memoryList.addAll(response.body());

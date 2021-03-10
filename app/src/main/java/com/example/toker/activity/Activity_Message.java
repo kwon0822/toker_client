@@ -30,7 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Activity_Message extends Activity {
 
-    String id = Activity_Main.user1;
+    String user = Activity_Main.user1;
 
     Dialog alertDialog;
     Dialog inputDialog;
@@ -83,10 +83,10 @@ public class Activity_Message extends Activity {
                                 .addConverterFactory(GsonConverterFactory.create(gson))
                                 .build();
                         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-                        retrofitAPI.PostMessageOff(id, item_msg.getNo()).enqueue(new Callback<String>() {
+                        retrofitAPI.PostMessageOff(item_msg.getNo()).enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
-                                if (response.body().equals("msgOff")) {
+                                if (response.body().equals("messageOff")) {
                                     messageList.remove(position);
                                     messageAdapter.notifyItemRemoved(position);
                                     alertDialog.dismiss();
@@ -116,7 +116,7 @@ public class Activity_Message extends Activity {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-        retrofitAPI.PostMessageOn(id).enqueue(new Callback<List<ItemMessage>>() {
+        retrofitAPI.PostMessageOn(user).enqueue(new Callback<List<ItemMessage>>() {
             @Override
             public void onResponse(Call<List<ItemMessage>> call, Response<List<ItemMessage>> response) {
                 messageList.addAll(response.body());
