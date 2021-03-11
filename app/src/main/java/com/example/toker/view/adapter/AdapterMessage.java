@@ -1,5 +1,6 @@
 package com.example.toker.view.adapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,11 +43,13 @@ public class AdapterMessage extends RecyclerView.Adapter<AdapterMessage.ViewHold
 
     public class ViewHolder extends  RecyclerView.ViewHolder {
 
+        private TextView item_message_textview_title;
         private TextView item_message_textview_description;
         private Button item_message_button_delete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            item_message_textview_title = itemView.findViewById(R.id.item_message_textview_title);
             item_message_textview_description = itemView.findViewById(R.id.item_message_textview_description);
             item_message_button_delete = itemView.findViewById(R.id.item_message_button_delete);
 
@@ -62,10 +65,16 @@ public class AdapterMessage extends RecyclerView.Adapter<AdapterMessage.ViewHold
         }
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull AdapterMessage.ViewHolder holder, int position) {
+        String user1 = messageList.get(position).getUser1();
         String message = messageList.get(position).getDescription();
 
+        if (user1.equals("admin")) {
+            holder.item_message_textview_title.setText("개발자에게서 쪽지가 도착했어요!");
+            holder.item_message_textview_title.setTextColor(R.color.positive);
+        }
         holder.item_message_textview_description.setText(message);
     }
 
