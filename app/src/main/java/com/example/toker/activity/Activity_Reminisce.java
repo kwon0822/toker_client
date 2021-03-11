@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toker.R;
-import com.example.toker.etc.Utill;
 import com.example.toker.http.RetrofitAPI;
 import com.example.toker.view.Item.ItemChat;
 import com.example.toker.view.adapter.AdapterChat;
@@ -27,9 +26,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Activity_ChatM extends AppCompatActivity {
+public class Activity_Reminisce extends AppCompatActivity {
 
-    TextView activity_chatM_textview_title;
+    TextView activity_reminisce_textview_title;
 
     RecyclerView activity_chat_recyclerview_chat;
     private AdapterChat chatAdapter;
@@ -38,7 +37,7 @@ public class Activity_ChatM extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chatm);
+        setContentView(R.layout.activity_reminisce);
         initialize();
     }
 
@@ -48,10 +47,10 @@ public class Activity_ChatM extends AppCompatActivity {
         String chatNo = intent.getExtras().getString("no");
         String chatTitle = intent.getExtras().getString("title");
 
-        activity_chatM_textview_title = findViewById(R.id.activity_chatM_textview_title);
-        activity_chatM_textview_title.setText(chatTitle);
+        activity_reminisce_textview_title = findViewById(R.id.activity_reminisce_textview_title);
+        activity_reminisce_textview_title.setText(chatTitle);
 
-        activity_chat_recyclerview_chat = findViewById(R.id.activity_chatM_recyclerview_chat);
+        activity_chat_recyclerview_chat = findViewById(R.id.activity_reminisce_recyclerview_chat);
         activity_chat_recyclerview_chat.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         chatAdapter = new AdapterChat(chatList);
         activity_chat_recyclerview_chat.setAdapter(chatAdapter);
@@ -59,7 +58,7 @@ public class Activity_ChatM extends AppCompatActivity {
         Toolbar activity_chat_toolbar;
         ActionBar activity_chat_actionbar;
 
-        activity_chat_toolbar = findViewById(R.id.activity_chatM_toolbar);
+        activity_chat_toolbar = findViewById(R.id.activity_reminisce_toolbar);
         setSupportActionBar(activity_chat_toolbar);
         activity_chat_actionbar = getSupportActionBar();
         activity_chat_actionbar.setDisplayShowCustomEnabled(true);

@@ -23,12 +23,12 @@
         <activity android:name=".activity.Activity_Login" />
         <activity android:name=".activity.Activity_Main" />
         <activity android:name=".activity.Activity_Chat" />
-        <activity android:name=".activity.Activity_ChatM" />
+        <activity android:name=".activity.Activity_Reminisce" />
         <activity
             android:name=".activity.Activity_Notice"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
-            android:name=".activity.Activity_Post"
+            android:name=".activity.Activity_Posting"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
             android:name=".activity.Activity_Level"

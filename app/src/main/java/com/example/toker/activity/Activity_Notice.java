@@ -149,7 +149,7 @@ public class Activity_Notice extends Activity {
                 ItemNotice itemNotice = postAdapter.getItem(position);
                 String postNo = itemNotice.getNo();
 
-                Intent intent = new Intent(getApplicationContext(), Activity_Post.class);
+                Intent intent = new Intent(getApplicationContext(), Activity_Posting.class);
                 intent.putExtra("postNo", postNo);
                 startActivity(intent);
             }

@@ -77,7 +77,7 @@ public class Activity_Memory extends Activity {
 
                 switch(button) {
                     case "item" :
-                        Intent intent = new Intent(getApplicationContext(), Activity_ChatM.class);
+                        Intent intent = new Intent(getApplicationContext(), Activity_Reminisce.class);
                         intent.putExtra("no", itemMemory.getNo());
                         intent.putExtra("title", itemMemory.getTitle());
                         startActivity(intent);

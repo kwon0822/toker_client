@@ -181,7 +181,7 @@ public class Activity_Chat extends AppCompatActivity {
             }
         });
 
-        activity_chat_edittext_chat = findViewById(R.id.activity_chat_edittext_chat);
+        activity_chat_edittext_chat = findViewById(R.id.activity_chat_edittext_send);
         activity_chat_edittext_chat.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -206,7 +206,7 @@ public class Activity_Chat extends AppCompatActivity {
             }
         });
 
-        activity_chat_button_chat = findViewById(R.id.activity_chat_button_chat);
+        activity_chat_button_chat = findViewById(R.id.activity_chat_button_send);
         activity_chat_button_chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

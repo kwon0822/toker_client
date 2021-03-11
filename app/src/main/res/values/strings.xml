@@ -1,8 +1,98 @@
 <resources>
 
+
     <string name="app_name">To:ker</string>
 
-<!--    dialog_input -->
+<!--    스플래시-->
+    <string name="splash_textview_title">To:ker</string>
+    <string name="splash_textview_subtitle">대화에 중독되다.</string>
+
+<!--    로그인-->
+    <string name="login_textview_subtitle">일상의 소소한 이야기를 나누고 싶다면</string>
+    <string name="login_textview_title">To:ker</string>
+    <string name="login_textview_posting">토커가 지향하는 랜덤채팅이 궁금하다면?</string>
+    <string name="login_edittext_phoneNumber">휴대번호를 입력해주세요.</string>
+    <string name="login_button_getAuth">인증번호 받기</string>
+
+<!--    메인-->
+    <string name="main_textview_title">To:ker</string>
+    <string name="main_textview_connectingNum">현재 접속자수 : 00명</string>
+    <string name="main_textview_watingNum">현재 대기자수 : 00명</string>
+    <string name="main_textview_posting">[개발자 포스팅] 토커의 레벨 시스템이 궁금하시다면 읽어주세요</string>
+    <string name="main_button_filter">매칭시작</string>
+    <string name="main_button_message">쪽지읽기</string>
+    <string name="main_button_memory">채팅보관</string>
+    <string name="main_item_menu1">토커 알아보기</string>
+    <string name="main_item_menu2">토커레벨 확인하기</string>
+    <string name="main_item_menu3">개발자에 건의하기</string>
+    <string name="main_item_menu4">로그아웃</string>
+
+<!--    필터-->
+    <string name="filter_button_back">끄기</string>
+    <string name="filter_textview_title">원하는 대화상대를 선택하세요.</string>
+    <string name="filter_textview_posting">토커의 매칭시스템이 궁금하시다면!</string>
+    <string name="filter_button_level1">광고의심</string>
+    <string name="filter_button_level2">변태의심</string>
+    <string name="filter_button_level3">일반대화</string>
+    <string name="filter_button_level4">깊은대화</string>
+    <string name="filter_textview_level1">선택가능</string>
+    <string name="filter_textview_level2">선택가능</string>
+    <string name="filter_textview_level3">선택가능</string>
+    <string name="filter_textview_level4">선택가능</string>
+    <string name="filter_textview_state">채팅 상대를 찾고있어요!</string>
+    <string name="filter_textview_axiom">대화는 보약이다</string>
+    <string name="filter_button_match">매칭시작</string>
+
+<!--    대화-->
+    <string name="chat_textview_title">To:ker</string>
+    <string name="chat_textview_accuse">신고하기</string>
+    <string name="chat_textview_block">차단하기</string>
+    <string name="chat_edittext_send">내용을 입력해주세요</string>
+    <string name="chat_button_send">전송</string>
+    <string name="chat_item_menu1">채팅 저장하기</string>
+    <string name="chat_item_menu2">개발자에 건의하기</string>
+    <string name="chat_item_menu3">채팅 그만하기</string>
+
+
+<!--    메시지-->
+    <string name="message_button_back">끄기</string>
+    <string name="message_textview_title">쪽지보관함</string>
+    <string name="message_textview_posting">토커의 쪽지보관 기능이 궁금하시다면?</string>
+
+<!--    메모리-->
+    <string name="memory_button_back">끄기</string>
+    <string name="memory_textview_title">채팅보관함</string>
+    <string name="memory_textview_posting">토커의 채팅보관 기능이 궁금하시다면?</string>
+
+<!--    회상-->
+    <string name="reminisce_textview_title">To:ker</string>
+    <string name="reminisce_textview_subtitle">채팅제목</string>
+    <string name="reminisce_edittext_send">내용을 입력해주세요</string>
+    <string name="reminisce_button_send">감상</string>
+
+<!--    레벨-->
+    <string name="level_button_back">끄기</string>
+    <string name="level_textview_title">나의 레벨</string>
+    <string name="level_textview_posting1">토커의 개인정보처리방침이 궁금하시다면?</string>
+    <string name="level_textview_level">광고의심</string>
+    <string name="level_textview_time">( 평균 대화시간 : 00분 00초 )</string>
+    <string name="level_textview_history">이전 대화내역</string>
+    <string name="level_textview_range">(최근 20회)</string>
+    <string name="level_textview_posting2">채팅 데이터가 어떻게 관리되는지 궁금하시다면?</string>
+
+<!--    공지-->
+    <string name="notice_button_back">끄기</string>
+    <string name="notice_textview_title">개발자의 생각</string>
+    <string name="notice_textview_subtitle">좋은 의견 있으시다면 언제든지 말씀해주세요. \n 진지하게 고민해서 꼭 답변드리겠습니다!</string>
+    <string name="notice_button_request">개발자에게 의견주기</string>
+
+<!--    포스팅-->
+    <string name="posting_button_back">끄기</string>
+    <string name="posting_button_request">개발자에게 의견주기</string>
+
+
+
+<!--    다이얼로그 : 입력-->
 
     <string name="dialog_input_chat_request_editText">chat 개발자요청</string>
     <string name="dialog_input_chat_request_textView">chat 개발자요청</string>
@@ -32,7 +122,8 @@
     <string name="dialog_input_memory_editTitle_textView">memory 제목수정</string>
     <string name="dialog_input_memory_editTitle_button">memory 제목수정</string>
 
-<!--    alertDialog -->
+
+<!--    다이얼로그 : 경고-->
 
 
 </resources>
