@@ -7,6 +7,9 @@ public class ItemMessage {
     @SerializedName("no")
     String no;
 
+    @SerializedName("user1")
+    String user1;
+
     @SerializedName("description")
     String description;
 
@@ -21,6 +24,14 @@ public class ItemMessage {
 
     public void setNo(String no) {
         this.no = no;
+    }
+
+    public String getUser1() {
+        return user1;
+    }
+
+    public void setUser1(String user1) {
+        this.user1 = user1;
     }
 
     public String getDescription() {

@@ -368,10 +368,12 @@ public class Activity_Chat extends AppCompatActivity {
                 @Override
                 public void run() {
                     alertDialog.dismiss();
+
                     if (isSave) {
                         Toast.makeText(getApplicationContext(), "채팅저장이 취소되었습니다.", Toast.LENGTH_SHORT).show();
                         activity_chat_toolbar.getMenu().getItem(0).setTitle("채팅 저장하기");
                         isSave = false;
+
                     } else {
 
                         if (isChat) {
@@ -571,7 +573,7 @@ public class Activity_Chat extends AppCompatActivity {
             }
         });
 
-        dialog_input_button_back.setOnClickListener(new View.OnClickListener() {
+        dialog_input_button_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -651,7 +653,7 @@ public class Activity_Chat extends AppCompatActivity {
             }
         });
 
-        dialog_input_button_back.setOnClickListener(new View.OnClickListener() {
+        dialog_input_button_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
