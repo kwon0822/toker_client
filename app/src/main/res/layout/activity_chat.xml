@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/tokerBlack">
+    android:background="@color/grey900">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/activity_chat_toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/tokerHeavyGray"
+        android:background="@color/grey800"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -19,8 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="To:ker"
-            android:textColor="@color/tokerWhite"
+            android:text="@string/chat_textview_title"
+            android:textColor="@color/grey100"
             android:textSize="25dp"
             android:textStyle="bold" />
 
@@ -30,7 +30,7 @@
         android:id="@+id/constraintLayout1"
         android:layout_width="0dp"
         android:layout_height="43dp"
-        android:background="@color/tokerLightGray"
+        android:background="@color/grey200"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_chat_toolbar">
@@ -38,9 +38,10 @@
         <TextView
             android:id="@+id/activity_chat_textview_accuse"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"            android:text="신고하기"
-            android:textAlignment="center"
-            android:textColor="@color/tokerHeavyGray"
+            android:layout_height="match_parent"
+            android:text="@string/chat_textview_accuse"
+            android:gravity="center"
+            android:textColor="@color/grey800"
             android:textSize="15dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -51,10 +52,10 @@
         <TextView
             android:id="@+id/activity_chat_textview_block"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="차단하기"
-            android:textAlignment="center"
-            android:textColor="@color/tokerHeavyGray"
+            android:layout_height="match_parent"
+            android:text="@string/chat_textview_block"
+            android:gravity="center"
+            android:textColor="@color/grey800"
             android:textSize="15dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -68,6 +69,7 @@
         android:id="@+id/activity_chat_recyclerview_chat"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/grey700"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,36 +79,36 @@
         android:id="@+id/constraintLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/tokerHeavyGray"
+        android:background="@color/grey800"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
         <EditText
-            android:id="@+id/activity_chat_edittext_chat"
+            android:id="@+id/activity_chat_edittext_send"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:background="@color/tokerWhite"
-            android:hint="내용을 입력해주세요"
-            android:textSize="22dp"
+            android:background="@color/grey200"
+            android:hint="@string/chat_edittext_send"
+            android:textSize="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/activity_chat_button_chat"
+            app:layout_constraintEnd_toStartOf="@+id/activity_chat_button_send"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/activity_chat_button_chat"
+            android:id="@+id/activity_chat_button_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:text="전송"
+            android:text="@string/chat_button_send"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/activity_chat_edittext_chat"
+            app:layout_constraintStart_toEndOf="@+id/activity_chat_edittext_send"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

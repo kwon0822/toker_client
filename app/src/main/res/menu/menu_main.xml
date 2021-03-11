@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/menu_main_level"
-        android:title="토커 알아보기"/>
+        android:title="@string/main_item_menu1"/>
 
     <item
         android:id="@+id/menu_main_about"
-        android:title="토커레벨 확인하기"/>
+        android:title="@string/main_item_menu2"/>
 
     <item
         android:id="@+id/menu_main_request"
-        android:title="개발자에 건의하기"/>
+        android:title="@string/main_item_menu3"/>
 
     <item
         android:id="@+id/menu_main_logout"
-        android:title="로그아웃"/>
+        android:title="@string/main_item_menu4"/>
 </menu>

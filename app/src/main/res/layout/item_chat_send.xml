@@ -22,7 +22,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:textAlignment="center"
-        android:textColor="@color/tokerWhite"
+        android:textColor="@color/grey100"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -4,23 +4,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="350dp"
     android:layout_height="600dp"
-    android:background="@color/tokerHeavyGray">
+    android:background="@color/grey800">
 
     <Button
-        android:id="@+id/activity_post_button_back"
+        android:id="@+id/activity_posting_button_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="끄기"
+        android:text="@string/posting_button_back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/activity_post_textview_Title"
+        android:id="@+id/activity_posting_textview_Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text=""
-        android:textColor="@color/tokerWhite"
+        android:textColor="@color/grey100"
         android:textSize="25dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,31 +29,31 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/activity_post_textview_description"
+        android:id="@+id/activity_posting_textview_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:text=""
-        android:textColor="@color/tokerWhite"
+        android:textColor="@color/grey300"
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_post_textview_Title" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_posting_textview_Title" />
 
     <Button
-        android:id="@+id/activity_post_button_request"
+        android:id="@+id/activity_posting_button_request"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="개발자에게 의견주기"
+        android:text="@string/posting_button_request"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.072"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_post_textview_description"
+        app:layout_constraintTop_toBottomOf="@+id/activity_posting_textview_description"
         app:layout_constraintVertical_bias="0.0" />
 
 

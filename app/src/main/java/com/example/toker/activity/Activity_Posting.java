@@ -25,15 +25,15 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Activity_Post extends Activity {
+public class Activity_Posting extends Activity {
 
     Dialog alertDialog;
     Dialog inputDialog;
 
-    Button activity_post_button_back;
-    Button activity_post_button_request;
-    TextView activity_post_textview_title;
-    TextView activity_post_textview_description;
+    Button activity_posting_button_back;
+    Button activity_posting_button_request;
+    TextView activity_posting_textview_title;
+    TextView activity_posting_textview_description;
 
     Gson gson = new GsonBuilder().setLenient().create();
     Retrofit retrofit = new Retrofit.Builder()
@@ -46,7 +46,7 @@ public class Activity_Post extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_post);
+        setContentView(R.layout.activity_posting);
 
         initialize();
     }
@@ -56,19 +56,19 @@ public class Activity_Post extends Activity {
         Intent intent = getIntent();
         String postNo = intent.getExtras().getString("postNo");
 
-        activity_post_button_back = findViewById(R.id.activity_post_button_back);
-        activity_post_button_back.setOnClickListener(new View.OnClickListener() {
+        activity_posting_button_back = findViewById(R.id.activity_posting_button_back);
+        activity_posting_button_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
 
-        activity_post_button_request = findViewById(R.id.activity_post_button_request);
-        activity_post_button_request.setOnClickListener(new View.OnClickListener() {
+        activity_posting_button_request = findViewById(R.id.activity_posting_button_request);
+        activity_posting_button_request.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputDialog = new Dialog(Activity_Post.this);
+                inputDialog = new Dialog(Activity_Posting.this);
                 inputDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 inputDialog.setContentView(R.layout.dialog_input);
 
@@ -90,7 +90,7 @@ public class Activity_Post extends Activity {
                 dialog_input_button_send.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        alertDialog = new Dialog(Activity_Post.this);
+                        alertDialog = new Dialog(Activity_Posting.this);
                         alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                         alertDialog.setContentView(R.layout.dialog_alert);
 
@@ -134,15 +134,15 @@ public class Activity_Post extends Activity {
             }
         });
 
-        activity_post_textview_title = findViewById(R.id.activity_post_textview_Title);
-        activity_post_textview_description = findViewById(R.id.activity_post_textview_description);
+        activity_posting_textview_title = findViewById(R.id.activity_posting_textview_Title);
+        activity_posting_textview_description = findViewById(R.id.activity_posting_textview_description);
         retrofitAPI.PostPost(postNo).enqueue(new Callback<ItemPost>() {
             @Override
             public void onResponse(Call<ItemPost> call, Response<ItemPost> response) {
                 ItemPost itemPost = response.body();
 
-                activity_post_textview_title.setText(itemPost.getTitle());
-                activity_post_textview_description.setText(itemPost.getDescription());
+                activity_posting_textview_title.setText(itemPost.getTitle());
+                activity_posting_textview_description.setText(itemPost.getDescription());
             }
             @Override
             public void onFailure(Call<ItemPost> call, Throwable t) {
