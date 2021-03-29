@@ -29,6 +29,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Activity_Level extends Activity {
 
+    /*
+     * 레벨 페이지
+     * - 크게 2가지 부분으로 구성 (대화시간, 대화내역)
+     * - 각각 데이터 받아오기, 보여주기 기능
+     * */
+
     Button activity_level_button_back;
     TextView activity_level_textview_levelSystem;
     TextView activity_level_textview_level;
@@ -52,6 +58,7 @@ public class Activity_Level extends Activity {
 
     private void initialize() {
 
+       // 데이터 받아오기 : 대화시간
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(RetrofitAPI.url)
                 .addConverterFactory(GsonConverterFactory.create(gson))
@@ -62,6 +69,7 @@ public class Activity_Level extends Activity {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
 
+                // 데이터 보여주기 : 대화시간
                 int chatTime = Integer.parseInt(response.body().split("@")[0]);
                 String chatTimeSTR = String.format("%01d시간 %02d분 %02d초",
                         TimeUnit.MILLISECONDS.toHours(chatTime),
@@ -85,6 +93,8 @@ public class Activity_Level extends Activity {
             }
        });
 
+
+        // 대화시간 받아오기 : 대화내역
         activity_level_recyclerview = findViewById(R.id.activity_level_recyclerview);
         activity_level_recyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         historyAdapter = new AdapterHistory(historyList);
@@ -93,6 +103,7 @@ public class Activity_Level extends Activity {
         retrofitAPI.PostHistory(id).enqueue(new Callback<List<ItemHistory>>() {
             @Override
             public void onResponse(Call<List<ItemHistory>> call, Response<List<ItemHistory>> response) {
+                System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@");
                 historyList.addAll(response.body());
                 historyAdapter.notifyDataSetChanged();
             }
@@ -102,6 +113,8 @@ public class Activity_Level extends Activity {
             }
         });
 
+
+        // 뒤로가기 버튼
         activity_level_button_back = findViewById(R.id.activity_level_button_back);
         activity_level_button_back.setOnClickListener(new View.OnClickListener() {
             @Override
