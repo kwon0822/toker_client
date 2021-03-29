@@ -6,7 +6,7 @@
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
     android:layout_weight="5"
-    android:background="@color/grey800">
+    android:background="@color/grey100">
 
     <TextView
         android:id="@+id/item_history_textview_date"

@@ -63,14 +63,18 @@ public class AdapterHistory extends RecyclerView.Adapter<AdapterHistory.ViewHold
     @Override
     public void onBindViewHolder(@NonNull AdapterHistory.ViewHolder holder, int position) {
 
+        // date
         String date = historyList.get(position).getDate();
+        System.out.println(date + "@@@@@@@@@@@@@@@@@@@@@@@@");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분");
         long dateLong = Long.parseLong(date);
         Date dateDate = new Date(dateLong);
         String dateSTR = simpleDateFormat.format(dateDate);
         holder.item_history_textview_date.setText(dateSTR);
 
+        // time
         int time = historyList.get(position).getTime();
+        System.out.println(time + "@@@@@@@@@@@@@@@@@@@@@@@@");
         String timeSTR = String.format("%02d분 %02d초",
                 TimeUnit.MILLISECONDS.toMinutes(time),
                 TimeUnit.MILLISECONDS.toSeconds(time)
@@ -78,22 +82,29 @@ public class AdapterHistory extends RecyclerView.Adapter<AdapterHistory.ViewHold
         );
         holder.item_history_textview_time.setText(timeSTR + " 동안 채팅");
 
-        String state = historyList.get(position).getState();
-        String stateString = "";
-        switch (state) {
-            case "normal":
-                stateString = "정상대화";
-                break;
-            case "abnormal":
-                stateString = "비정상종료";
-                break;
-            case "accuse":
-                stateString = "상대신고";
-                break;
-            case "block":
-                stateString = "상대차단";
-                break;
+        // state
+        try {
+            String state = historyList.get(position).getState();
+            System.out.println(state + "@@@@@@@@@@@@@@@@@@@@@@@@");
+            String stateString = "";
+            switch (state) {
+                case "normal":
+                    stateString = "정상대화";
+                    break;
+                case "abnormal":
+                    stateString = "비정상종료";
+                    break;
+                case "accuse":
+                    stateString = "상대신고";
+                    break;
+                case "block":
+                    stateString = "상대차단";
+                    break;
+            }
+            holder.item_history_textview_state.setText(stateString);
+
+        } catch (NullPointerException e) {
+            holder.item_history_textview_state.setText("내역없음");
         }
-        holder.item_history_textview_state.setText(stateString);
     }
 }
