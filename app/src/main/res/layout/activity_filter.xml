@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="350dp"
+    android:layout_height="300dp"
+    android:background="@color/grey800">
+
+    <Button
+        android:id="@+id/activity_filter_button_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/filter_button_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/activity_filter_textview_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/filter_textview_title"
+        android:textColor="@color/grey100"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.068"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.036" />
+
+    <TextView
+        android:id="@+id/activity_filter_textview_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/filter_textview_posting"
+        android:textColor="@color/grey100"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_filter_textview_title"
+        app:layout_constraintVertical_bias="0.016" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/activity_filter_constraintlayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/activity_filter_button_match"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_filter_textview_subtitle">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/activity_filter_constraintlayout_selector"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/activity_filter_constraintlayout_select1"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/activity_filter_constraintlayout_select2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <Button
+                    android:id="@+id/activity_filter_button_level1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="광고의심"
+                    app:layout_constraintBottom_toTopOf="@+id/activity_filter_textview_level1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_weight="4" />
+
+                <TextView
+                    android:id="@+id/activity_filter_textview_level1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="@string/filter_textview_level1"
+                    android:textAlignment="center"
+                    android:textColor="@color/grey200"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_filter_button_level1"
+                    app:layout_constraintVertical_weight="1" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/activity_filter_constraintlayout_select2"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/activity_filter_constraintlayout_select3"
+                app:layout_constraintStart_toEndOf="@+id/activity_filter_constraintlayout_select1"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <Button
+                    android:id="@+id/activity_filter_button_level2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="@string/filter_button_level1"
+                    app:layout_constraintBottom_toTopOf="@+id/activity_filter_textview_level2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_weight="4" />
+
+                <TextView
+                    android:id="@+id/activity_filter_textview_level2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="@string/filter_textview_level2"
+                    android:textAlignment="center"
+                    android:textColor="@color/grey200"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_filter_button_level2"
+                    app:layout_constraintVertical_weight="1" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/activity_filter_constraintlayout_select3"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/activity_filter_constraintlayout_select4"
+                app:layout_constraintStart_toEndOf="@+id/activity_filter_constraintlayout_select2"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <Button
+                    android:id="@+id/activity_filter_button_level3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="@string/filter_button_level3"
+                    app:layout_constraintBottom_toTopOf="@+id/activity_filter_textview_level3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_weight="4" />
+
+                <TextView
+                    android:id="@+id/activity_filter_textview_level3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="@string/filter_textview_level3"
+                    android:textAlignment="center"
+                    android:textColor="@color/grey200"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_filter_button_level3"
+                    app:layout_constraintVertical_weight="1" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/activity_filter_constraintlayout_select4"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/activity_filter_constraintlayout_select3"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <Button
+                    android:id="@+id/activity_filter_button_level4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="@string/filter_button_level4"
+                    app:layout_constraintBottom_toTopOf="@+id/activity_filter_textview_level4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_weight="4" />
+
+                <TextView
+                    android:id="@+id/activity_filter_textview_level4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="@string/filter_textview_level4"
+                    android:textAlignment="center"
+                    android:textColor="@color/grey200"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_filter_button_level4"
+                    app:layout_constraintVertical_weight="1" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/activity_filter_constraintlayout_animator"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/activity_filter_constraintlayout_selector">
+
+            <TextView
+                android:id="@+id/activity_filter_textview_state"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/filter_textview_state"
+                android:textColor="@color/grey100"
+                android:textSize="18dp"
+                app:layout_constraintBottom_toTopOf="@+id/activity_filter_lottie_loading"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_weight="1" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/activity_filter_lottie_loading"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center_horizontal|center_vertical"
+                app:layout_constraintBottom_toTopOf="@+id/activity_filter_textview_axiom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/activity_filter_textview_state"
+                app:layout_constraintVertical_weight="1.5"
+                app:lottie_autoPlay="false"
+                app:lottie_fileName="activity_filter_lottie_loading.json"
+                app:lottie_loop="true" />
+
+            <TextView
+                android:id="@+id/activity_filter_textview_axiom"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/filter_textview_axiom"
+                android:textColor="@color/grey100"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/activity_filter_lottie_loading"
+                app:layout_constraintVertical_weight="1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/activity_filter_button_match"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:text="@string/filter_button_match"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_filter_constraintlayout"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
